@@ -1,3 +1,13 @@
+Download and use this by first getting the folder and content set up with either git clone or zip or whatever.
+
+Then, cd in to the directory that was created, named 'project314'.
+
+Run 'npm install'
+
+I think you need node js installed for this to work btw
+
+Then you can follow the instructions below, which is basically just enter 'npm start' in the project directory.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
