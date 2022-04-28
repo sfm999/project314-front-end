@@ -1,0 +1,47 @@
+
+
+.vehicle-list ul {
+    padding-bottom: 8px;
+    padding-top: 8px;
+    list-style-type: none;
+    border-top: 2px solid #fafafa;
+}
+
+.vehicle-list li {
+    display: block;
+    border-bottom: 2px solid #fafafa;
+}
+
+.vehicle-list h1 {
+    padding-top: 20px;
+}
+
+.vehicle-list .vehicle h2{
+    padding-top: 20px;
+    font-size: x-large;
+}
+
+.vehicle-list .filters {
+    display: flex;
+    gap: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.vehicle-list .filters button {    
+    padding: 10px;
+    font-size: 16px;
+    flex-grow: 1;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+.vehicle-list .filters button:hover {
+    color: white;
+    background-color: black;
+}
+
+
+
+

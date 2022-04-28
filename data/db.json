@@ -1,0 +1,25 @@
+{
+  "vehicles": [
+      {
+          "make": "Toyota",
+          "model": "Camry",
+          "registration": "CLMC72",
+          "state": "NSW",
+          "id": 1
+      },
+      {
+          "make": "Nissan",
+          "model": "Micra",
+          "registration": "BREBRE",
+          "state": "NSW",
+          "id": 2
+      },
+      {
+          "make": "Volkswagon",
+          "model": "Tureg",
+          "registration": "JSM123",
+          "state": "VIC",
+          "id": 3
+      }
+    ]
+}
