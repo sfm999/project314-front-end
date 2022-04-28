@@ -1,4 +1,4 @@
-import './Profile.css';
+import './css/Profile.css';
 import VehicleList from './VehicleList';
 
 const Profile = () => {

@@ -1,40 +1,35 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useFetch } from '../hooks/useFetch';
 
 // styles
-import './VehicleList.css';
+import './css/VehicleList.css';
 
 const VehicleList = () => {
-  const [vehicles, setVehicles] = useState([])
   const [url, setUrl] = useState('http://localhost:8000/vehicles')
-
-  const fetchVehicles = useCallback(async () => {
-    const response = await fetch(url)
-    const json = await response.json()
-    setVehicles(json)
-  }, [url])
-
-  useEffect(() => {
-    fetchVehicles()
-  }, [fetchVehicles])
+  const { data: vehicles, isPending, error } = useFetch(url)
+  const [showVehicles, setShowVehicles] = useState(true)
 
   return (
     <div className="vehicle-list">
       <h1>Vehicle List</h1>
-      <ul className="vehicle">
-        {vehicles.map(vehicle => (
+      <button onClick={() => setShowVehicles(!showVehicles)}>Show Vehicles</button>
+      {isPending && <div>Loading vehicles...</div>}
+      {error && <div>{error}</div>}
+      {showVehicles && <ul className="vehicle">
+        {vehicles && vehicles.map(vehicle => (
             <li key={vehicle.id}>
                 <h2>{vehicle.make} {vehicle.model}</h2>
                 <p><b>Registration:</b> {vehicle.registration}</p>
                 <p><b>State:</b> {vehicle.state}</p>
             </li>
         ))}
-      </ul>
-      <div className="filters">
+      </ul>}
+      {showVehicles && <div className="filters">
         <button onClick={() => setUrl('http://localhost:8000/vehicles?state=NSW')}>NSW Vehicles</button>
         <button onClick={() => setUrl('http://localhost:8000/vehicles')}>All Vehicles</button>
         <button onClick={() => setUrl('http://localhost:8000/vehicles?state=VIC')}>VIC Vehicles</button>
-      </div>
+      </div>}
     </div>
   );
 }
