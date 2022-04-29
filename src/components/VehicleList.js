@@ -4,6 +4,7 @@ import { useFetch } from '../hooks/useFetch';
 
 // styles
 import './css/VehicleList.css';
+import Vehicle from './Vehicle';
 
 const VehicleList = () => {
   const [url, setUrl] = useState('http://localhost:8000/vehicles')
@@ -18,11 +19,7 @@ const VehicleList = () => {
       {error && <div>{error}</div>}
       {showVehicles && <ul className="vehicle">
         {vehicles && vehicles.map(vehicle => (
-            <li key={vehicle.id}>
-                <h2>{vehicle.make} {vehicle.model}</h2>
-                <p><b>Registration:</b> {vehicle.registration}</p>
-                <p><b>State:</b> {vehicle.state}</p>
-            </li>
+            <Vehicle vehicle={vehicle} key={vehicle.id}/>
         ))}
       </ul>}
       {showVehicles && <div className="filters">
