@@ -28,6 +28,13 @@
           "registration": "sp00ln",
           "state": "VIC",
           "id": 4
+      },
+      {
+          "make": "Suzuki",
+          "model": "Swift",
+          "registration": "KREMEP",
+          "state": "NSW",
+          "id": 5
       }
     ]
 }
