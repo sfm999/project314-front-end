@@ -1,5 +1,6 @@
 import './css/Home.css';
-import { Typography } from '@material-ui/core';
+import Typography from '@mui/material/Typography';
+
 
 const Home = () => {
     return (
