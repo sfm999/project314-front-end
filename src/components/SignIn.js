@@ -51,15 +51,24 @@ export default function SignIn() {
     });
   };
 
+  const login = async (email, password) => {
+
+    await axios.post('/token/', { email, password,})
+    .then(response => {
+      console.log(response.data.access)
+      setSession(response.data.access)
+    })
+    .catch(error => {console.log(error)})
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    login(data.get('email'), data.get('password'));
   };
+
+  
 
 
   return (
