@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +13,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { FormControl } from '@mui/material';
+
+import { setSession } from '../utils/jwt';
+import axios from '../utils/axios';
+
+const defaultValues = {
+  email: "",
+  password: "",
+}
 
 function Copyright(props) {
   return (
@@ -29,6 +39,19 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+
+  const [formValues, setFormValues] = useState(defaultValues);
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -38,8 +61,8 @@ export default function SignIn() {
     });
   };
 
+
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -66,6 +89,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={handleFormChange}
             />
             <TextField
               margin="normal"
@@ -76,6 +100,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={handleFormChange}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -105,6 +130,5 @@ export default function SignIn() {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-    </ThemeProvider>
   );
 }
