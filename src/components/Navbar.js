@@ -7,9 +7,9 @@ const Navbar = () => {
         <nav className="navbar">
             <h1>Find my Mechanic</h1>
             <div className="links">
-                <Link to="/booking">Seek Service</Link>
-                <Link to="/profile">Profile</Link>
                 <Link to="/">Home</Link>
+                <Link to="/booking">Seek Service</Link>
+                <Link to="/customerprofile">Profile</Link>
                 <Link to="/signin">Sign In</Link>
                 <Link to="/signup">Sign Up</Link>
             </div>
