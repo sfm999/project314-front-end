@@ -5,6 +5,8 @@ import './App.css';
 import CustomerProfile from './components/CustomerProfile';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
+import ContractorSignUp from './components/ContractorSignUp';
+import ContractorSignIn from './components/ContractorSignIn';
 
 function App() {
 
@@ -18,6 +20,8 @@ function App() {
           <Route path="/CustomerProfile" element={<CustomerProfile />} /> 
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/ContractorSignUp" element={<ContractorSignUp />} />
+          <Route path="/ContractorSignIn" element={<ContractorSignIn />} />
         </Routes>
       </div>
     </div>
