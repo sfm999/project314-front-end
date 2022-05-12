@@ -4,6 +4,8 @@ import './css/TestPage.css';
 import React from "react";
 import { styled } from "@mui/system";
 import Details from "./Details";
+import { useNavigate } from "react-router-dom";
+
 
 const Item = styled(Card)(({ theme }) => ({
   backgroundColor: 'white',
@@ -15,6 +17,15 @@ const Item = styled(Card)(({ theme }) => ({
 }));
 
 const CustomerProfile = ({ customer }) => {
+ 
+  // Handle changing url with router v6 useNavigate insted of useHistory
+  let navigate = useNavigate();
+
+  const handleVehicleClick = () => {
+    let path = '/manageVehicle'
+    navigate(path)
+  } 
+
   return (
     <Container maxWidth="100%" sx={{ width: "90%", paddingTop: "20px"}}>
       <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3}} alignItems="stretch">
@@ -36,6 +47,7 @@ const CustomerProfile = ({ customer }) => {
                 border: "none"
                 }
             }}
+            onClick={handleVehicleClick}
           >Manage Current Vehicles</Button>
           <Item sx={{ paddingTop: "10px"}}>
             <Typography variant="h4" align='center'>Payment Plan</Typography>

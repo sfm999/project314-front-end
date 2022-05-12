@@ -8,9 +8,18 @@ import SignUp from './components/SignUp';
 import ContractorSignUp from './components/ContractorSignUp';
 import ContractorSignIn from './components/ContractorSignIn';
 import CustomerHomePage from './components/CustomerHomePage';
+import TestPage from './components/TestPage';
+import ManageVehicle from './components/ManageVehicle';
+import AddVehicle from './components/AddVehicle';
+import EditVehicle from './components/EditVehicle';
+
 
 const customer = {
-  "firstName": "Bill", "lastName": "Burr", "age": 49, "plan": "subscribed"
+  "firstName": "Bill",
+  "lastName": "Burr",
+  "age": 49,
+  "email": "bill@themmpodcast.com",
+  "plan": "subscribed"
 }
 
 function App() {
@@ -27,6 +36,10 @@ function App() {
           <Route path="/ContractorSignUp" element={<ContractorSignUp />} />
           <Route path="/ContractorSignIn" element={<ContractorSignIn />} />
           <Route path="/CustomerHomePage" element={<CustomerHomePage />} />
+          <Route path="/testing-grounds" element={<TestPage />} />
+          <Route path="/manageVehicle" element={<ManageVehicle />} />
+          <Route path="/addVehicle" element={<AddVehicle />} />
+          <Route path="/editVehicle" element={<EditVehicle />} />
         </Routes>
       </div>
     </div>

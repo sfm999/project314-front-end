@@ -1,20 +1,6 @@
 import { Button, Container, CssBaseline, Grid, Paper, Typography } from '@mui/material';
 import { Box, createTheme, ThemeProvider } from '@mui/system';
 import './css/Home.css';
-const theme = createTheme({
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          color: {
-            primary: "blue",
-            secondary: "red",
-          }
-        }
-      }
-    }
-  }
-})
 
 const CustomerHomePage = () => {
   return (
@@ -78,11 +64,7 @@ const CustomerHomePage = () => {
         justifyContent="flex-end"
         alignItems="flex-end"
       >
-
-        <Button variant="contained" color="primary">
-          test
-        </Button>
-        {/* <Button 
+        <Button 
             variant="outlined"
             size='large'
             sx={{
@@ -95,7 +77,7 @@ const CustomerHomePage = () => {
                 border: "none"
                 }
             }}
-          >submit</Button> */}
+          >submit</Button>
       </Box>
       
     </Box>
