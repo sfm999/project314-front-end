@@ -1,8 +1,10 @@
 import * as React from 'react';
+import {useState} from 'react';
+import { alpha, styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
@@ -12,34 +14,87 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { green } from '@mui/material/colors';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Help2u
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+import { setSession } from '../utils/jwt';
+import axios from '../utils/axios';
+
+const TextBox = styled(TextField) ({
+  '& input:valid + fieldset': {
+      borderColor: 'green',
+      borderWidth: 2,
+  },
+  '& input:invalid + fieldset': {
+      borderColor: 'red',
+      borderWidth: 2,
+  },
+  '& input:valid:focus + fieldset': {
+      borderLeftWidth: 6,
+      padding: '4px !important',
+  },
+  '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'red',
+      },
+      '&:hover fieldset': {
+        borderColor: 'blue',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'blue',
+      },
+    },
+})
+
+
+const defaultValues = {
+  firstname: "",
+  lastname: "",
+  email: "",
+  role: "C",
+  password: "",
 }
 
 const theme = createTheme();
 
 export default function SignUp() {
+
+  const [formValues, setFormValues] = useState(defaultValues);
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+  const register = async (first_name, last_name, email, roll, password) => {
+
+
+    await axios.post('/users/register/', {first_name, last_name, email, role: roll, password,})
+    .then(function (response) {
+      console.log(response)
+    })
+    .catch(function(error) {
+      console.log(error)
+    })
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    
+    data.append('role', 'C' );
+    register(
+      data.get('first_name'),
+      data.get('last_name'),
+      data.get('email'),
+      data.get('role'),
+      data.get('password'),);
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -50,67 +105,63 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: green[500] }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Client Sign up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
+            <Grid container spacing={1}>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                <TextBox
                   required
                   fullWidth
-                  id="firstName"
+                  name="first_name"
                   label="First Name"
+                  type="First Name"
+                  id="first_name"
+                  variant="outlined"
+                  autoComplete="given-name"
                   autoFocus
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
+                <TextBox
                   required
                   fullWidth
-                  id="lastName"
+                  name="last_name"
                   label="Last Name"
-                  name="lastName"
+                  type="Last Name"
+                  id="last_name"
+                  variant="outlined"
                   autoComplete="family-name"
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-              <TextField
-                  required
-                  fullWidth
-                  name="ABN"
-                  label="ABN"
-                  id="ABN"
-                  autoComplete="ABN"
-                />
-              </Grid>
             </Grid>
+              <TextBox
+                margin="normal"
+                required
+                fullWidth
+                name="email"
+                label="Email Address"
+                type="email"
+                id="email"
+                variant="outlined"
+                autoComplete="email"
+              />
+              <TextBox
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                variant="outlined"
+                autoComplete="new-password"
+              />
+            
             <Button
               type="submit"
               fullWidth
@@ -119,17 +170,12 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/SignIn" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
+            <Link href="/SignIn" variant="body2">
+              Already have an account? Sign in
+            </Link>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
+    
   );
 }

@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {useState} from 'react';
+import { alpha, styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
@@ -14,26 +15,40 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FormControl } from '@mui/material';
+import { green } from '@mui/material/colors';
 
 import { setSession } from '../utils/jwt';
 import axios from '../utils/axios';
 
+const TextBox = styled(TextField) ({
+  '& input:valid + fieldset': {
+    borderColor: 'green',
+      borderWidth: 2,
+  },
+  '& input:invalid + fieldset': {
+      borderColor: 'red',
+      borderWidth: 2,
+  },
+  '& input:valid:focus + fieldset': {
+      borderLeftWidth: 6,
+      padding: '4px !important',
+  },
+  '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'red',
+      },
+      '&:hover fieldset': {
+        borderColor: 'blue',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'blue',
+      },
+    },
+})
+
 const defaultValues = {
   email: "",
   password: "",
-}
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Help2u
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
 }
 
 const theme = createTheme();
@@ -82,25 +97,26 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 2, bgcolor: green[500] }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Client Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
+            <TextBox
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
               name="email"
+              label="Email Address"
+              id="email"
+              variant="outlined"
               autoComplete="email"
               autoFocus
               onChange={handleFormChange}
             />
-            <TextField
+            <TextBox
               margin="normal"
               required
               fullWidth
@@ -130,14 +146,13 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/SignUP" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="/SignUp" variant="body2">
+                  Don't have an account? Sign Up
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
   );
 }
