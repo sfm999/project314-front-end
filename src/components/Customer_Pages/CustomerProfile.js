@@ -34,7 +34,23 @@ const CustomerProfile = ({ customer }) => {
           <Details customer={customer} />
         </Grid>
         <Grid container item xs={4} >
-          <CustomButton text="Manage Current Vehicles" onClick={handleVehicleClick} size="large" />
+          <Button
+            type="submit"
+            fullWidth
+            size="large"
+            variant="outlined"
+            sx={{
+              color: "black",
+              border: "1px solid black",
+              '&:hover': {
+                backgroundColor: 'black',
+                color: 'white',
+                border: "none"
+              },
+              mb: 2,
+            }}
+            onClick={handleVehicleClick}
+          >Manage Current Vehicles</Button>
           <Item sx={{ paddingTop: "10px"}}>
             <Typography variant="h4" align='center'>Payment Plan</Typography>
             <Typography variant="body2" align='center' sx={{fontSize: "1.5em", paddingTop: "10px"}} >{customer.plan}</Typography>

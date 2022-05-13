@@ -2,16 +2,16 @@ import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import './App.css';
-import CustomerProfile from './components/CustomerProfile';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import ContractorSignUp from './components/ContractorSignUp';
-import ContractorSignIn from './components/ContractorSignIn';
-import CustomerHomePage from './components/CustomerHomePage';
+import CustomerProfile from './components/Customer_Pages/CustomerProfile';
+import SignIn from './components/Customer_Pages/SignIn';
+import SignUp from './components/Customer_Pages/SignUp';
+import ContractorSignUp from './components/Contractor_Pages/ContractorSignUp';
+import ContractorSignIn from './components/Contractor_Pages/ContractorSignIn';
+import CustomerHomePage from './components/Customer_Pages/CustomerHomePage';
 import TestPage from './components/TestPage';
-import ManageVehicle from './components/ManageVehicle';
-import AddVehicle from './components/AddVehicle';
-import EditVehicle from './components/EditVehicle';
+import ManageVehicle from './components/Customer_Pages/ManageVehicle';
+import AddVehicle from './components/Customer_Pages/AddVehicle';
+import EditVehicle from './components/Customer_Pages/EditVehicle';
 
 
 const customer = {
