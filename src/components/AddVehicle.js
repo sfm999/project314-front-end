@@ -1,5 +1,7 @@
 import { Button, Checkbox, Container, CssBaseline, FormControl, FormControlLabel, Grid, Input, InputLabel, styled, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { useNavigate } from "react-router";
+import CustomButton from "./sub-components/CustomButton";
 
 const TextBox = styled(TextField) ({
   '& input:valid + fieldset': {
@@ -27,21 +29,28 @@ const TextBox = styled(TextField) ({
 });
 
 
-const EditVehicle = () => {
+const AddVehicle = () => {
+
+  let navigate = useNavigate();
+  const handleBackClick = () => {
+    let path = '/manageVehicles'
+    navigate(path)
+  }
+
   return (
     <Box style={{ height: "60vh", width: '90%', margin: "auto", paddingTop: "10px",}}>
     <CssBaseline />
     
       <Typography component="h1" variant="h3">
-          Edit a vehicle
+          Add a new vehicle
       </Typography>
-    <Box
-      sx={{
-          marginTop: "10px",
-          display: 'relative',
-          flexDirection: 'column',
-      }}
-    >
+      <Box
+        sx={{
+            marginTop: "10px",
+            display: 'relative',
+            flexDirection: 'column',
+        }}
+      >
       <Box component="form" noValidate>
         <Grid
           container
@@ -49,7 +58,12 @@ const EditVehicle = () => {
           columnSpacing={10}
           justifyContent="space-evenly"
         >
-
+          {/* Go back button */}
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <CustomButton text="Go Back" onClick={handleBackClick} size="large"/>
+            </Grid>
+          </Grid>
           {/* Get vehicle Make  */}
           <Grid item xs={6}>
             <TextBox
@@ -124,24 +138,9 @@ const EditVehicle = () => {
           <Grid item xs={6} />
 
           {/* Add vehicle button/form control submit */}
-          <Grid container xs={12} justifyContent="flex-end">
+          <Grid container xs={12} justifyContent="flex-end" spacing={2}>
             <Grid item>
-              <Button
-                  type="submit"
-                  size="large"
-                  variant="outlined"
-                  sx={{
-                    color: "black",
-                    border: "1px solid black",
-                    '&:hover': {
-                      backgroundColor: 'black',
-                      color: 'white',
-                      border: "none"
-                    },
-                    mb: 2,
-                  }}
-                  
-              >Edit vehicle</Button>
+              <CustomButton text="Add Vehicle" onClick={() => handleBackClick()} />
             </Grid>
           </Grid>
         </Grid>
@@ -151,4 +150,4 @@ const EditVehicle = () => {
   );
 }
  
-export default EditVehicle;
+export default AddVehicle;

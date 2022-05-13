@@ -1,5 +1,7 @@
 import { Button, Checkbox, Container, CssBaseline, FormControl, FormControlLabel, Grid, Input, InputLabel, styled, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { useNavigate } from "react-router";
+import CustomButton from "./sub-components/CustomButton";
 
 const TextBox = styled(TextField) ({
   '& input:valid + fieldset': {
@@ -26,8 +28,14 @@ const TextBox = styled(TextField) ({
     },
 });
 
-
 const EditVehicle = () => {
+
+  let navigate = useNavigate();
+  const handleBackClick = () => {
+    let path = '/manageVehicles'
+    navigate(path)
+  }
+
   return (
     <Box style={{ height: "60vh", width: '90%', margin: "auto", paddingTop: "10px",}}>
     <CssBaseline />
@@ -49,6 +57,12 @@ const EditVehicle = () => {
           columnSpacing={10}
           justifyContent="space-evenly"
         >
+          {/* Go back button */}
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <CustomButton text="Go Back" onClick={handleBackClick} />
+            </Grid>
+          </Grid>
 
           {/* Get vehicle Make  */}
           <Grid item xs={6}>
@@ -126,22 +140,10 @@ const EditVehicle = () => {
           {/* Add vehicle button/form control submit */}
           <Grid container xs={12} justifyContent="flex-end">
             <Grid item>
-              <Button
-                  type="submit"
-                  size="large"
-                  variant="outlined"
-                  sx={{
-                    color: "black",
-                    border: "1px solid black",
-                    '&:hover': {
-                      backgroundColor: 'black',
-                      color: 'white',
-                      border: "none"
-                    },
-                    mb: 2,
-                  }}
-                  
-              >Edit vehicle</Button>
+              <CustomButton text="Save edits"/>
+            </Grid>
+            <Grid item>
+              <CustomButton text="discard edits"/>
             </Grid>
           </Grid>
         </Grid>
