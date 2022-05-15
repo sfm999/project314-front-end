@@ -1,6 +1,5 @@
 
 import { Button, Container, Grid } from "@mui/material";
-import '../css/TestPage.css';
 import React from "react";
 import Details from "./Details";
 import { useNavigate } from "react-router-dom";
