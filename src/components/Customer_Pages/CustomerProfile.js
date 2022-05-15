@@ -1,11 +1,9 @@
 
 import { Button, Card, Container, Grid, Typography } from "@mui/material";
-import '../css/TestPage.css';
 import React from "react";
 import { styled } from "@mui/system";
 import Details from "./Details";
 import { useNavigate } from "react-router-dom";
-import CustomButton from "../sub-components/CustomButton";
 
 
 const Item = styled(Card)(({ theme }) => ({

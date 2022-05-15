@@ -1,33 +1,8 @@
-import { CssBaseline, Grid, styled, TextField, Typography } from "@mui/material";
+import { CssBaseline, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useNavigate } from "react-router";
 import CustomButton from "../sub-components/CustomButton";
 import CustomTextBox from "../sub-components/CustomTextBox";
-
-const TextBox = styled(TextField) ({
-  '& input:valid + fieldset': {
-      borderColor: '#c2c2c2',
-      borderWidth: 2,
-  },
-  '& input:invalid + fieldset': {
-      borderWidth: 2,
-  },
-  '& input:valid:focus + fieldset': {
-      borderLeftWidth: 6,
-      padding: '4px !important',
-  },
-  '& .MuiOutlinedInput-root': {
-      '& fieldset': {
-          borderColor: '#c2c2c2',
-      },
-      '&:hover fieldset': {
-          borderColor: '#f2f2f2',
-      },
-      '&.Mui-focused fieldset': {
-          borderColor: '#f2f2f2',
-      },
-    },
-});
 
 const EditVehicle = () => {
 

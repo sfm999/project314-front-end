@@ -1,9 +1,6 @@
 import './css/Home.css';
 import Typography from '@mui/material/Typography';
-import { Container, Grid } from '@mui/material';
-import { Box } from '@mui/system';
-import { AddBox } from '@mui/icons-material';
-
+import { Container } from '@mui/material';
 
 const Home = () => {
     return (

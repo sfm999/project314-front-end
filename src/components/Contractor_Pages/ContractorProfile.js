@@ -5,19 +5,15 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-
-import { deepOrange } from '@mui/material/colors';
 
 import Avatar from '@mui/material/Avatar';
 import BadgeIcon from '@mui/icons-material/Badge';
 import MailIcon from '@mui/icons-material/Mail';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
-import { Typography } from '@mui/material';
 
-import { setSession } from '../utils/jwt';
-import axios from '../utils/axios';
+// import { setSession } from '../../utils/jwt';
+// import axios from '../../utils/axios';
 
 const contractor = {
 
