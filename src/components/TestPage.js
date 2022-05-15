@@ -19,10 +19,11 @@ const TestPage = () => {
       height="87vh"
       bgcolor="lightblue"
     >
-      <Button variant="text" color="primary">
-        Test
-      </Button>
-
+      <ThemeProvider theme={theme}>
+        <Button variant="text" color="primary">
+          Test
+        </Button>
+      </ThemeProvider>
     </Box>
     );
 }

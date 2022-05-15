@@ -1,21 +1,9 @@
 
-import { Button, Card, Container, Grid, Typography } from "@mui/material";
+import { Button, Container, Grid } from "@mui/material";
 import '../css/TestPage.css';
 import React from "react";
-import { styled } from "@mui/system";
 import Details from "./Details";
 import { useNavigate } from "react-router-dom";
-import CustomButton from "../sub-components/CustomButton";
-
-
-const Item = styled(Card)(({ theme }) => ({
-  backgroundColor: 'white',
-  color: 'black',
-  display: 'flex',
-  flexFlow: "column",
-  padding: theme.spacing(1),
-  width: "100%",
-}));
 
 const CustomerProfile = ({ customer }) => {
  
@@ -25,7 +13,12 @@ const CustomerProfile = ({ customer }) => {
   const handleVehicleClick = () => {
     let path = '/manageVehicles'
     navigate(path)
-  } 
+  }
+
+  const handlePaymentPlanClick = () => {
+    let path = '/paymentProcess'
+    navigate(path)
+  }
 
   return (
     <Container maxWidth="100%" sx={{ width: "90%", paddingTop: "20px"}}>
@@ -51,10 +44,23 @@ const CustomerProfile = ({ customer }) => {
             }}
             onClick={handleVehicleClick}
           >Manage Current Vehicles</Button>
-          <Item sx={{ paddingTop: "10px"}}>
-            <Typography variant="h4" align='center'>Payment Plan</Typography>
-            <Typography variant="body2" align='center' sx={{fontSize: "1.5em", paddingTop: "10px"}} >{customer.plan}</Typography>
-          </Item>
+          <Button
+            type="submit"
+            fullWidth
+            size="large"
+            variant="outlined"
+            sx={{
+              color: "black",
+              border: "1px solid black",
+              '&:hover': {
+                backgroundColor: 'black',
+                color: 'white',
+                border: "none"
+              },
+              mb: 2,
+            }}
+            onClick={handlePaymentPlanClick}
+          >Payment Plan</Button>
           <Button 
             fullWidth
             variant="contained"
