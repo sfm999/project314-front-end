@@ -13,14 +13,14 @@ const StepOne = () => {
         alignItems="stretch"
       >
         <Grid item xs={6}>
-          <Card sx={{ height: "50vh", margin: "20px", boxShadow: "3", }}>
+          <Card sx={{ margin: "20px", boxShadow: "3", }}>
             <Typography variant="h4" align="center">
               LHS
             </Typography>
           </Card>
         </Grid>
         <Grid item xs={6}>
-          <Card sx={{ height: "50vh", margin: "20px", boxShadow: "3", }}>
+          <Card sx={{ margin: "20px", boxShadow: "3", }}>
             <Typography variant="h4" align="center">
               RHS
             </Typography>

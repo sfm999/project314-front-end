@@ -7,6 +7,7 @@ import StepOne from "./Payment_Process_Pages/StepOne";
 import StepTwo from "./Payment_Process_Pages/StepTwo";
 import StepThree from "./Payment_Process_Pages/StepThree";
 import StepFour from "./Payment_Process_Pages/StepFour";
+import { useNavigate } from "react-router";
 
 function getStepContent(step) {
   switch(step) {
@@ -32,7 +33,15 @@ const PageOne = () => {
 }
 
 const PaymentProcess = () => {
+
+  let navigate = useNavigate()
+
   const [activeStep, setActiveStep] = useState(0)
+
+  const handleExit = () => {
+    let path = "/customerProfile"
+    navigate(path)
+  }
 
   const handleSteps = (step) => {
     switch(step) {
@@ -72,6 +81,7 @@ const PaymentProcess = () => {
         boxShadow: "0",
       }}
     >
+      <CustomButton text="exit" onClick={handleExit} size="large" />
       <CssBaseline />
       {/* Holds the main workable area */}
         <Grid container direction="rows" justifyContent="space-evenly" spacing={2}>
