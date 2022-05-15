@@ -15,6 +15,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { deepOrange } from '@mui/material/colors';
 
+import { useNavigate } from 'react-router-dom';
+
 import { setSession } from '../../utils/jwt'
 import axios from '../../utils/axios';
 
@@ -53,6 +55,7 @@ const defaultValues = {
 export default function ContractorSignIn() {
     
     const [formValues, setFormValues] = useState(defaultValues);
+    const navigate = useNavigate();
 
     const handleFormChange = (e) => {
         const { name, value } = e.target; 
@@ -69,6 +72,7 @@ export default function ContractorSignIn() {
         .then(response => {
             console.log(response.data.access)
             setSession(response.data.access)
+            navigate("/ContractorProfile");
         })
         .catch(error => {console.log(error)})
         };

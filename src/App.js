@@ -7,6 +7,8 @@ import SignIn from './components/Customer_Pages/SignIn';
 import SignUp from './components/Customer_Pages/SignUp';
 import ContractorSignUp from './components/Contractor_Pages/ContractorSignUp';
 import ContractorSignIn from './components/Contractor_Pages/ContractorSignIn';
+import ContractorProfile from './components/Contractor_Pages/ContractorProfile';
+import ContractorHome from './components/Contractor_Pages/ContractorHome';
 import CustomerHomePage from './components/Customer_Pages/CustomerHomePage';
 import TestPage from './components/TestPage';
 import ManageVehicle from './components/Customer_Pages/ManageVehicle';
@@ -45,6 +47,10 @@ function App() {
           {/* Contractor sign in and sign up */}
           <Route path="/ContractorSignUp" element={<ContractorSignUp />} />
           <Route path="/ContractorSignIn" element={<ContractorSignIn />} />
+
+          {/* Contractor Home Page and Profile */}
+          <Route path="/ContractorHome" element={<ContractorHome />} />
+          <Route path="/ContractorProfile" element={<ContractorProfile />} />
 
           {/* Customer Profile Page */}
           <Route path="/CustomerProfile" element={<CustomerProfile customer={customer}/>} />
