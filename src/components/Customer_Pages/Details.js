@@ -1,6 +1,7 @@
 
 import { Avatar, Card, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
 import BadgeIcon from '@mui/icons-material/Badge';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import MailIcon from '@mui/icons-material/Mail';
 import PersonIcon from '@mui/icons-material/Person';
 import React from "react";
@@ -109,6 +110,41 @@ const Details = ({ customer }) => {
                 </React.Fragment>
               }
             />
+        </ListItem>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <AttachMoneyIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText
+              primary={
+                <React.Fragment>
+                  <Typography
+                    component="span"
+                    variant="body1"
+                    color="text.primary"
+                    sx={{ fontWeight: 'bold'}}
+                  >
+                    Plan
+                  </Typography>
+                </React.Fragment>
+              }
+              secondary={
+                <React.Fragment>
+                  <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    {customer.plan}
+                  </Typography>
+                </React.Fragment>
+              }
+            />
+            
+          
         </ListItem>
       </List>
     </Card>

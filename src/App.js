@@ -14,6 +14,7 @@ import TestPage from './components/TestPage';
 import ManageVehicle from './components/Customer_Pages/ManageVehicle';
 import AddVehicle from './components/Customer_Pages/AddVehicle';
 import EditVehicle from './components/Customer_Pages/EditVehicle';
+import PaymentProcess from './components/Customer_Pages/PaymentProcess';
 
 
 const customer = {
@@ -59,6 +60,7 @@ function App() {
           <Route path="/manageVehicles" element={<ManageVehicle />} />
           <Route path="/addVehicle" element={<AddVehicle />} />
           <Route path="/editVehicle" element={<EditVehicle />} />
+          <Route path="/paymentProcess" element={<PaymentProcess />} />
 
           {/* Just a page to test things out on */}
           <Route path="/testing-grounds" element={<TestPage />} />
