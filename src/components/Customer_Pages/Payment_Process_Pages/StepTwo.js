@@ -3,49 +3,48 @@ import CustomTextBox from "../../sub-components/CustomTextBox";
 
 const StepTwo = () => {
   return (
-    <Container sx={{ width: "100%", display: "relative"}}>
-      <Grid
+    <Container sx={{ width: "100%",}}>
+      <Typography variant="h3" align="left">
+        Step Two
+      </Typography>
+      <Container>
+        <Grid
           container
           justifyContent="space-between"
-          alignItems="stretch"
+          sx={{
+            display: "relative",
+            margin: "auto",
+          }}
         >
-          {/* Title */}
-          <Grid item xs={12} sx={{margin: "auto", paddingBottom: "8px"}}>
-            <Typography variant="h3" align="left">
-              Page Two
-            </Typography>
+          {/* Line 1 | Name on card*/}
+          <Grid item xs={12}>
+            <CustomTextBox name="card_name" label="Full name" id="full_name" />
+          </Grid>
+          {/* Line 2 | Card number*/}
+          <Grid item xs={12}>
+            <CustomTextBox name="card_number" label="Card Number" id="card_number" />
           </Grid>
 
-        {/* Contains the form fields */}
-        <Container sx={{width: "65%"}}>
-            {/* Name on card field */}
-            <Grid item xs={12}>
-              <CustomTextBox name="card-name" label="Name on card" id="card-name" />
-            </Grid>
+          {/* Line 3 | Expiry date */}
+          <Grid item xs={5}>
+            <CustomTextBox name="exp_date" label="Expiry Date" id="exp_date" />
+          </Grid>
 
-            {/* Card Number field */}
-            <Grid item xs={12}>
-              <CustomTextBox name="card-number" label="Card Number" id="card-number" />
-            </Grid>
+          {/* Makes a gap between fields */}
+          <Grid item xs={2} />
 
-            <Grid container spacing={2}>
-              {/* Expiry Date field */}
-              <Grid item xs={6}>
-                <CustomTextBox name="card-name" label="Expiry Date" id="card-exp" />
-              </Grid>
-            
-              {/* Security Code field */}
-              <Grid item xs={6}>
-                <CustomTextBox name="card-sec-code" label="Security Code" id="card-sec-code" />
-              </Grid>
-            </Grid>
+          {/* Line 3 | Security Code */}
+          <Grid item xs={5}>
+            <CustomTextBox name="sec_code" label="Security Code" id="sec_code" />
+          </Grid>
 
-              {/* Postcode field */}
-              <Grid item xs={12}>
-                <CustomTextBox name="card-postcode" label="Postcode" id="card-postcode" />
-              </Grid>
-        </Container>
-      </Grid>
+          {/* Line 4 | Postcode */}
+          <Grid item xs={12}>
+            <CustomTextBox name="abn" label="ABN" id="abn" />
+          </Grid>
+
+        </Grid>
+      </Container>
     </Container>
     );
 }

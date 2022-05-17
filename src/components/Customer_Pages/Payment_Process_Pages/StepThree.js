@@ -1,33 +1,67 @@
 import { Card, Container, Grid, Typography } from "@mui/material";
+import CustomTextBox from '../../sub-components/CustomTextBox';
 
 const StepThree = () => {
   return (
     <Container sx={{ width: "100%",}}>
       <Typography variant="h3" align="left">
-        Page Three
+        Step Three
       </Typography>
-      <Grid
-        container
-        justifyContent="space-between"
-        sx={{
-          display: "relative"
-        }}
-      >
-        <Grid item xs={6}>
-          <Card sx={{ height: "50vh", margin: "20px", boxShadow: "3", }}>
-            <Typography variant="h4" align="center">
-              LHS
-            </Typography>
-          </Card>
+      <Container>
+        <Grid
+          container
+          justifyContent="space-between"
+          sx={{
+            display: "relative",
+            margin: "auto",
+          }}
+        >
+          {/* Line 1 | Full name*/}
+          <Grid item xs={12}>
+            <CustomTextBox name="full_name" label="Full name" id="full_name" />
+          </Grid>
+          {/* Line 2 | Address line 1 */}
+          <Grid item xs={12}>
+            <CustomTextBox name="address1" label="Address line 1" id="address1" />
+          </Grid>
+          {/* Line 3 | Address line 2 */}
+          <Grid item xs={12}>
+            <CustomTextBox name="address2" label="Address line 2" id="address2" />
+          </Grid>
+
+          {/* Line 4 | city */}
+          <Grid item xs={5}>
+            <CustomTextBox name="city" label="City" id="city" />
+          </Grid>
+
+          {/* Makes a gap between fields */}
+          <Grid item xs={2} />
+
+          {/* Line 4 | state */}
+          <Grid item xs={5}>
+            <CustomTextBox name="state" label="State" id="state" />
+          </Grid>
+
+          {/* Line 5 | phone */}
+          <Grid item xs={5}>
+            <CustomTextBox name="phone" label="Phone" id="phone" />
+          </Grid>
+
+          {/* Makes a gap between fields */}
+          <Grid item xs={2} />
+
+          {/* Line 5 | fax */}
+          <Grid item xs={5}>
+            <CustomTextBox name="fax" label="Fax" id="fax" />
+          </Grid>
+
+          {/* Line 6 | ABN */}
+          <Grid item xs={12}>
+            <CustomTextBox name="abn" label="ABN" id="abn" />
+          </Grid>
+
         </Grid>
-        <Grid item xs={6}>
-          <Card sx={{ height: "50vh", margin: "20px", boxShadow: "3", }}>
-            <Typography variant="h4" align="center">
-              RHS
-            </Typography>
-          </Card>
-        </Grid>
-      </Grid>
+      </Container>
     </Container>
     );
 }

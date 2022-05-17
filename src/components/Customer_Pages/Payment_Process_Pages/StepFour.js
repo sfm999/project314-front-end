@@ -4,7 +4,7 @@ const StepFour = () => {
   return (
     <Container sx={{ width: "100%",}}>
     <Typography variant="h3" align="left">
-      Page Four
+      Step Four
     </Typography>
       <Grid
         container
