@@ -143,8 +143,6 @@ const Details = ({ customer }) => {
                 </React.Fragment>
               }
             />
-            
-          
         </ListItem>
       </List>
     </Card>
