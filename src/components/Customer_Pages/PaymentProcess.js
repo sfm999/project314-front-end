@@ -103,7 +103,7 @@ const PaymentProcess = () => {
           {/* This is where the content for each step is stored */}
           <Grid item xs={12} >
             <Container>
-              <Card sx={{width: "100%", minHeight: "380px", height: "60vh", display: "flex"}}>
+              <Card sx={{width: "100%", minHeight: "380px",  display: "flex"}}>
                 {getStepContent(activeStep)}
               </Card>
             </Container>

@@ -1,4 +1,14 @@
-import { Card, Container, Grid, Typography } from "@mui/material";
+import { Card, Container, Grid, Paper, styled, Typography } from "@mui/material";
+
+
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+  height: "100%",
+  lineHeight: "60px",
+  margin: "5%",
+}));
 
 const StepOne = () => {
   return (
@@ -10,21 +20,20 @@ const StepOne = () => {
         container
         spacing={2}
         justifyContent="space-between"
-        alignItems="stretch"
       >
-        <Grid item xs={6}>
-          <Card sx={{ margin: "20px", boxShadow: "3", }}>
-            <Typography variant="h4" align="center">
-              LHS
+        <Grid item xs={6} sx={{alignItems: "center"}}>
+          <Item>
+            <Typography variant="h4">
+              Subscription
             </Typography>
-          </Card>
+          </Item>
         </Grid>
         <Grid item xs={6}>
-          <Card sx={{ margin: "20px", boxShadow: "3", }}>
-            <Typography variant="h4" align="center">
-              RHS
+          <Item>
+            <Typography variant="h4">
+              Pay-on-Demand
             </Typography>
-          </Card>
+          </Item>
         </Grid>
       </Grid>
     </Container>

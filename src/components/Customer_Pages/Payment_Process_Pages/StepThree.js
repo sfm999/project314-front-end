@@ -1,16 +1,16 @@
 import { Card, Container, Grid, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import CustomTextBox from '../../sub-components/CustomTextBox';
 
 const StepThree = () => {
   return (
-    <Container sx={{ width: "100%",}}>
+    <Container sx={{ display: "relative"}}>
       <Typography variant="h3" align="left">
         Step Three
       </Typography>
-      <Container>
+      <Box>
         <Grid
           container
-          justifyContent="space-between"
           sx={{
             display: "relative",
             margin: "auto",
@@ -61,7 +61,7 @@ const StepThree = () => {
           </Grid>
 
         </Grid>
-      </Container>
+      </Box>
     </Container>
     );
 }

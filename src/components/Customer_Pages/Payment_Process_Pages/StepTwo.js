@@ -3,7 +3,7 @@ import CustomTextBox from "../../sub-components/CustomTextBox";
 
 const StepTwo = () => {
   return (
-    <Container sx={{ width: "100%",}}>
+    <Container>
       <Typography variant="h3" align="left">
         Step Two
       </Typography>
