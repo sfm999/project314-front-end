@@ -29,16 +29,16 @@ const CustomTextBox = ({ name, label, id, handleChange}) => {
 
   return (
     <TextBox
-                margin="normal"
-                required
-                fullWidth
-                name={name}
-                label={label}
-                type="text"
-                id={id}
-                onChange={handleChange}
-                variant="outlined"           
-            />
+        margin="normal"
+        required
+        fullWidth
+        name={name}
+        label={label}
+        type="text"
+        id={id}
+        onChange={handleChange}
+        variant="outlined"           
+    />
     );
 }
  

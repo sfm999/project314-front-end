@@ -1,16 +1,47 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography, styled, TextField } from "@mui/material";
+import { Box } from "@mui/system";
+import { useState } from "react";
 import CustomTextBox from "../../sub-components/CustomTextBox";
 
-const CardDetails = () => {
+const TextBox = styled(TextField) ({
+  '& input:valid + fieldset': {
+      borderColor: '#c2c2c2',
+      borderWidth: 2,
+  },
+  '& input:invalid + fieldset': {
+      borderWidth: 2,
+  },
+  '& input:valid:focus + fieldset': {
+      borderLeftWidth: 6,
+      padding: '4px !important',
+  },
+  '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+          borderColor: '#c2c2c2',
+      },
+      '&:hover fieldset': {
+          borderColor: '#f2f2f2',
+      },
+      '&.Mui-focused fieldset': {
+          borderColor: '#f2f2f2',
+      },
+    },
+});
+
+const CardDetails = ({ setDetails, currentDetails }) => {
+
+  const handleFormChange = (e) => {
+    setDetails(e);
+   }
+  
   return (
-    <Container>
+    <Container sx={{ display: "relative"}}>
       <Typography variant="h3" align="left">
         Card Details
       </Typography>
-      <Container>
+      <Box>
         <Grid
           container
-          justifyContent="space-between"
           sx={{
             display: "relative",
             margin: "auto",
@@ -18,16 +49,47 @@ const CardDetails = () => {
         >
           {/* Line 1 | Name on card*/}
           <Grid item xs={12}>
-            <CustomTextBox name="card_name" label="Full name" id="full_name" />
+            <TextBox
+              margin="normal"
+              required
+              fullWidth
+              name="fullName"
+              label="Full Name"
+              id="fullName"
+              variant="outlined"
+              autoFocus
+              onChange={handleFormChange}
+              placeholder={currentDetails.fullName}
+            />
           </Grid>
           {/* Line 2 | Card number*/}
           <Grid item xs={12}>
-            <CustomTextBox name="card_number" label="Card Number" id="card_number" />
+          <TextBox
+              margin="normal"
+              required
+              fullWidth
+              name="cardNumber"
+              label="Card Number"
+              id="cardNumber"
+              variant="outlined"
+              onChange={handleFormChange}
+              placeholder={currentDetails.cardNumber}
+            />
           </Grid>
 
           {/* Line 3 | Expiry date */}
           <Grid item xs={5}>
-            <CustomTextBox name="exp_date" label="Expiry Date" id="exp_date" />
+            <TextBox
+              margin="normal"
+              required
+              fullWidth
+              name="expiryDate"
+              label="Expiry Date"
+              id="expiryDate"
+              variant="outlined"
+              onChange={handleFormChange}
+              placeholder={currentDetails.expiryDate}
+            />
           </Grid>
 
           {/* Makes a gap between fields */}
@@ -35,16 +97,21 @@ const CardDetails = () => {
 
           {/* Line 3 | Security Code */}
           <Grid item xs={5}>
-            <CustomTextBox name="sec_code" label="Security Code" id="sec_code" />
-          </Grid>
-
-          {/* Line 4 | Postcode */}
-          <Grid item xs={12}>
-            <CustomTextBox name="abn" label="ABN" id="abn" />
+            <TextBox
+              margin="normal"
+              required
+              fullWidth
+              name="securityCode"
+              label="Security Code"
+              id="securityCode"
+              variant="outlined"
+              onChange={handleFormChange}
+              placeholder={currentDetails.securityCode}
+            />
           </Grid>
 
         </Grid>
-      </Container>
+      </Box>
     </Container>
     );
 }

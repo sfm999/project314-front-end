@@ -1,34 +1,63 @@
-import { Card, Container, CssBaseline, Grid, Step, StepLabel, Stepper, Typography } from "@mui/material";
+import { Card, Container, CssBaseline, Grid, Step, StepLabel, Stepper } from "@mui/material";
 import { useState } from "react";
 import { SelectPaymentPlan, CardDetails, PersonalDetails, ReviewPaymentProcess } from './Payment_Process_Pages';
 import CustomButton from "../sub-components/CustomButton";
-import StepFour from "./Payment_Process_Pages/ReviewPaymentProcess";
 import { useNavigate } from "react-router";
 
-function getStepContent(step) {
-  switch(step) {
-    case 0:
-      return <SelectPaymentPlan />;
-    case 1:
-      return <CardDetails />;
-    case 2:
-      return <PersonalDetails />;
-    case 3:
-      return <ReviewPaymentProcess />;
-    default:
-      return "unknown step";
-  }
+const defaultCardDetails = {
+  fullName: "",
+  cardNumber: "",
+  expiryDate: "",
+  securityCode: "",
+  postcode: "",
 }
 
-const PageOne = () => {
-  return (
-    <Container>
-      <Typography variant="h1">test</Typography>
-    </Container>
-  )
+const defaultPersonalDetails = {
+  fullName: "",
+  address1: "",
+  address2: "",
+  city: "",
+  state: "",
+  postcode: "",
+  phone: "",
+  fax: "",
 }
 
 const PaymentProcess = () => {
+
+  const [cardDetails, setCardDetails] = useState(defaultCardDetails);
+  const [personalDetails, setPersonalDetails] = useState(defaultPersonalDetails);
+
+  const setNewCardDetails = (event) => {
+    const { name, value } = event.target;
+    setCardDetails({
+      ...cardDetails,
+      [name]: value,
+    })
+  }
+
+  const setNewPersonalDetails = (event) => {
+    const { name, value } = event.target;
+    setPersonalDetails({
+      ...personalDetails,
+      [name]: value,
+    }) 
+  }
+
+  function getStepContent(step) {
+    switch(step) {
+      case 0:
+        return <SelectPaymentPlan />;
+      case 1:
+        return <CardDetails setDetails={setNewCardDetails} currentDetails={cardDetails} />;
+      case 2:
+        return <PersonalDetails setDetails={setNewPersonalDetails} currentDetails={personalDetails}/>;
+      case 3:
+        return <ReviewPaymentProcess />;
+      default:
+        return "unknown step";
+    }
+  }
 
   let navigate = useNavigate()
 
@@ -39,17 +68,11 @@ const PaymentProcess = () => {
     navigate(path)
   }
 
-  const handleSteps = (step) => {
-    switch(step) {
-      case 0:
-        <PageOne />
-        return 
-    }
-  }
-
   const handleNext = () => {
     if(activeStep < 3) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      console.log(cardDetails)
+      console.log(personalDetails)
     }
   }
 
@@ -80,7 +103,7 @@ const PaymentProcess = () => {
       <CustomButton text="exit" onClick={handleExit} size="large" />
       <CssBaseline />
       {/* Holds the main workable area */}
-        <Grid container direction="rows" justifyContent="space-evenly" spacing={2}>
+        <Grid container justifyContent="space-evenly" spacing={2}>
           {/* The stepper itself */}
           <Grid item xs={12}>
             <Container sx={{ marginBottom: "10px"}}>
@@ -99,7 +122,7 @@ const PaymentProcess = () => {
           {/* This is where the content for each step is stored */}
           <Grid item xs={12} >
             <Container>
-              <Card sx={{width: "100%", minHeight: "380px",  display: "flex"}}>
+              <Card sx={{width: "100%",  display: "flex"}}>
                 {getStepContent(activeStep)}
               </Card>
             </Container>

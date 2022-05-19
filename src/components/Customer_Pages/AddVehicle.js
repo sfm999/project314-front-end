@@ -44,14 +44,14 @@ const AddVehicle = () => {
 
   let navigate = useNavigate();
   const handleBackClick = (e) => {
-    e.preventDefault()
-    let path = '/manageVehicles'
-    navigate(path)
+    e.preventDefault();
+    let path = '/manageVehicles';
+    navigate(path);
   }
 
   const handleFormChange = (e) => {
     const {name, value} = e.target;
-
+    
     setFormValues({
       ...formValues,
       [name]: value,
@@ -59,8 +59,8 @@ const AddVehicle = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault() // Prevent form cancellation
-    console.log(formValues) // The values
+    e.preventDefault(); // Prevent form cancellation
+    console.log(formValues); // The values
   }
 
   return (

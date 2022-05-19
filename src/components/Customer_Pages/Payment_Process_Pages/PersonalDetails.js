@@ -1,8 +1,39 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography, styled, TextField} from "@mui/material";
 import { Box } from "@mui/system";
 import CustomTextBox from '../../sub-components/CustomTextBox';
 
-const PersonalDetails = () => {
+const TextBox = styled(TextField) ({
+  '& input:valid + fieldset': {
+      borderColor: '#c2c2c2',
+      borderWidth: 2,
+  },
+  '& input:invalid + fieldset': {
+      borderWidth: 2,
+  },
+  '& input:valid:focus + fieldset': {
+      borderLeftWidth: 6,
+      padding: '4px !important',
+  },
+  '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+          borderColor: '#c2c2c2',
+      },
+      '&:hover fieldset': {
+          borderColor: '#f2f2f2',
+      },
+      '&.Mui-focused fieldset': {
+          borderColor: '#f2f2f2',
+      },
+    },
+});
+
+const PersonalDetails = ({ setDetails, currentDetails }) => {
+
+  const handleFormChange = (e) => {
+    setDetails(e);
+  }
+
+
   return (
     <Container sx={{ display: "relative"}}>
       <Typography variant="h3" align="left">
@@ -18,11 +49,32 @@ const PersonalDetails = () => {
         >
           {/* Line 1 | Full name*/}
           <Grid item xs={12}>
-            <CustomTextBox name="full_name" label="Full name" id="full_name" />
+            <TextBox
+              margin="normal"
+              required
+              fullWidth
+              name="fullName"
+              label="Full Name"
+              id="fullName"
+              variant="outlined"
+              autoFocus
+              onChange={handleFormChange}
+              placeholder={currentDetails.fullName}
+            />
           </Grid>
           {/* Line 2 | Address line 1 */}
           <Grid item xs={12}>
-            <CustomTextBox name="address1" label="Address line 1" id="address1" />
+          <TextBox
+              margin="normal"
+              required
+              fullWidth
+              name="address1"
+              label="Address Line 1"
+              id="address1"
+              variant="outlined"
+              onChange={handleFormChange}
+              placeholder={currentDetails.address1}
+            />
           </Grid>
           {/* Line 3 | Address line 2 */}
           <Grid item xs={12}>
@@ -53,11 +105,6 @@ const PersonalDetails = () => {
           {/* Line 5 | fax */}
           <Grid item xs={5}>
             <CustomTextBox name="fax" label="Fax" id="fax" />
-          </Grid>
-
-          {/* Line 6 | ABN */}
-          <Grid item xs={12}>
-            <CustomTextBox name="abn" label="ABN" id="abn" />
           </Grid>
 
         </Grid>
