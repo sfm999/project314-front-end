@@ -1,4 +1,4 @@
-import { Card, Container, Grid, Paper, styled, Typography } from "@mui/material";
+import { Container, Grid, Paper, styled, Typography } from "@mui/material";
 
 
 const Item = styled(Paper)(({ theme }) => ({

@@ -1,6 +1,6 @@
 import { styled, TextField } from "@mui/material";
 
-const CustomTextBox = ({ name, label, id}) => {
+const CustomTextBox = ({ name, label, id, handleChange}) => {
   
   const TextBox = styled(TextField) ({
     '& input:valid + fieldset': {
@@ -36,7 +36,8 @@ const CustomTextBox = ({ name, label, id}) => {
                 label={label}
                 type="text"
                 id={id}
-                variant="outlined"              
+                onChange={handleChange}
+                variant="outlined"           
             />
     );
 }
