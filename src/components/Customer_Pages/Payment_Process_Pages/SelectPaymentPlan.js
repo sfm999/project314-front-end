@@ -10,11 +10,11 @@ const Item = styled(Paper)(({ theme }) => ({
   margin: "5%",
 }));
 
-const StepOne = () => {
+const SelectPaymentPlan = () => {
   return (
     <Container sx={{ width: "100%",}}>
     <Typography variant="h3" align="center">
-      Step One
+      Select Payment Plan
     </Typography>
       <Grid
         container
@@ -40,4 +40,4 @@ const StepOne = () => {
     );
 }
  
-export default StepOne;
+export default SelectPaymentPlan;

@@ -1,10 +1,10 @@
 import { Card, Container, Grid, Typography } from "@mui/material";
 
-const StepFour = () => {
+const ReviewPaymentProcess = () => {
   return (
     <Container sx={{ width: "100%",}}>
     <Typography variant="h3" align="left">
-      Step Four
+      Review
     </Typography>
       <Grid
         container
@@ -31,4 +31,4 @@ const StepFour = () => {
     );
 }
  
-export default StepFour;
+export default ReviewPaymentProcess;

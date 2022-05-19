@@ -1,12 +1,12 @@
-import { Card, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import CustomTextBox from '../../sub-components/CustomTextBox';
 
-const StepThree = () => {
+const PersonalDetails = () => {
   return (
     <Container sx={{ display: "relative"}}>
       <Typography variant="h3" align="left">
-        Step Three
+        Enter Personal Details
       </Typography>
       <Box>
         <Grid
@@ -66,4 +66,4 @@ const StepThree = () => {
     );
 }
  
-export default StepThree;
+export default PersonalDetails;

@@ -1,24 +1,20 @@
-import { Card, Container, CssBaseline, Grid, Step, StepContent, StepLabel, Stepper, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Card, Container, CssBaseline, Grid, Step, StepLabel, Stepper, Typography } from "@mui/material";
 import { useState } from "react";
+import { SelectPaymentPlan, CardDetails, PersonalDetails, ReviewPaymentProcess } from './Payment_Process_Pages';
 import CustomButton from "../sub-components/CustomButton";
-import CustomTextBox from "../sub-components/CustomTextBox";
-import StepOne from "./Payment_Process_Pages/StepOne";
-import StepTwo from "./Payment_Process_Pages/StepTwo";
-import StepThree from "./Payment_Process_Pages/StepThree";
-import StepFour from "./Payment_Process_Pages/StepFour";
+import StepFour from "./Payment_Process_Pages/ReviewPaymentProcess";
 import { useNavigate } from "react-router";
 
 function getStepContent(step) {
   switch(step) {
     case 0:
-      return <StepOne />;
+      return <SelectPaymentPlan />;
     case 1:
-      return <StepTwo />;
+      return <CardDetails />;
     case 2:
-      return <StepThree />;
+      return <PersonalDetails />;
     case 3:
-      return <StepFour />;
+      return <ReviewPaymentProcess />;
     default:
       return "unknown step";
   }

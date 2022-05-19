@@ -1,11 +1,11 @@
-import { Card, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import CustomTextBox from "../../sub-components/CustomTextBox";
 
-const StepTwo = () => {
+const CardDetails = () => {
   return (
     <Container>
       <Typography variant="h3" align="left">
-        Step Two
+        Card Details
       </Typography>
       <Container>
         <Grid
@@ -49,4 +49,4 @@ const StepTwo = () => {
     );
 }
  
-export default StepTwo;
+export default CardDetails;
