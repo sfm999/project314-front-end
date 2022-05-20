@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { setSession } from '../../utils/jwt'
 import axios from '../../utils/axios';
+import { useFetch } from '../../hooks/useFetch';
 
 
 const TextBox = styled(TextField) ({
@@ -51,8 +52,17 @@ const defaultValues = {
     email: "",
     password:"",
 }
+const tempValues = {
+    email: "",
+    password:"",
+}
 
 export default function ContractorSignIn() {
+
+    const [url, setUrl] = useState('http://localhost:8000/');
+    const { data: client, isPending, error } = useFetch(url, { type: 'GET' });
+
+    const [validated, setValidated] = useState(false);
     
     const [formValues, setFormValues] = useState(defaultValues);
     const navigate = useNavigate();
@@ -66,22 +76,25 @@ export default function ContractorSignIn() {
         });
     };
 
-    const login = async(email, password) => {
+    // const login = async(email, password) => {
 
-        await axios.post('', {email, password,})
-        .then(response => {
-            console.log(response.data.access)
-            setSession(response.data.access)
-            navigate("/ContractorProfile");
-        })
-        .catch(error => {console.log(error)})
-        };
+    //     await axios.post('', {email, password,})
+    //     .then(response => {
+    //         console.log(response.data.access)
+    //         setSession(response.data.access)
+    //         navigate("/ContractorProfile");
+    //     })
+    //     .catch(error => {console.log(error)})
+    // };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        const temp_url = `http://localhost:8000/clients?email=${data.get('email')}`
+        setUrl(temp_url)
+        console.log("New url:", url)
+        console.log(client)
 
-        login(data.get('email'), data.get('password'));
     };
 
     return (

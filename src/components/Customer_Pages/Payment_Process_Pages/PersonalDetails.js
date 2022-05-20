@@ -64,7 +64,7 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
           </Grid>
           {/* Line 2 | Address line 1 */}
           <Grid item xs={12}>
-          <TextBox
+            <TextBox
               margin="normal"
               required
               fullWidth
@@ -78,12 +78,32 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
           </Grid>
           {/* Line 3 | Address line 2 */}
           <Grid item xs={12}>
-            <CustomTextBox name="address2" label="Address line 2" id="address2" />
+          <TextBox
+              margin="normal"
+              required
+              fullWidth
+              name="address2"
+              label="Address Line 2"
+              id="address2"
+              variant="outlined"
+              onChange={handleFormChange}
+              placeholder={currentDetails.address2}
+            />
           </Grid>
 
           {/* Line 4 | city */}
           <Grid item xs={5}>
-            <CustomTextBox name="city" label="City" id="city" />
+            <TextBox
+              margin="normal"
+              required
+              fullWidth
+              name="city"
+              label="City"
+              id="city"
+              variant="outlined"
+              onChange={handleFormChange}
+              placeholder={currentDetails.city}
+            />
           </Grid>
 
           {/* Makes a gap between fields */}
@@ -91,12 +111,32 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
 
           {/* Line 4 | state */}
           <Grid item xs={5}>
-            <CustomTextBox name="state" label="State" id="state" />
+            <TextBox
+              margin="normal"
+              required
+              fullWidth
+              name="state"
+              label="State"
+              id="state"
+              variant="outlined"
+              onChange={handleFormChange}
+              placeholder={currentDetails.state}
+            />
           </Grid>
 
           {/* Line 5 | phone */}
           <Grid item xs={5}>
-            <CustomTextBox name="phone" label="Phone" id="phone" />
+          <TextBox
+              margin="normal"
+              required
+              fullWidth
+              name="phone"
+              label="Phone"
+              id="phone"
+              variant="outlined"
+              onChange={handleFormChange}
+              placeholder={currentDetails.phone}
+            />
           </Grid>
 
           {/* Makes a gap between fields */}
@@ -104,7 +144,17 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
 
           {/* Line 5 | fax */}
           <Grid item xs={5}>
-            <CustomTextBox name="fax" label="Fax" id="fax" />
+          <TextBox
+              margin="normal"
+              required
+              fullWidth
+              name="fax"
+              label="Fax"
+              id="fax"
+              variant="outlined"
+              onChange={handleFormChange}
+              placeholder={currentDetails.fax}
+            />
           </Grid>
 
         </Grid>

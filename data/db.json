@@ -36,5 +36,25 @@
           "state": "NSW",
           "id": 5
       }
+    ],
+    "clients": [
+        {
+            "firstName": "Bill",
+            "lastName": "Burr",
+            "age": 49,
+            "email": "bill@themmpodcast.com",
+            "password": "bill_burr",
+            "plan": "subscribed",
+            "id": 1
+        },
+        {
+            "firstName": "Lake",
+            "lastName": "Small",
+            "age": 820,
+            "email": "small@lake.com",
+            "password": "small_lake",
+            "plan": "pay-on-demand",
+            "id": 2
+        }
     ]
 }

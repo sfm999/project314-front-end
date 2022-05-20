@@ -17,13 +17,7 @@ import EditVehicle from './components/Customer_Pages/EditVehicle';
 import PaymentProcess from './components/Customer_Pages/PaymentProcess';
 
 
-const customer = {
-  "firstName": "Bill",
-  "lastName": "Burr",
-  "age": 49,
-  "email": "bill@themmpodcast.com",
-  "plan": "subscribed"
-}
+
 
 function App() {
   return (
@@ -54,7 +48,7 @@ function App() {
           <Route path="/ContractorProfile" element={<ContractorProfile />} />
 
           {/* Customer Profile Page */}
-          <Route path="/CustomerProfile" element={<CustomerProfile customer={customer}/>} />
+          <Route path="/CustomerProfile" element={<CustomerProfile />} />
 
           {/* Pages for Customer Functionality */}
           <Route path="/manageVehicles" element={<ManageVehicle />} />
@@ -63,7 +57,7 @@ function App() {
           <Route path="/paymentProcess" element={<PaymentProcess />} />
 
           {/* Just a page to test things out on */}
-          <Route path="/testing-grounds" element={<TestPage />} />
+          <Route path="/testpage" element={<TestPage />} />
 
         </Routes>
         {/* END ROUTES */}

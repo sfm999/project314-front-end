@@ -41,8 +41,14 @@ let rows = [
 
 const ManageVehicle = () => {
 
+  // Need to figure out a way to pass the vehicle to the edit vehicle page. This could possibly be done with
+  // having a variable such as editVehiclePressed, which would allow us to essentially swap out the current
+  // screen for the edit vehicle page, and then we can also maintain the vehicle selected, as currently
+  // we simply navigate to the edit vehicle page
+
   const [selectedRows, setSelectedRows] = useState([]);
   const [editAlert, setEditAlert] = useState(false)
+  const [editVehiclePressed, setEditVehiclePressed] = useState(false)
 
   let navigate = useNavigate();
 
