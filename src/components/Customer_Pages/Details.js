@@ -1,15 +1,22 @@
+import {
+  Avatar,
+  Card,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import BadgeIcon from "@mui/icons-material/Badge";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import MailIcon from "@mui/icons-material/Mail";
+import PersonIcon from "@mui/icons-material/Person";
+import React, { useEffect, useState } from "react";
 
-import { Avatar, Card, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
-import BadgeIcon from '@mui/icons-material/Badge';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import MailIcon from '@mui/icons-material/Mail';
-import PersonIcon from '@mui/icons-material/Person';
-import React from "react";
-
-const Details = ({ customer }) => {
+export function Details({ profile }) {
   return (
-    <Card sx={{display: "flex", flexGrow: 1, minWidth: "240px"}}>
-      <List sx={{ width: '100%', maxWidth: 420, bgcolor: 'background.paper' }}>
+    <Card sx={{ display: "flex", flexGrow: 1, minWidth: "240px" }}>
+      <List sx={{ width: "100%", maxWidth: 420, bgcolor: "background.paper" }}>
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
             <Avatar>
@@ -23,7 +30,7 @@ const Details = ({ customer }) => {
                   component="span"
                   variant="body1"
                   color="text.primary"
-                  sx={{ fontWeight: 'bold'}}
+                  sx={{ fontWeight: "bold" }}
                 >
                   Full Name
                 </Typography>
@@ -32,16 +39,16 @@ const Details = ({ customer }) => {
             secondary={
               <React.Fragment>
                 <Typography
-                  sx={{ display: 'inline' }}
+                  sx={{ display: "inline" }}
                   component="span"
                   variant="body2"
                   color="text.primary"
                 >
-                  {customer.firstName + ' ' + customer.lastName}
+                  {profile?.first_name + " " + profile?.last_name}
                 </Typography>
               </React.Fragment>
             }
-           />
+          />
         </ListItem>
 
         <ListItem alignItems="flex-start">
@@ -51,31 +58,31 @@ const Details = ({ customer }) => {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-              primary={
-                <React.Fragment>
-                  <Typography
-                    component="span"
-                    variant="body1"
-                    color="text.primary"
-                    sx={{ fontWeight: 'bold'}}
-                  >
-                    Email address
-                  </Typography>
-                </React.Fragment>
-              }
-              secondary={
-                <React.Fragment>
-                  <Typography
-                    sx={{ display: 'inline' }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                  >
-                    {customer.email}
-                  </Typography>
-                </React.Fragment>
-              }
-            />
+            primary={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="body1"
+                  color="text.primary"
+                  sx={{ fontWeight: "bold" }}
+                >
+                  Email address
+                </Typography>
+              </React.Fragment>
+            }
+            secondary={
+              <React.Fragment>
+                <Typography
+                  sx={{ display: "inline" }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                  {profile?.email}
+                </Typography>
+              </React.Fragment>
+            }
+          />
         </ListItem>
 
         <ListItem alignItems="flex-start">
@@ -85,31 +92,31 @@ const Details = ({ customer }) => {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-              primary={
-                <React.Fragment>
-                  <Typography
-                    component="span"
-                    variant="body1"
-                    color="text.primary"
-                    sx={{ fontWeight: 'bold'}}
-                  >
-                    Age
-                  </Typography>
-                </React.Fragment>
-              }
-              secondary={
-                <React.Fragment>
-                  <Typography
-                    sx={{ display: 'inline' }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                  >
-                    {customer.age + ' years old'}
-                  </Typography>
-                </React.Fragment>
-              }
-            />
+            primary={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="body1"
+                  color="text.primary"
+                  sx={{ fontWeight: "bold" }}
+                >
+                  Age
+                </Typography>
+              </React.Fragment>
+            }
+            secondary={
+              <React.Fragment>
+                <Typography
+                  sx={{ display: "inline" }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                  {profile?.age + " years old"}
+                </Typography>
+              </React.Fragment>
+            }
+          />
         </ListItem>
         <ListItem>
           <ListItemAvatar>
@@ -118,35 +125,35 @@ const Details = ({ customer }) => {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-              primary={
-                <React.Fragment>
-                  <Typography
-                    component="span"
-                    variant="body1"
-                    color="text.primary"
-                    sx={{ fontWeight: 'bold'}}
-                  >
-                    Plan
-                  </Typography>
-                </React.Fragment>
-              }
-              secondary={
-                <React.Fragment>
-                  <Typography
-                    sx={{ display: 'inline' }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                  >
-                    {customer.plan}
-                  </Typography>
-                </React.Fragment>
-              }
-            />
+            primary={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="body1"
+                  color="text.primary"
+                  sx={{ fontWeight: "bold" }}
+                >
+                  Plan
+                </Typography>
+              </React.Fragment>
+            }
+            secondary={
+              <React.Fragment>
+                <Typography
+                  sx={{ display: "inline" }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                  {profile?.plan}
+                </Typography>
+              </React.Fragment>
+            }
+          />
         </ListItem>
       </List>
     </Card>
-  )
+  );
 }
 
 export default Details;
