@@ -1,6 +1,7 @@
-import { Button, CssBaseline, Grid, Typography } from "@mui/material"
+import { Alert, Button, CssBaseline, Grid, Typography } from "@mui/material"
 import { Box } from "@mui/system";
 import { DataGrid } from '@mui/x-data-grid';
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../sub-components/CustomButton";
 
@@ -25,7 +26,7 @@ const columns = [
   },
 ];
 
-const rows = [
+let rows = [
   { id: 1, make: 'Toyota', model: 'Corolla', year: 1992 },
   { id: 2, make: 'Mitsubishi', model: 'Pajero', year: 2004 },
   { id: 3, make: 'Nissan', model: 'Skyline', year: 1993 },
@@ -40,6 +41,9 @@ const rows = [
 
 const ManageVehicle = () => {
 
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [editAlert, setEditAlert] = useState(false)
+
   let navigate = useNavigate();
 
   const handleAddVehicleClick = () => {
@@ -48,8 +52,14 @@ const ManageVehicle = () => {
   }
 
   const handleEditVehicleClick = () => {
-    let path = '/editVehicle'
-    navigate(path)
+    if(selectedRows.length === 0) {
+      setEditAlert(true);
+    }else if(selectedRows.length > 1){
+      setEditAlert(true);
+    }else{
+      let path = '/editVehicle'
+      navigate(path)
+    }
   }
 
   const handleBackClick = () => {
@@ -57,13 +67,25 @@ const ManageVehicle = () => {
     navigate(path)
   }
 
+  const handleRemoveVehicles = () => {
+    console.log("Rows before filtering:", rows);
+    rows = rows.filter((row) => {
+      return !selectedRows.includes(row);
+    })
+    console.log("Rows after filtering:", rows);
+  }
+
   return ( 
   <Box style={{ height: "60vh", width: '90%', margin: "auto", paddingTop: "10px",}}>
     <CssBaseline />
     <Grid container>
-      <Grid item xs={10}>
+      <Grid item xs={3}>
         <Typography variant="h3">Manage Vehicle</Typography>
       </Grid>
+      <Grid item xs={4}>
+        { editAlert && <Alert severity="error">You must select only one vehicle</Alert>}
+      </Grid>
+      <Grid item xs={3} />
       <Grid item xs={2}>
         <CustomButton text="Go Back" onClick={handleBackClick} size="large" />
       </Grid>
@@ -72,6 +94,15 @@ const ManageVehicle = () => {
       rows={rows}
       columns={columns}
       checkboxSelection
+      onSelectionModelChange={(ids) => {
+        setEditAlert(false)
+        // Get the selected ID's
+        const selectedIDs = new Set(ids);
+        // Get the actual info from the rows selected
+        const selectedRows = rows.filter((row) => selectedIDs.has(row.id),);
+        // Set the piece of state with the new selected rows
+        setSelectedRows(selectedRows);
+      }}
       sx={{
         marginTop: "20px",
         marginLeft: "auto", marginRight: "auto",
@@ -111,6 +142,7 @@ const ManageVehicle = () => {
             variant="contained"
             color="error"
             size="large"
+            onClick={handleRemoveVehicles}
           >Remove a vehicle</Button>
         </Grid>
       </Grid>

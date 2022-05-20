@@ -1,17 +1,16 @@
 import { Card, Container, Grid, Typography } from "@mui/material";
 
-const StepThree = () => {
+const ReviewPaymentProcess = () => {
   return (
     <Container sx={{ width: "100%",}}>
-      <Typography variant="h3" align="left">
-        Page Three
-      </Typography>
+    <Typography variant="h3" align="left">
+      Review
+    </Typography>
       <Grid
         container
+        spacing={2}
         justifyContent="space-between"
-        sx={{
-          display: "relative"
-        }}
+        alignItems="stretch"
       >
         <Grid item xs={6}>
           <Card sx={{ height: "50vh", margin: "20px", boxShadow: "3", }}>
@@ -32,4 +31,4 @@ const StepThree = () => {
     );
 }
  
-export default StepThree;
+export default ReviewPaymentProcess;

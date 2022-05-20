@@ -1,15 +1,76 @@
-import { CssBaseline, Grid, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { CssBaseline, Grid, List, ListItem, ListItemText, TextField, Typography } from "@mui/material";
+import { Box, Container, styled } from "@mui/system";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import CustomButton from "../sub-components/CustomButton";
-import CustomTextBox from "../sub-components/CustomTextBox";
+
+
+const TextBox = styled(TextField) ({
+  '& input:valid + fieldset': {
+      borderColor: '#c2c2c2',
+      borderWidth: 2,
+  },
+  '& input:invalid + fieldset': {
+      borderWidth: 2,
+  },
+  '& input:valid:focus + fieldset': {
+      borderLeftWidth: 6,
+      padding: '4px !important',
+  },
+  '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+          borderColor: '#c2c2c2',
+      },
+      '&:hover fieldset': {
+          borderColor: '#f2f2f2',
+      },
+      '&.Mui-focused fieldset': {
+          borderColor: '#f2f2f2',
+      },
+    },
+});
+
+// Dummy data just to see if the values change when editing form
+const customerVehicle = {
+  make: "toyota",
+  model: "corolla",
+  rego: "rgy672",
+  colour: "red",
+  year: 1998
+}
 
 const EditVehicle = () => {
 
+  const [formValues, setFormValues] = useState(customerVehicle)
+
+  // Handle page change (back button)
   let navigate = useNavigate();
-  const handleBackClick = () => {
+  const handleBackClick = (e) => {
+    e.preventDefault() // Prevent form cancellation
     let path = '/manageVehicles'
     navigate(path)
+  }
+
+  // Each time a form field changes, grab the name of the input
+  // and the content (value). Then use name as an indexer for the keys
+  // and for the object and set the content as its value ([key]:value)
+  // Also use spread operator to make sure new custom object
+  // has the same keys as the formValues we're changing the values for
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    })
+  }
+
+  // Honestly I don't think the const data bit is necessary as
+  // from what I understand, the handleFormChange takes care of grabbing
+  // any content onChange.
+  const handleSubmit = (e) => {
+    e.preventDefault()  // Don't refresh :)
+    console.log(formValues)
   }
 
   return (
@@ -26,7 +87,7 @@ const EditVehicle = () => {
           flexDirection: 'column',
       }}
     >
-      <Box component="form" noValidate>
+      <Box component="form" onSubmit={handleSubmit} noValidate>
         <Grid
           container
           rowSpacing={2}
@@ -40,44 +101,43 @@ const EditVehicle = () => {
             </Grid>
           </Grid>
 
-          {/* Get vehicle Make  */}
-          <Grid item xs={6}>
-            <CustomTextBox name="vehicle make" label="Vehicle Make" id="make" />
-          </Grid>
-
-          {/* Get vehicle Model  */}
-          <Grid item xs={6}>
-            <CustomTextBox name="vehicle model" label="Vehicle Model" id="model" />
-          </Grid>
-          
           {/* Get vehicle registration  */}
           <Grid item xs={6}>
-            <CustomTextBox name="vehicle registration" label="Vehicle Registration" id="rego" />
+          <TextBox
+              margin="normal"
+              required
+              fullWidth
+              name="rego"
+              label="Vehicle Registration"
+              id="rego"
+              variant="outlined"
+              onChange={handleFormChange}
+            />
           </Grid>
 
           {/* Get vehicle colour  */}
           <Grid item xs={6}>
-            <CustomTextBox name="vehicle colour" label="Vehicle Colour" id="colour" />
+          <TextBox
+              margin="normal"
+              required
+              fullWidth
+              name="colour"
+              label="Vehicle Colour"
+              id="colour"
+              variant="outlined"
+              onChange={handleFormChange}
+            />
           </Grid>
-
-          {/* Get vehicle Year  */}
-          <Grid item xs={6}>
-            <CustomTextBox name="vehicle year" label="Vehicle Year" id="year" />
-          </Grid>
-
-          {/* Serves to push the year textfield to the left with breakpoint technology */}
-          <Grid item xs={6} />
-
+      
           {/* Add vehicle button/form control submit */}
-          <Grid container xs={12} justifyContent="flex-end" spacing={2}>
+          <Grid container justifyContent="flex-end" spacing={2}>
             <Grid item>
-              <CustomButton text="Save edits" onClick={handleBackClick} />
+              <CustomButton text="Save edits" type="submit" />
             </Grid>
             <Grid item>
               <CustomButton text="discard edits" onClick={handleBackClick} />
             </Grid>
           </Grid>
-          
         </Grid>
       </Box>
     </Box>

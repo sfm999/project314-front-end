@@ -1,9 +1,8 @@
 import { Button } from "@mui/material";
 
-const CustomButton = ({ text, onClick, size }) => {
+const CustomButton = ({ text, onClick, size, type}) => {
   return (
     <Button
-    type="submit"
     size={size}
     variant="outlined"
     sx={{
@@ -17,6 +16,7 @@ const CustomButton = ({ text, onClick, size }) => {
       mb: 2,
     }}
     onClick={onClick}
+    type={type ? type : ""}
     >{text}</Button>
   );
 }
