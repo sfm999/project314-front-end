@@ -17,14 +17,9 @@ import { deepOrange } from "@mui/material/colors";
 
 import { useNavigate } from "react-router-dom";
 
-<<<<<<< HEAD
 import { setSession } from '../../utils/jwt'
 import axios from '../../utils/axios';
 import { useFetch } from '../../hooks/useFetch';
-=======
-import { setSession } from "../../utils/jwt";
-import axios from "../../utils/axios";
->>>>>>> 0860e6f22f9c4d49b999a75b2aa5ef590b8197fa
 
 const TextBox = styled(TextField)({
   "& input:valid + fieldset": {
@@ -53,7 +48,6 @@ const TextBox = styled(TextField)({
 });
 
 const defaultValues = {
-<<<<<<< HEAD
     email: "",
     password:"",
 }
@@ -64,73 +58,43 @@ const tempValues = {
 
 export default function ContractorSignIn() {
 
-    const [url, setUrl] = useState('http://localhost:8000/');
-    const { data: client, isPending, error } = useFetch(url, { type: 'GET' });
+  const [url, setUrl] = useState('http://localhost:8000/');
+  const { data: client, isPending, error } = useFetch(url, { type: 'GET' });
 
-    const [validated, setValidated] = useState(false);
-    
-    const [formValues, setFormValues] = useState(defaultValues);
-    const navigate = useNavigate();
-=======
-  email: "",
-  password: "",
-};
-
-export default function ContractorSignIn() {
+  const [validated, setValidated] = useState(false);
+  
   const [formValues, setFormValues] = useState(defaultValues);
   const navigate = useNavigate();
->>>>>>> 0860e6f22f9c4d49b999a75b2aa5ef590b8197fa
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
 
-<<<<<<< HEAD
-    // const login = async(email, password) => {
-
-    //     await axios.post('', {email, password,})
-    //     .then(response => {
-    //         console.log(response.data.access)
-    //         setSession(response.data.access)
-    //         navigate("/ContractorProfile");
-    //     })
-    //     .catch(error => {console.log(error)})
-    // };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        const temp_url = `http://localhost:8000/clients?email=${data.get('email')}`
-        setUrl(temp_url)
-        console.log("New url:", url)
-        console.log(client)
-
-    };
-=======
     setFormValues({
       ...formValues,
       [name]: value,
-    });
-  };
+    })
+  }
 
-  const login = async (email, password) => {
-    await axios
-      .post("", { email, password })
-      .then((response) => {
-        setSession(response.data.access);
-        navigate("/ContractorProfile");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const login = async(email, password) => {
+
+  //     await axios.post('', {email, password,})
+  //     .then(response => {
+  //         console.log(response.data.access)
+  //         setSession(response.data.access)
+  //         navigate("/ContractorProfile");
+  //     })
+  //     .catch(error => {console.log(error)})
+  // };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const temp_url = `http://localhost:8000/clients?email=${data.get('email')}`
+      setUrl(temp_url)
+      console.log("New url:", url)
+      console.log(client)
 
-    login(data.get("email"), data.get("password"));
   };
->>>>>>> 0860e6f22f9c4d49b999a75b2aa5ef590b8197fa
 
   return (
     <Container component="main" maxWidth="xs">

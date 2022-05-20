@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
@@ -19,25 +18,6 @@ import PaymentProcess from './components/Customer_Pages/PaymentProcess';
 
 
 
-=======
-import Navbar from "./components/Navbar";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./components/Home";
-import "./App.css";
-import CustomerProfile from "./components/Customer_Pages/CustomerProfile";
-import SignIn from "./components/Customer_Pages/SignIn";
-import SignUp from "./components/Customer_Pages/SignUp";
-import ContractorSignUp from "./components/Contractor_Pages/ContractorSignUp";
-import ContractorSignIn from "./components/Contractor_Pages/ContractorSignIn";
-import ContractorProfile from "./components/Contractor_Pages/ContractorProfile";
-import ContractorHome from "./components/Contractor_Pages/ContractorHome";
-import CustomerHomePage from "./components/Customer_Pages/CustomerHomePage";
-import TestPage from "./components/TestPage";
-import ManageVehicle from "./components/Customer_Pages/ManageVehicle";
-import AddVehicle from "./components/Customer_Pages/AddVehicle";
-import EditVehicle from "./components/Customer_Pages/EditVehicle";
-import PaymentProcess from "./components/Customer_Pages/PaymentProcess";
->>>>>>> 0860e6f22f9c4d49b999a75b2aa5ef590b8197fa
 
 function App() {
   return (
@@ -69,7 +49,6 @@ function App() {
             {/* Customer Profile Page */}
             <Route path="/CustomerProfile" element={<CustomerProfile />} />
 
-<<<<<<< HEAD
           {/* Customer Profile Page */}
           <Route path="/CustomerProfile" element={<CustomerProfile />} />
 
@@ -84,19 +63,7 @@ function App() {
 
         </Routes>
         {/* END ROUTES */}
-=======
-            {/* Pages for Customer Functionality */}
-            <Route path="/manageVehicles" element={<ManageVehicle />} />
-            <Route path="/addVehicle" element={<AddVehicle />} />
-            <Route path="/editVehicle" element={<EditVehicle />} />
-            <Route path="/paymentProcess" element={<PaymentProcess />} />
-
-            {/* Just a page to test things out on */}
-            <Route path="/testing-grounds" element={<TestPage />} />
-          </Routes>
-          {/* END ROUTES */}
         </div>
->>>>>>> 0860e6f22f9c4d49b999a75b2aa5ef590b8197fa
       </div>
     </Router>
   );
