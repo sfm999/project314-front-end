@@ -12,6 +12,34 @@ const vehicleList = {
 
 };
 
+function getLongLat() {
+    navigator.geolocation.getCurrentPosition(function(position){
+        console.log("Latitude is : ", position.coords.latitude);
+        console.log("Longitude is : ", position.coords.longitude);
+    });
+
+
+    //THIS IS FOR LATITUDE
+    //1 degree latitude is equal to 111km :)
+    //For examples 4 degrees = 4 x 111 = 444km
+    //So we find the degrees and then subtract the smaller one from the bigger one
+    //and that is the distance from each other in kilometers
+    var unswLatitude = 33.9173;
+    var unswLatitudeKM = 33.9173 * 110.574;
+    console.log("Latitude KM : ", unswLatitudeKM);
+
+    //THIS IS FOR LONGITUDE
+    //1 degree longitude is equal to 111.320 x cos(latitude) :)
+    //for example 4 degrees = 4 x (111.320 x cos(latitude))
+    //so 111.320 x Math.cos(latitude)
+    var unswLongitude = 151.2313; //these are in degrees so we need to use cos() or something to find the Kilometers
+    var unswLongitudeKM = 151.2313 * (111.320 * Math.cos(unswLatitude));
+    console.log("Longitude KM : ", unswLongitudeKM);
+
+
+    //then position.coords.latitude - unswLatitude = the distance between those 2 points.
+}
+
 const requestInformation = {
     vehicleModel: "",
     vehicleManufacturer: "",
@@ -38,6 +66,7 @@ function RenderList(props) {
                         bgcolor: grey[500],
                     },
                 }}
+                onClick = {getLongLat}
 
             //onclick open more details
             //also change background color on click
