@@ -18,12 +18,12 @@ export function CustomerProfile() {
   let navigate = useNavigate();
 
   const handleVehicleClick = () => {
-    let path = "/manageVehicles";
+    let path = "/customer/vehicles/manage";
     navigate(path);
   };
 
   const handlePaymentPlanClick = () => {
-    let path = "/paymentProcess";
+    let path = "/customer/payment";
     navigate(path);
   };
 
