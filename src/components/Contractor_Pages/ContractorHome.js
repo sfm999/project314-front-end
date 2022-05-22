@@ -17,7 +17,7 @@ function getLongLat() {
         console.log("Latitude is : ", position.coords.latitude);
         console.log("Longitude is : ", position.coords.longitude);
     });
-
+    
 
     //THIS IS FOR LATITUDE
     //1 degree latitude is equal to 111km :)
@@ -37,9 +37,9 @@ function getLongLat() {
     console.log("Longitude KM : ", unswLongitudeKM);
 
 
+
     //then position.coords.latitude - unswLatitude = the distance between those 2 points.
 }
-
 const requestInformation = {
     vehicleModel: "",
     vehicleManufacturer: "",
