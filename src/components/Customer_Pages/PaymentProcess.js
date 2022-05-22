@@ -4,6 +4,9 @@ import { SelectPaymentPlan, CardDetails, PersonalDetails, ReviewPaymentProcess }
 import CustomButton from "../sub-components/CustomButton";
 import { useNavigate } from "react-router";
 
+const client = {
+  
+}
 const defaultCardDetails = {
   fullName: "",
   cardNumber: "",
@@ -23,10 +26,12 @@ const defaultPersonalDetails = {
   fax: "",
 }
 
+
 const PaymentProcess = () => {
 
   const [cardDetails, setCardDetails] = useState(defaultCardDetails);
   const [personalDetails, setPersonalDetails] = useState(defaultPersonalDetails);
+  const [subStatus, setSubStatus] = useState()
 
   const setNewCardDetails = (event) => {
     const { name, value } = event.target;
@@ -42,6 +47,10 @@ const PaymentProcess = () => {
       ...personalDetails,
       [name]: value,
     }) 
+  }
+
+  const setNewSubStatus = (event) => {
+
   }
 
   function getStepContent(step) {

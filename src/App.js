@@ -17,8 +17,6 @@ import EditVehicle from './components/Customer_Pages/EditVehicle';
 import PaymentProcess from './components/Customer_Pages/PaymentProcess';
 
 
-
-
 function App() {
   return (
     <Router>
