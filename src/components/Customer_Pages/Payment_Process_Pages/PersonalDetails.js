@@ -33,7 +33,6 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
     setDetails(e);
   }
 
-
   return (
     <Container sx={{ display: "relative"}}>
       <Typography variant="h3" align="left">
