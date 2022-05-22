@@ -85,6 +85,7 @@ export function Details({ profile }) {
           />
         </ListItem>
 
+        {/* Might not neet this as we don't have age in database yet but probs should idk why not and it makes sense to 
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
             <Avatar>
@@ -117,7 +118,7 @@ export function Details({ profile }) {
               </React.Fragment>
             }
           />
-        </ListItem>
+        </ListItem> */}
         <ListItem>
           <ListItemAvatar>
             <Avatar>

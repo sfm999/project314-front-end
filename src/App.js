@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-import Navbar from './components/Navbar';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './components/Home';
-import './App.css';
-import CustomerProfile from './components/Customer_Pages/CustomerProfile';
-import SignIn from './components/Customer_Pages/SignIn';
-import SignUp from './components/Customer_Pages/SignUp';
-import ContractorSignUp from './components/Contractor_Pages/ContractorSignUp';
-import ContractorSignIn from './components/Contractor_Pages/ContractorSignIn';
-import ContractorProfile from './components/Contractor_Pages/ContractorProfile';
-import ContractorHome from './components/Contractor_Pages/ContractorHome';
-import CustomerHomePage from './components/Customer_Pages/CustomerHomePage';
-import TestPage from './components/TestPage';
-import ManageVehicle from './components/Customer_Pages/ManageVehicle';
-import AddVehicle from './components/Customer_Pages/AddVehicle';
-import EditVehicle from './components/Customer_Pages/EditVehicle';
-import PaymentProcess from './components/Customer_Pages/PaymentProcess';
-
-=======
 import Navbar from "./components/Navbar";
 import {
   BrowserRouter as Router,
@@ -41,7 +21,6 @@ import AddVehicle from "./components/Customer_Pages/AddVehicle";
 import EditVehicle from "./components/Customer_Pages/EditVehicle";
 import PaymentProcess from "./components/Customer_Pages/PaymentProcess";
 import useAuth from "./hooks/useAuth";
->>>>>>> 28a74085d3701f93c0624d33a56c0088038b71e5
 
 function App() {
   const { isAuthenticated } = useAuth();

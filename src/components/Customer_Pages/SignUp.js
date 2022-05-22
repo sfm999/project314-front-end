@@ -89,51 +89,53 @@ export default function SignUp() {
   };
 
   return (
-    
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: green[500] }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Client Sign up
-          </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={1}>
-              <Grid item xs={12} sm={6}>
-                <TextBox
-                  required
-                  fullWidth
-                  name="first_name"
-                  label="First Name"
-                  type="First Name"
-                  id="first_name"
-                  variant="outlined"
-                  autoComplete="given-name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextBox
-                  required
-                  fullWidth
-                  name="last_name"
-                  label="Last Name"
-                  type="Last Name"
-                  id="last_name"
-                  variant="outlined"
-                  autoComplete="family-name"
-                />
-              </Grid>
+    <Container component="main" maxWidth="xs" sx={{ boxShadow: 2}}>
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          paddingBottom: "10px",
+          paddingTop: "7px",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: green[500] }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Client Sign up
+        </Typography>
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Grid container spacing={1}>
+            <Grid item xs={12} sm={6}>
+              <TextBox
+                required
+                fullWidth
+                name="first_name"
+                label="First Name"
+                type="First Name"
+                id="first_name"
+                variant="outlined"
+                autoComplete="given-name"
+                autoFocus
+              />
             </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextBox
+                required
+                fullWidth
+                name="last_name"
+                label="Last Name"
+                type="Last Name"
+                id="last_name"
+                variant="outlined"
+                autoComplete="family-name"
+              />
+            </Grid>
+
+            <Grid item xs={12}>
               <TextBox
                 margin="normal"
                 required
@@ -145,6 +147,9 @@ export default function SignUp() {
                 variant="outlined"
                 autoComplete="email"
               />
+            </Grid>
+
+            <Grid item xs={12}>
               <TextBox
                 margin="normal"
                 required
@@ -156,21 +161,52 @@ export default function SignUp() {
                 variant="outlined"
                 autoComplete="new-password"
               />
-            
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Link href="/SignIn" variant="body2">
-              Already have an account? Sign in
-            </Link>
-          </Box>
+            </Grid>
+            <Grid item xs={1} />
+            <Grid item xs={4}>
+              <TextBox
+                margin="normal"
+                required
+                fullWidth
+                name="age"
+                label="Age"
+                type="text"
+                id="age"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={2} />
+            <Grid item xs={4}>
+              <TextBox
+                margin="normal"
+                required
+                fullWidth
+                name="gender"
+                label="Gender"
+                type="text"
+                id="gender"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                size="large"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign Up
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <Link href="/SignIn" variant="body2">
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
-      </Container>
-    
+      </Box>
+    </Container>
   );
 }
