@@ -67,7 +67,7 @@ export default function ContractorSignUp() {
 
     const register = async(first_name, last_name, email, abn, roll, password) => {
 
-        await axios.post('', {first_name, last_name, email, abn, role: roll, password,})
+        await axios.post('/users/register', {first_name, last_name, email, abn, role: roll, password,})
         .then(function (response) {
             console.log(response)
         })

@@ -1,19 +1,21 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Button from '@mui/material/Button';
+import ContractorDetails from "./ContractorDetails"
 
-import Avatar from '@mui/material/Avatar';
-import BadgeIcon from '@mui/icons-material/Badge';
-import MailIcon from '@mui/icons-material/Mail';
-import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import useAuth from "../../hooks/useAuth";
+import useIsMountedRef from "../../hooks/useIsMountedRef";
+import axios from 'axios';
+
 
 // import { setSession } from '../../utils/jwt';
 // import axios from '../../utils/axios';
+
+
 
 const contractor = {
 
@@ -30,7 +32,24 @@ const contractor = {
 
 
 export default function ContractorProfile() {
+    const isMountedRef = useIsMountedRef();
+
     const [cont, setContractor] = useState(contractor);
+
+    const { userID } = useAuth();
+
+    const [profile, setProfile] = useState();
+
+    const fetchData = useCallback(async () => {
+        const ID = window.localStorage.getItem("userID");
+        await axios.get(`users/clients/${ID}`).then((response) => {
+            setProfile(response.data);
+        });
+    })
+    
+    React.useEffect(() => {
+        fetchData();
+    }, [fetchData]);
 /*
     const setContractor = async (first_name, last_name, email, password) => {
         await axios.get() //then get the details
@@ -38,37 +57,11 @@ export default function ContractorProfile() {
 */
     return(
         <Grid container spacing = {2} sx={{ paddingRight: "30px"}}>
-            <Grid item xs={12} md={8}>
-                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                    <ListItem>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <BadgeIcon />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText primary="Full Name" secondary ={contractor.first_name + " " + contractor.last_name} />
-                    </ListItem>
 
-                    <ListItem>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <MailIcon />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText primary="Email Address" secondary = "email" />
-                    </ListItem>
+            <Grid item xs={8}>
+                {profile && <ContractorDetails profile={profile}/>}
 
-                    <ListItem>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <BusinessCenterIcon />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText primary = "ABN" secondary = {contractor.abn} />
-                    </ListItem>
-                </List>
             </Grid>
-            
             <Grid item xs={12} md={4}>
                 <Grid item xs={12} md={15}>
                     <Button variant = 'contained'>
@@ -97,3 +90,4 @@ export default function ContractorProfile() {
         </Grid>
     )
 }
+

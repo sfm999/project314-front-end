@@ -36,6 +36,9 @@ function getLongLat() {
     var unswLongitudeKM = 151.2313 * (111.320 * Math.cos(unswLatitude));
     console.log("Longitude KM : ", unswLongitudeKM);
 
+    //we divide the values of latitude and longitude of both points 
+    //by 180/pi. 
+
 
 
     //then position.coords.latitude - unswLatitude = the distance between those 2 points.
