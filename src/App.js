@@ -11,6 +11,7 @@ import ContractorProfile from './components/Contractor_Pages/ContractorProfile';
 import ContractorHome from './components/Contractor_Pages/ContractorHome';
 import CustomerHomePage from './components/Customer_Pages/CustomerHomePage';
 import TestPage from './components/TestPage';
+import InitialRequest from './components/InitialRequest';
 import ManageVehicle from './components/Customer_Pages/ManageVehicle';
 import AddVehicle from './components/Customer_Pages/AddVehicle';
 import EditVehicle from './components/Customer_Pages/EditVehicle';
@@ -84,6 +85,9 @@ function App() {
 
             {/* Just a page to test things out on */}
             <Route path="/customer/test-page" element={<TestPage />} />
+
+            {/*Adding this to test the location stuff for requests */}
+            <Route path="/customer/InitialRequest" element={<InitialRequest />} />
           </Routes>
           {/* END ROUTES */}
         </div>
