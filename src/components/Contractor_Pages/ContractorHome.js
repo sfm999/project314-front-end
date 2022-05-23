@@ -7,48 +7,31 @@ import { styled } from '@mui/material/styles';
 import { Typography } from '@mui/material';
 import { FixedSizeList } from 'react-window';
 import { deepOrange, grey } from '@mui/material/colors';
+import { useState, useEffect } from 'react';
+import Button from '@mui/material/Button';
 
-const vehicleList = {
+/*
+    THIS SHOWS ALL THE REQUESTS NEAR THE CONTRACTOR
+    AND WHEN YOU CLICK THE REQUEST INSIDE THE LIST
+    ALL THE DETAILS OPEN IN A BOX TO THE RIGHT
+*/
 
-};
-
-function getLongLat() {
-    navigator.geolocation.getCurrentPosition(function(position){
-        console.log("Latitude is : ", position.coords.latitude);
-        console.log("Longitude is : ", position.coords.longitude);
-    });
-    
-
-    //THIS IS FOR LATITUDE
-    //1 degree latitude is equal to 111km :)
-    //For examples 4 degrees = 4 x 111 = 444km
-    //So we find the degrees and then subtract the smaller one from the bigger one
-    //and that is the distance from each other in kilometers
-    var unswLatitude = 33.9173;
-    var unswLatitudeKM = 33.9173 * 110.574;
-    console.log("Latitude KM : ", unswLatitudeKM);
-
-    //THIS IS FOR LONGITUDE
-    //1 degree longitude is equal to 111.320 x cos(latitude) :)
-    //for example 4 degrees = 4 x (111.320 x cos(latitude))
-    //so 111.320 x Math.cos(latitude)
-    var unswLongitude = 151.2313; //these are in degrees so we need to use cos() or something to find the Kilometers
-    var unswLongitudeKM = 151.2313 * (111.320 * Math.cos(unswLatitude));
-    console.log("Longitude KM : ", unswLongitudeKM);
-
-    //we divide the values of latitude and longitude of both points 
-    //by 180/pi. 
-
-
-
-    //then position.coords.latitude - unswLatitude = the distance between those 2 points.
+const ContractorCoords = {
+    longitude: null,
+    latitude: null,
 }
+
+
+
 const requestInformation = {
     vehicleModel: "",
     vehicleManufacturer: "",
     vehicleColor: "",
     customerName: "",
 }
+
+//have an object that holds the request info
+
 
 const listButton = styled(ListItemButton) (({ theme }) => ({
     color: theme.palette.getContrastText(deepOrange[500]),
@@ -69,7 +52,7 @@ function RenderList(props) {
                         bgcolor: grey[500],
                     },
                 }}
-                onClick = {getLongLat}
+                //onClick = {getDistance}
 
             //onclick open more details
             //also change background color on click
@@ -81,10 +64,70 @@ function RenderList(props) {
 
 }
 
+
 export default function ContractorHome() {
 
+    const [coordsValues, setCoords] = useState(ContractorCoords);
 
 
+    function getRequests() {
+        //probably get requests from database but for now use these
+        var count = 0;
+        var unswLatitude = -33.917329664;
+        var unswLongitude = 151.225332432; 
+
+        var currentLongitude = (coordsValues.longitude * Math.PI / 180);
+        var currentLatitude = (coordsValues.latitude * Math.PI / 180);
+
+        unswLongitude = unswLongitude * Math.PI / 180;
+        unswLatitude = unswLatitude * Math.PI / 180;
+
+        if (unswLongitude > currentLongitude)
+            var longitudeDistance = unswLongitude - currentLongitude;
+        else if (unswLongitude < currentLongitude)
+            var longitudeDistance = currentLongitude - unswLongitude;
+
+
+        if (unswLatitude > currentLatitude)
+            var latitudeDistance = unswLatitude - currentLatitude;
+        else if (unswLatitude < currentLatitude)
+            var latitudeDistance = currentLatitude - unswLatitude;
+        
+
+        //if currentLatitude - unswLatitude
+        var a = Math.pow(Math.sin(latitudeDistance / 2), 2)
+                        + Math.cos(unswLatitude) * Math.cos(currentLatitude)
+                        * Math.pow(Math.sin(longitudeDistance / 2), 2);
+        var b = 2 * Math.asin(Math.sqrt(a));
+
+        var r = 6371 //radius of the earth;
+
+        console.log("Distance is : ", b * r, "km");
+
+
+
+    }
+
+    function getLocation() {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                setCoords({
+                    longitude: position.coords.longitude, 
+                    latitude: position.coords.latitude});
+                console.log(
+                    coordsValues,
+                );
+            });
+    }
+
+    useEffect(() => {
+        let ignore = false;
+        if (!ignore) getLocation()
+
+        getRequests()
+        
+        return() => {ignore = true;}
+    }, []);
 
     return (
         <Grid container spacing = {2}>
@@ -94,7 +137,7 @@ export default function ContractorHome() {
                     height={400}
                     width={360}
                     itemSize={46}
-                    itemCount={10}
+                    itemCount={10} //this will be the amount of requests
                     overscanCount={5}
                 >
                     {RenderList}
@@ -120,6 +163,9 @@ export default function ContractorHome() {
                     3. Customer name
                     4. Any other details
                 */}
+                <Typography>
+                    longitude: {coordsValues.longitude} and latitude: {coordsValues.latitude}
+                </Typography>
             </Grid>
         </Grid>
     )
