@@ -1,7 +1,9 @@
-import { Button, Card, CssBaseline, Grid, Typography } from '@mui/material';
+import { Button, Card, Container, CssBaseline, Divider, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { styled } from '@mui/material/styles';
 import '../css/Home.css';
+import CustomButton from '../sub-components/CustomButton';
+import ServiceRequest from './Service_Request/ServiceRequest';
 
 const Item = styled(Card)(({ theme }) => ({
   display: "relative",
@@ -9,6 +11,26 @@ const Item = styled(Card)(({ theme }) => ({
   textAlign: "center"
 }));
 
+const serviceRequests = [
+  {
+    vehicle: "Toyota Corolla",
+    vehicleRegistration: "RGY672",
+    contractorName: "Ludicrous",
+    issue: "Car is overheating",
+  },
+  {
+    customerName: "Nissan Skyline",
+    vehicleRegistration: "DKing",
+    contractorName: "Jesse",
+    issue: "Car ran out of fuel",
+  },
+  {
+    customerName: "Toyota Camry",
+    vehicleRegistration: "JSM123",
+    contractorName: "Rocco",
+    issue: "Car is having trouble steering",
+  },
+]
 
 
 const CustomerHomePage = () => {
@@ -36,7 +58,6 @@ const CustomerHomePage = () => {
       <Card
         sx={{
           width: "100%",
-          height: "75vh",
           display: "relative",
         }}
       >
@@ -44,59 +65,71 @@ const CustomerHomePage = () => {
           container
           direction="row"
           justifyContent="center"
-          alignItems="stretch"
           sx={{
             marginTop: "10px"
           }}  
         >
-          {/* Request Details */}
-          <Grid item xs={3}>
-            <Card sx={{ display: "relative", height: "73vh", textAlign: "center",}}>
-              <Card sx={{margin: "5px"}}>
-                <Typography variant="h4">
-                  Request Details
-                </Typography>
-                {/* Some flavour text  */}
-                <Typography variant="body2" align="justify" sx={{margin: "10px"}}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, ex unde. Nesciunt eos exercitationem atque alias eum ipsum, commodi, in deserunt quos aliquam, velit odio assumenda officiis perspiciatis repellat cumque!
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit accusamus totam quidem reiciendis minus minima quibusdam, sapiente fugit similique ex cupiditate aspernatur illum, quasi neque laudantium error, nihil accusantium ut?
-                </Typography>
-              </Card>
-            </Card>
-          </Grid>
+          <Grid container>
+            {/* Request Details */}
+            <Grid item xs={4} >
+              {/* Title */}
+              <Typography variant="h4" component="h6" noWrap>
+                Request Details
+              </Typography> 
+              
+              {/* Divider */}
+              <Divider sx={{ marginTop: "10px", marginBottom: "10px"}}/>
 
-          {/* List of Contractors */}
-          <Grid item xs={6}>
-            <Item>
-              <Card sx={{margin: "5px"}}>
-                <Typography variant="h4" sx={{ h4: { fontSize: ""}}}>
-                  List of Contractors
-                </Typography>
-                {/* Some flavour text  */}
-                <Typography variant="body2" align="justify" sx={{margin: "10px"}}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, ex unde. Nesciunt eos exercitationem atque alias eum ipsum, commodi, in deserunt quos aliquam, velit odio assumenda officiis perspiciatis repellat cumque!
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit accusamus totam quidem reiciendis minus minima quibusdam, sapiente fugit similique ex cupiditate aspernatur illum, quasi neque laudantium error, nihil accusantium ut?
-                </Typography>
-              </Card>
-            </Item>
-          </Grid>
+              <Container></Container>
+              <CustomButton text="Make a new service request" />
+              <Item sx={{overflow: "auto"}}>
+                <Card sx={{margin: "5px", display: "relative"}}>
+                  <Grid container direction="column" alignItems="center" justifyContent="center" sx={{ display: "relative",}}>
+                  {serviceRequests && serviceRequests.map((request) => {
+                    return (
+                      <Grid item>
+                        <Card sx={{ margin: "10px", boxShadow: 3, width: "100%"}}>
+                          <ServiceRequest request={request} />
+                        </Card>
+                      </Grid>
+                    );
+                  })}
+                  </Grid>
+                  
+                  { }
+                </Card>
+              </Item>
+            </Grid>
 
-          {/* List of Contractors */}
-          <Grid item xs={3}>
-            <Card sx={{ display: "relative", height: "73vh", textAlign: "center",}}>
-              <Card sx={{margin: "5px"}}>
-                <Typography variant="h4" sx={{ h4: { fontSize: ""}}}>
-                  Your Contractor
-                </Typography>
-                {/* Some flavour text  */}
-                <Typography variant="body2" align="justify" sx={{margin: "10px"}}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, ex unde. Nesciunt eos exercitationem atque alias eum ipsum, commodi, in deserunt quos aliquam, velit odio assumenda officiis perspiciatis repellat cumque!
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit accusamus totam quidem reiciendis minus minima quibusdam, sapiente fugit similique ex cupiditate aspernatur illum, quasi neque laudantium error, nihil accusantium ut?
-                </Typography>
-              </Card>
-            </Card>
-          </Grid>
+            {/* List of Contractors */}
+            <Grid item xs={4}>
+              <Item>
+                <Card sx={{margin: "5px"}}>
 
+                  {/* Title */}
+                  <Typography variant="h4" component="h6" noWrap>
+                    List of Contractors
+                  </Typography>
+
+                  
+                </Card>
+              </Item>
+            </Grid>
+
+            {/* List of Contractors */}
+            <Grid item xs={4}>
+              <Item>
+                <Card sx={{margin: "5px"}}>
+
+                  {/* Title */}
+                  <Typography variant="h4" component="h6" noWrap>
+                    Your Contractor
+                  </Typography>
+
+                </Card>
+              </Item>
+            </Grid>
+          </Grid>
         </Grid>
 
       </Card>

@@ -59,7 +59,7 @@ const CardDetails = ({ setDetails, currentDetails }) => {
               variant="outlined"
               autoFocus
               onChange={handleFormChange}
-              placeholder={currentDetails.fullName}
+              value={currentDetails.fullName}
             />
           </Grid>
           {/* Line 2 | Card number*/}
@@ -73,7 +73,7 @@ const CardDetails = ({ setDetails, currentDetails }) => {
               id="cardNumber"
               variant="outlined"
               onChange={handleFormChange}
-              placeholder={currentDetails.cardNumber}
+              value={currentDetails.cardNumber}
             />
           </Grid>
 
@@ -88,7 +88,7 @@ const CardDetails = ({ setDetails, currentDetails }) => {
               id="expiryDate"
               variant="outlined"
               onChange={handleFormChange}
-              placeholder={currentDetails.expiryDate}
+              value={currentDetails.expiryDate}
             />
           </Grid>
 
@@ -106,7 +106,7 @@ const CardDetails = ({ setDetails, currentDetails }) => {
               id="securityCode"
               variant="outlined"
               onChange={handleFormChange}
-              placeholder={currentDetails.securityCode}
+              value={currentDetails.securityCode}
             />
           </Grid>
 

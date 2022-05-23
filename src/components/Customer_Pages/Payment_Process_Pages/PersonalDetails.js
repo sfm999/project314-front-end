@@ -33,6 +33,7 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
     setDetails(e);
   }
 
+
   return (
     <Container sx={{ display: "relative"}}>
       <Typography variant="h3" align="left">
@@ -58,7 +59,7 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
               variant="outlined"
               autoFocus
               onChange={handleFormChange}
-              placeholder={currentDetails.fullName}
+              value={currentDetails.fullName}
             />
           </Grid>
           {/* Line 2 | Address line 1 */}
@@ -72,7 +73,7 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
               id="address1"
               variant="outlined"
               onChange={handleFormChange}
-              placeholder={currentDetails.address1}
+              value={currentDetails.address1}
             />
           </Grid>
           {/* Line 3 | Address line 2 */}
@@ -86,7 +87,7 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
               id="address2"
               variant="outlined"
               onChange={handleFormChange}
-              placeholder={currentDetails.address2}
+              value={currentDetails.address2}
             />
           </Grid>
 
@@ -101,7 +102,7 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
               id="city"
               variant="outlined"
               onChange={handleFormChange}
-              placeholder={currentDetails.city}
+              value={currentDetails.city}
             />
           </Grid>
 
@@ -119,7 +120,7 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
               id="state"
               variant="outlined"
               onChange={handleFormChange}
-              placeholder={currentDetails.state}
+              value={currentDetails.state}
             />
           </Grid>
 
@@ -134,7 +135,7 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
               id="phone"
               variant="outlined"
               onChange={handleFormChange}
-              placeholder={currentDetails.phone}
+              value={currentDetails.phone}
             />
           </Grid>
 
@@ -152,7 +153,7 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
               id="fax"
               variant="outlined"
               onChange={handleFormChange}
-              placeholder={currentDetails.fax}
+              value={currentDetails.fax}
             />
           </Grid>
 

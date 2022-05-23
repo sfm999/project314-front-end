@@ -4,41 +4,39 @@ import { SelectPaymentPlan, CardDetails, PersonalDetails, ReviewPaymentProcess }
 import CustomButton from "../sub-components/CustomButton";
 import { useNavigate } from "react-router";
 
-const client = {
-  
+const paymentDetails = {
+  defaultPersonalDetails: {
+    fullName: "",
+    address1: "",
+    address2: "",
+    city: "",
+    state: "",
+    postcode: "",
+    phone: "",
+    fax: "",
+  },
+  defaultCardDetails: {
+    fullName: "",
+    cardNumber: "",
+    expiryDate: "",
+    securityCode: "",
+    postcode: "",
+  },
+  subStatus: "",
 }
-const defaultCardDetails = {
-  fullName: "",
-  cardNumber: "",
-  expiryDate: "",
-  securityCode: "",
-  postcode: "",
-}
-
-const defaultPersonalDetails = {
-  fullName: "",
-  address1: "",
-  address2: "",
-  city: "",
-  state: "",
-  postcode: "",
-  phone: "",
-  fax: "",
-}
-
 
 const PaymentProcess = () => {
 
-  const [cardDetails, setCardDetails] = useState(defaultCardDetails);
-  const [personalDetails, setPersonalDetails] = useState(defaultPersonalDetails);
-  const [subStatus, setSubStatus] = useState()
+  const [cardDetails, setCardDetails] = useState(paymentDetails.defaultCardDetails);
+  const [personalDetails, setPersonalDetails] = useState(paymentDetails.defaultPersonalDetails);
+  const [subStatus, setSubStatus] = useState(paymentDetails.subStatus);
 
   const setNewCardDetails = (event) => {
     const { name, value } = event.target;
     setCardDetails({
       ...cardDetails,
       [name]: value,
-    })
+    });
   }
 
   const setNewPersonalDetails = (event) => {
@@ -49,14 +47,14 @@ const PaymentProcess = () => {
     }) 
   }
 
-  const setNewSubStatus = (event) => {
-
+  const setNewSubStatus = (text) => {
+    setSubStatus(text);
   }
 
   function getStepContent(step) {
     switch(step) {
       case 0:
-        return <SelectPaymentPlan />;
+        return <SelectPaymentPlan subStatus={subStatus} setSubStatus={setNewSubStatus}/>;
       case 1:
         return <CardDetails setDetails={setNewCardDetails} currentDetails={cardDetails} />;
       case 2:
@@ -78,10 +76,15 @@ const PaymentProcess = () => {
   }
 
   const handleNext = () => {
+
     if(activeStep < 3) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      console.log(cardDetails)
-      console.log(personalDetails)
+    }
+    
+    if(activeStep === 3) {
+      console.log(personalDetails);
+      console.log(cardDetails);
+      console.log(subStatus);
     }
   }
 

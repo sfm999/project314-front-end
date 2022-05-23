@@ -1,6 +1,6 @@
 import { Card, Container, Grid, Typography } from "@mui/material";
 
-const ReviewPaymentProcess = () => {
+const ReviewPaymentProcess = ({paymentDetails}) => {
   return (
     <Container sx={{ width: "100%",}}>
     <Typography variant="h3" align="left">
@@ -15,7 +15,7 @@ const ReviewPaymentProcess = () => {
         <Grid item xs={6}>
           <Card sx={{ height: "50vh", margin: "20px", boxShadow: "3", }}>
             <Typography variant="h4" align="center">
-              LHS
+              Personal Details
             </Typography>
           </Card>
         </Grid>
