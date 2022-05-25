@@ -199,9 +199,7 @@ const CustomerHomePage = () => {
             onClose = {serviceClose}
             aria-labelledby="modal-title"
           >
-            
             <ServiceRequestModal profile={profile} vehicle={vehicle} sendDataToHomePage={sendDataToHomePage}/>
-            
           </Modal>
           
     </Box>

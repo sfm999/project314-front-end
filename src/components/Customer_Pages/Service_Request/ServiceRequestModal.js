@@ -47,12 +47,11 @@ const ServiceRequestModal = ({profile, vehicle, sendDataToHomePage }) => {
     const [location, setLocation] = useState(locationValues);
     const [request, setRequest] = useState(requestValues);
 
-
     function submitRequest() {
-        console.log(profile.first_name);
-        console.log(vehicle.vehicleRegistration);
-        console.log(location.longitude);
-        console.log(location.latitude);
+        console.log("From profile",profile.first_name);
+        console.log("From vehicle", vehicle.vehicleRegistration);
+        console.log("From location",location.longitude);
+        console.log("From location",location.latitude);
         setRequest(request => ({
             ...request,
             name: profile.first_name,
@@ -61,7 +60,6 @@ const ServiceRequestModal = ({profile, vehicle, sendDataToHomePage }) => {
             latitude: location.latitude
         })
     );
-
         sendDataToHomePage(request);
     }
 
@@ -82,9 +80,7 @@ const ServiceRequestModal = ({profile, vehicle, sendDataToHomePage }) => {
                 setDenied(true);
             }
             );
-        
-    
-      };
+        };
     return (
         <Box sx={style}>
             <List>

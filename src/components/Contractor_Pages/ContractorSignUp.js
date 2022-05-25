@@ -93,11 +93,13 @@ export default function ContractorSignUp() {
 
     return (
         
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs" sx={{ boxShadow: 2}}>
         <CssBaseline />
             <Box
                 sx={{
                     marginTop: 8,
+                    paddingBottom: "10px",
+                    paddingTop: "7px",
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -170,6 +172,37 @@ export default function ContractorSignUp() {
                         variant="outlined"
                         autoComplete="new-password"
                     />
+                    <Grid container spacing={1}>        
+                        <Grid item xs={1} />            
+                        <Grid item xs={4}>
+                            <TextBox
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="age"
+                                label="Age"
+                                type="text"
+                                id="age"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={2} />
+                        <Grid item xs={4}>
+                            <TextBox
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="gender"
+                                label="Gender"
+                                type="text"
+                                id="gender"
+                                variant="outlined"
+                            />
+                        </Grid>
+
+                    </Grid>
+
+
                     <Button
                         type="submit"
                         fullWidth
