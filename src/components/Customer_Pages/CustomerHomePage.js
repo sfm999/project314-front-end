@@ -1,9 +1,10 @@
-import { Button, Card, Container, CssBaseline, Divider, Grid, Typography } from '@mui/material';
+import { Button, Card, Container, CssBaseline, Divider, Grid, Modal, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { styled } from '@mui/material/styles';
 import '../css/Home.css';
 import CustomButton from '../sub-components/CustomButton';
 import ServiceRequest from './Service_Request/ServiceRequest';
+import { useState } from 'react';
 
 const Item = styled(Card)(({ theme }) => ({
   display: "relative",
@@ -11,7 +12,7 @@ const Item = styled(Card)(({ theme }) => ({
   textAlign: "center"
 }));
 
-const serviceRequests = [
+const defaultRequests = [
   {
     vehicle: "Toyota Corolla",
     vehicleRegistration: "RGY672",
@@ -19,13 +20,13 @@ const serviceRequests = [
     issue: "Car is overheating",
   },
   {
-    customerName: "Nissan Skyline",
+    vehicle: "Nissan Skyline",
     vehicleRegistration: "DKing",
     contractorName: "Jesse",
     issue: "Car ran out of fuel",
   },
   {
-    customerName: "Toyota Camry",
+    vehicle: "Toyota Camry",
     vehicleRegistration: "JSM123",
     contractorName: "Rocco",
     issue: "Car is having trouble steering",
@@ -34,6 +35,17 @@ const serviceRequests = [
 
 
 const CustomerHomePage = () => {
+
+  const [requests, setRequests] = useState(defaultRequests);
+  const [showModal, setShowModal] = useState(false);
+  
+  const addRequest = (request) => {
+    setRequests((prevRequests) => {
+      return [...prevRequests, request]
+    })    
+    setShowModal(false);
+  }
+
   return (
     // Overarching container 
     <Box
@@ -73,22 +85,24 @@ const CustomerHomePage = () => {
             {/* Request Details */}
             <Grid item xs={4} >
               {/* Title */}
-              <Typography variant="h4" component="h6" noWrap>
+              <Typography variant="h4" component="h6" noWrap align="center">
                 Request Details
               </Typography> 
               
               {/* Divider */}
               <Divider sx={{ marginTop: "10px", marginBottom: "10px"}}/>
 
-              <Container></Container>
-              <CustomButton text="Make a new service request" />
+              <div style={{textAlign: "center"}}>
+                <CustomButton text="Make a new service request" />
+              </div>
+              
               <Item sx={{overflow: "auto"}}>
                 <Card sx={{margin: "5px", display: "relative"}}>
                   <Grid container direction="column" alignItems="center" justifyContent="center" sx={{ display: "relative",}}>
-                  {serviceRequests && serviceRequests.map((request) => {
+                  {defaultRequests && defaultRequests.map((request) => {
                     return (
                       <Grid item>
-                        <Card sx={{ margin: "10px", boxShadow: 3, width: "100%"}}>
+                        <Card sx={{ display: "block", margin: "10px", boxShadow: 3, width: "100%"}}>
                           <ServiceRequest request={request} />
                         </Card>
                       </Grid>
@@ -99,6 +113,10 @@ const CustomerHomePage = () => {
                   { }
                 </Card>
               </Item>
+                
+              { showModal && <Modal>
+                test
+              </Modal>}
             </Grid>
 
             {/* List of Contractors */}

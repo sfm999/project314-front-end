@@ -14,7 +14,7 @@ import CarCrashIcon from '@mui/icons-material/CarCrash';
 
 const ServiceRequest = ({ request }) => {
   return (
-    <List sx={{ width: "100%", backgroundColor: "#bdbdbd", }}>
+    <List sx={{ width: "100%", backgroundColor: "#bdbdbd"}}>
 
       {/* Customer requesting service */}
       <ListItem alignItems="flex-start">
@@ -25,11 +25,11 @@ const ServiceRequest = ({ request }) => {
         </ListItemAvatar>
 
         {/* Customer | {request.customerName} */}
-        <ListItemTextContainer primaryText="Customer" secondaryText={request.customerName} />
+        <ListItemTextContainer primaryText="Vehicle" secondaryText={request.customerName} />
       </ListItem>
 
       {/* Vehicle Registration */}
-      <ListItem alignItems="flext-start">
+      <ListItem>
 
         {/* Vehicle Registration icon */}
         <ListItemAvatar>
