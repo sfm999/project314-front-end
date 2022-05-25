@@ -1,9 +1,13 @@
+import { useCallback, useEffect, useState } from "react"; //Added by Ethan for modal stuff
 import { Button, Card, Container, CssBaseline, Divider, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { styled } from '@mui/material/styles';
 import '../css/Home.css';
 import CustomButton from '../sub-components/CustomButton';
 import ServiceRequest from './Service_Request/ServiceRequest';
+import ServiceRequestModal from './Service_Request/ServiceRequestModal';
+import Modal from '@mui/material/Modal'; //Import for MUI modal
+import axios from "../../utils/axios"; //Added by Ethan for the Modal stuff
 
 const Item = styled(Card)(({ theme }) => ({
   display: "relative",
@@ -32,8 +36,44 @@ const serviceRequests = [
   },
 ]
 
+const vehicleValues = {
+  vehicleRegistration: "JSM123",
+  issue: "",
+}
+
+const requestValues = {
+  name: "",
+  registration: "",
+  longitude: "",
+  latitude: "",
+}
+
 
 const CustomerHomePage = () => {
+  const [profile, setProfile] = useState();
+  const [vehicle, setvehicle] = useState(vehicleValues);
+  const [modalOpen, setOpen] = useState(false);
+  const [request, setRequest] = useState(requestValues);
+  const serviceOpen = () => setOpen(true);
+  const serviceClose = () => setOpen(false);
+
+  const sendDataToHomePage = (index) => {
+    console.log(index);
+    setRequest(index);
+  }
+
+  const fetchData = useCallback(async () => {
+    const ID = window.localStorage.getItem("userID");
+    console.log("Printing from within fetchData:", ID);
+    await axios.get(`users/${ID}`).then((response) => {
+      setProfile(response.data);
+      console.log("The data from the response given by axios:", response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
   return (
     // Overarching container 
     <Box
@@ -136,6 +176,7 @@ const CustomerHomePage = () => {
 
       {/* Request service button  */}
       <Button 
+            onClick = {serviceOpen}
             fullWidth
             variant="outlined"
             size='large'
@@ -153,6 +194,16 @@ const CustomerHomePage = () => {
                 }
             }}
           >Request Service</Button>
+          <Modal
+            open = {modalOpen}
+            onClose = {serviceClose}
+            aria-labelledby="modal-title"
+          >
+            
+            <ServiceRequestModal profile={profile} vehicle={vehicle} sendDataToHomePage={sendDataToHomePage}/>
+            
+          </Modal>
+          
     </Box>
     );
 }
