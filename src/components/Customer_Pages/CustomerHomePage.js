@@ -1,10 +1,21 @@
+<<<<<<< HEAD
 import { Button, Card, Container, CssBaseline, Divider, Grid, Modal, Typography } from '@mui/material';
+=======
+import { useCallback, useEffect, useState } from "react"; //Added by Ethan for modal stuff
+import { Button, Card, Container, CssBaseline, Divider, Grid, Typography } from '@mui/material';
+>>>>>>> 86303a32c4b7be52708c753ac7356fb50bd22974
 import { Box } from '@mui/system';
 import { styled } from '@mui/material/styles';
 import '../css/Home.css';
 import CustomButton from '../sub-components/CustomButton';
 import ServiceRequest from './Service_Request/ServiceRequest';
+<<<<<<< HEAD
 import { useState } from 'react';
+=======
+import ServiceRequestModal from './Service_Request/ServiceRequestModal';
+import Modal from '@mui/material/Modal'; //Import for MUI modal
+import axios from "../../utils/axios"; //Added by Ethan for the Modal stuff
+>>>>>>> 86303a32c4b7be52708c753ac7356fb50bd22974
 
 const Item = styled(Card)(({ theme }) => ({
   display: "relative",
@@ -33,8 +44,21 @@ const defaultRequests = [
   },
 ]
 
+const vehicleValues = {
+  vehicleRegistration: "JSM123",
+  issue: "",
+}
+
+const requestValues = {
+  name: "",
+  registration: "",
+  longitude: "",
+  latitude: "",
+}
+
 
 const CustomerHomePage = () => {
+<<<<<<< HEAD
 
   const [requests, setRequests] = useState(defaultRequests);
   const [showModal, setShowModal] = useState(false);
@@ -46,6 +70,32 @@ const CustomerHomePage = () => {
     setShowModal(false);
   }
 
+=======
+  const [profile, setProfile] = useState();
+  const [vehicle, setvehicle] = useState(vehicleValues);
+  const [modalOpen, setOpen] = useState(false);
+  const [request, setRequest] = useState(requestValues);
+  const serviceOpen = () => setOpen(true);
+  const serviceClose = () => setOpen(false);
+
+  const sendDataToHomePage = (index) => {
+    console.log(index);
+    setRequest(index);
+  }
+
+  const fetchData = useCallback(async () => {
+    const ID = window.localStorage.getItem("userID");
+    console.log("Printing from within fetchData:", ID);
+    await axios.get(`users/${ID}`).then((response) => {
+      setProfile(response.data);
+      console.log("The data from the response given by axios:", response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+>>>>>>> 86303a32c4b7be52708c753ac7356fb50bd22974
   return (
     // Overarching container 
     <Box
@@ -154,6 +204,7 @@ const CustomerHomePage = () => {
 
       {/* Request service button  */}
       <Button 
+            onClick = {serviceOpen}
             fullWidth
             variant="outlined"
             size='large'
@@ -172,6 +223,14 @@ const CustomerHomePage = () => {
             }}
             onClick={handleNewRequest}
           >Request Service</Button>
+          <Modal
+            open = {modalOpen}
+            onClose = {serviceClose}
+            aria-labelledby="modal-title"
+          >
+            <ServiceRequestModal profile={profile} vehicle={vehicle} sendDataToHomePage={sendDataToHomePage}/>
+          </Modal>
+          
     </Box>
     );
 }
