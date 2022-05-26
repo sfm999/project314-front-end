@@ -170,6 +170,7 @@ const CustomerHomePage = () => {
                 border: "none"
                 }
             }}
+            onClick={handleNewRequest}
           >Request Service</Button>
     </Box>
     );
