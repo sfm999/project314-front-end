@@ -73,8 +73,12 @@ export default function SignIn() {
 
     /* Trying to get the status code from the PromiseResult that login returns */
 
-    const res = login(data.get("email"), data.get("password"));
-    console.log(res);
+    login(data.get("email"), data.get("password")).then((res) => {
+      if (res === 200) {
+        window.localStorage.setItem("role", "C");
+        navigate("/customer/home");
+      }
+    });
     // if (statusCode === 200) {
     //   navigate("/customer/home");
     // } else {
