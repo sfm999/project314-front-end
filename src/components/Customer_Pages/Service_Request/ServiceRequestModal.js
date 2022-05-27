@@ -8,6 +8,10 @@ import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import DoneIcon from '@mui/icons-material/Done';
 import ListItemTextContainer from "../../sub-components/ListItemTextContainer";
+<<<<<<< HEAD
+=======
+import TextField from '@mui/material/TextField';
+>>>>>>> 2dd53345fe6da515292507d84ee42f2a48bc3c9b
 
 
 const style = {
@@ -42,6 +46,8 @@ const ServiceRequestModal = ({profile, vehicle, sendDataToHomePage }) => {
     const [clicked, setClicked] = useState(false);
     const [locationDenied, setDenied] = useState();
     const [location, setLocation] = useState(locationValues);
+
+    /*Probably dont even need a usestate, maybe just return the values to the CustomerHomePage */
     const [request, setRequest] = useState(requestValues);
 
     function submitRequest() {
@@ -122,8 +128,8 @@ const ServiceRequestModal = ({profile, vehicle, sendDataToHomePage }) => {
                         {clicked ?  <MyLocationIcon/> :<LocationSearchingIcon/>}
                     </Button>
                     <Typography>
-                        {locationDenied ? "Allow access to location services" : ""}
-                        {clicked && !locationDenied ? <DoneIcon/> : ""}
+                        {locationDenied ? "Allow access to location services" : ""} {/* if location is denied */}
+                        {clicked && !locationDenied ? <DoneIcon/> : ""} {/*if location is not denied and it is clicked show done */}
                     </Typography>
                 </ListItem>
             </List>
