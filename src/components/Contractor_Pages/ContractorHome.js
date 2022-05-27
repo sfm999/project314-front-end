@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
+import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -8,6 +9,8 @@ import { Typography } from '@mui/material';
 import { FixedSizeList } from 'react-window';
 import { deepOrange, grey } from '@mui/material/colors';
 import { useState, useEffect } from 'react';
+import RequestList from './RequestsList';
+
 
 
 /*
@@ -23,12 +26,39 @@ const ContractorCoords = {
 
 
 
-const requestInformation = {
-    vehicleModel: "",
-    vehicleManufacturer: "",
-    vehicleColor: "",
-    customerName: "",
-}
+const requestInformationDefault = [
+    {
+        customerName: "",
+        issue: "",
+        vehicleModel: "",
+        vehicleManufacturer: "",
+        vehicleColor: "",
+        registration: ""
+    }
+];
+
+const requestList = [
+  {
+    ID: 1,
+    name: "Jeffry Jack",
+    longitude: 150.89583,
+    latitude: -34.39667,
+
+  },
+  {
+    ID: 2,
+    name: "Elon Musk",
+    longitude: 150.8499966,
+    latitude: -34.4333316,
+  },
+  {
+    ID: 3,
+    name: "Billy Joel",
+    longitude: 150.88582979,
+    latitude: -34.483998064,
+  }
+
+];
 
 //have an object that holds the request info
 
@@ -46,18 +76,17 @@ function RenderList(props) {
 
     return (
         <ListItem style={style} key={index} component="div" disablePadding>
-            <ListItemButton
+            <ListItemButton key="ItemButton"
                 sx={{
                     '&:hover, &:focus': {
                         bgcolor: grey[500],
                     },
                 }}
-                //onClick = {getDistance}
 
             //onclick open more details
             //also change background color on click
             >
-                <ListItemText primary={`Item ${index + 1}`} secondary/>
+                <ListItemText primary={`Item ${index + 1}`}/>
             </ListItemButton>
         </ListItem>
     );
@@ -68,44 +97,51 @@ function RenderList(props) {
 export default function ContractorHome() {
 
     const [coordsValues, setCoords] = useState(ContractorCoords);
+    const [requests, setRequests] = useState(requestList);
 
 
-    function getRequests() {
-        //probably get requests from database but for now use these
-        var count = 0;
-        var unswLatitude = -33.917329664;
-        var unswLongitude = 151.225332432; 
-
-        var currentLongitude = (coordsValues.longitude * Math.PI / 180);
-        var currentLatitude = (coordsValues.latitude * Math.PI / 180);
-
-        unswLongitude = unswLongitude * Math.PI / 180;
-        unswLatitude = unswLatitude * Math.PI / 180;
-
-        if (unswLongitude > currentLongitude)
-            var longitudeDistance = unswLongitude - currentLongitude;
-        else if (unswLongitude < currentLongitude)
-            var longitudeDistance = currentLongitude - unswLongitude;
 
 
-        if (unswLatitude > currentLatitude)
-            var latitudeDistance = unswLatitude - currentLatitude;
-        else if (unswLatitude < currentLatitude)
-            var latitudeDistance = currentLatitude - unswLatitude;
+    function compareLocation(longitude, latitude) {
+
+      var currentLongitude = (coordsValues.longitude * Math.PI / 180);
+      var currentLatitude = (coordsValues.latitude * Math.PI / 180);
+
+      var requestLongitude = (longitude * Math.PI / 180);
+      var requestLatitude = (latitude * Math.PI / 180);
+
+      if (requestLongitude > currentLongitude)
+            var longitudeDistance = requestLongitude - currentLongitude;
+        else if (requestLongitude < currentLongitude)
+            var longitudeDistance = currentLongitude - requestLongitude;
+
+
+        if (requestLatitude > currentLatitude)
+            var latitudeDistance = requestLatitude - currentLatitude;
+        else if (requestLatitude < currentLatitude)
+            var latitudeDistance = currentLatitude - requestLatitude;
         
 
         //if currentLatitude - unswLatitude
         var a = Math.pow(Math.sin(latitudeDistance / 2), 2)
-                        + Math.cos(unswLatitude) * Math.cos(currentLatitude)
+                        + Math.cos(requestLatitude) * Math.cos(currentLatitude)
                         * Math.pow(Math.sin(longitudeDistance / 2), 2);
         var b = 2 * Math.asin(Math.sqrt(a));
 
         var r = 6371 //radius of the earth;
 
+        var totalDistance = b * r;
+
         console.log("Distance is : ", b * r, "km");
 
+        if (totalDistance < 50) {
+          return Math.round(totalDistance*100)/100;
+        }
+        else {
+          return 0;
+        }
 
-
+        
     }
 
     function getLocation() {
@@ -124,7 +160,8 @@ export default function ContractorHome() {
         let ignore = false;
         if (!ignore) getLocation()
 
-        getRequests()
+        //getRequests()
+
         
         return() => {ignore = true;}
     }, []);
@@ -137,7 +174,7 @@ export default function ContractorHome() {
                     height={400}
                     width={360}
                     itemSize={46}
-                    itemCount={10} //this will be the amount of requests
+                    itemCount={requests.length} //this will be the amount of requests
                     overscanCount={5}
                 >
                     {RenderList}
@@ -151,9 +188,24 @@ export default function ContractorHome() {
                     3. Location
                  */}
             </Grid>
-            <Grid item xs={12} md={6}>
+
+            <React.Fragment>
+              <List>
+                    {requestList &&
+                      requestList.map((requests) => {
+                        return (
+                          <ListItem button key={requests.ID}>
+                            <ListItemText key={requests.ID} 
+                              primary={requests.name} 
+                              secondary={compareLocation(requests.longitude, requests.latitude)}/>
+                          </ListItem>
+                        );
+                      })}
+                </List>
+              </React.Fragment>
+            {/*<Grid item xs={12} md={6}>
                 <Typography variant='h6'>Request Details</Typography>
-                {/*
+                
                     This will have the list of the vehicles that need 
                     servicing withing 50km of the contractor
                     will include
@@ -162,11 +214,10 @@ export default function ContractorHome() {
                     2. Vehicle colour
                     3. Customer name
                     4. Any other details
-                */}
                 <Typography>
                     longitude: {coordsValues.longitude} and latitude: {coordsValues.latitude}
                 </Typography>
-            </Grid>
+            </Grid>*/}
         </Grid>
     )
 }
