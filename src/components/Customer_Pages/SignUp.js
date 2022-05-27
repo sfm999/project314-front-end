@@ -1,47 +1,47 @@
-import * as React from 'react';
-import {useState} from 'react';
-import { styled } from '@mui/material/styles';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { green } from '@mui/material/colors';
+import * as React from "react";
+import { useState } from "react";
+import { styled } from "@mui/material/styles";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { green } from "@mui/material/colors";
 
 // import { setSession } from '../../utils/jwt';
-import axios from '../../utils/axios';
+import axios from "../../utils/axios";
+import { useNavigate } from "react-router";
 
-const TextBox = styled(TextField) ({
-  '& input:valid + fieldset': {
-      borderColor: 'green',
-      borderWidth: 2,
+const TextBox = styled(TextField)({
+  "& input:valid + fieldset": {
+    borderColor: "green",
+    borderWidth: 2,
   },
-  '& input:invalid + fieldset': {
-      borderColor: 'red',
-      borderWidth: 2,
+  "& input:invalid + fieldset": {
+    borderColor: "red",
+    borderWidth: 2,
   },
-  '& input:valid:focus + fieldset': {
-      borderLeftWidth: 6,
-      padding: '4px !important',
+  "& input:valid:focus + fieldset": {
+    borderLeftWidth: 6,
+    padding: "4px !important",
   },
-  '& .MuiOutlinedInput-root': {
-      '& fieldset': {
-        borderColor: 'red',
-      },
-      '&:hover fieldset': {
-        borderColor: 'blue',
-      },
-      '&.Mui-focused fieldset': {
-        borderColor: 'blue',
-      },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "red",
     },
-})
-
+    "&:hover fieldset": {
+      borderColor: "blue",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "blue",
+    },
+  },
+});
 
 const defaultValues = {
   firstname: "",
@@ -49,9 +49,10 @@ const defaultValues = {
   email: "",
   role: "C",
   password: "",
-}
+};
 
 export default function SignUp() {
+  let navigate = useNavigate();
 
   const [formValues, setFormValues] = useState(defaultValues);
 
@@ -64,41 +65,55 @@ export default function SignUp() {
     });
   };
   const register = async (first_name, last_name, email, roll, password) => {
-
-
-    await axios.post('/users/register/', {first_name, last_name, email, role: roll, password,})
-    .then(function (response) {
-      console.log(response)
-    })
-    .catch(function(error) {
-      console.log(error)
-    })
+    await axios
+      .post("/users/register/", {
+        first_name,
+        last_name,
+        email,
+        role: roll,
+        password,
+      })
+      .then(function (response) {
+        if (response.status === 201) {
+          window.localStorage.setItem("logged-in", "true");
+        }
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    
-    data.append('role', 'C' );
+
+    data.append("role", "C");
     register(
-      data.get('first_name'),
-      data.get('last_name'),
-      data.get('email'),
-      data.get('role'),
-      data.get('password'),);
+      data.get("first_name"),
+      data.get("last_name"),
+      data.get("email"),
+      data.get("role"),
+      data.get("password")
+    );
+    console.log(data.get("role"));
+    window.localStorage.setItem("role", data.get("role"));
+    if (window.localStorage.getItem("logged-in") === "true") {
+      navigate("/customer/home");
+    }
   };
 
   return (
-    <Container component="main" maxWidth="xs" sx={{ boxShadow: 2}}>
+    <Container component="main" maxWidth="xs" sx={{ boxShadow: 2 }}>
       <CssBaseline />
       <Box
         sx={{
           marginTop: 8,
           paddingBottom: "10px",
           paddingTop: "7px",
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: green[500] }}>

@@ -104,6 +104,7 @@ const CustomerHomePage = () => {
           display: "relative",
         }}
       >
+        <Item></Item>
         {/* <Grid
           container
           direction="row"

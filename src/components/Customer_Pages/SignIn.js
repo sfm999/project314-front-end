@@ -18,6 +18,7 @@ import { green } from "@mui/material/colors";
 import { setSession } from "../../utils/jwt";
 import axios from "../../utils/axios";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router";
 
 const TextBox = styled(TextField)({
   "& input:valid + fieldset": {
@@ -53,6 +54,8 @@ const defaultValues = {
 export default function SignIn() {
   const { login } = useAuth();
 
+  let navigate = useNavigate();
+
   const [formValues, setFormValues] = useState(defaultValues);
 
   const handleFormChange = (e) => {
@@ -68,7 +71,15 @@ export default function SignIn() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    login(data.get("email"), data.get("password"));
+    /* Trying to get the status code from the PromiseResult that login returns */
+
+    const res = login(data.get("email"), data.get("password"));
+    console.log(res);
+    // if (statusCode === 200) {
+    //   navigate("/customer/home");
+    // } else {
+    //   console.log("incorrect login details");
+    // }
   };
 
   return (

@@ -94,6 +94,8 @@ function AuthProvider({ children }) {
       password,
     });
 
+    const statusCode = response.status;
+
     const { accessToken, refreshToken, userID } = response.data;
 
     setSession(accessToken, userID);
@@ -104,6 +106,7 @@ function AuthProvider({ children }) {
         userID,
       },
     });
+    return statusCode;
   };
 
   return (
