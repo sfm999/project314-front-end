@@ -54,18 +54,8 @@ const defaultValues = {
 export default function SignUp() {
   let navigate = useNavigate();
 
-  const [formValues, setFormValues] = useState(defaultValues);
-
-  const handleFormChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  };
   const register = async (first_name, last_name, email, roll, password) => {
-    await axios
+    const res = await axios
       .post("/users/register/", {
         first_name,
         last_name,
@@ -74,14 +64,12 @@ export default function SignUp() {
         password,
       })
       .then(function (response) {
-        if (response.status === 201) {
-          window.localStorage.setItem("logged-in", "true");
-        }
-        console.log(response);
+        return response;
       })
       .catch(function (error) {
         console.log(error);
       });
+    return res;
   };
 
   const handleSubmit = (event) => {
@@ -89,18 +77,18 @@ export default function SignUp() {
     const data = new FormData(event.currentTarget);
 
     data.append("role", "C");
+    window.localStorage.setItem("role", data.get("role"));
     register(
       data.get("first_name"),
       data.get("last_name"),
       data.get("email"),
       data.get("role"),
       data.get("password")
-    );
-    console.log(data.get("role"));
-    window.localStorage.setItem("role", data.get("role"));
-    if (window.localStorage.getItem("logged-in") === "true") {
-      navigate("/customer/home");
-    }
+    ).then((res) => {
+      if (res.status === 201) {
+        navigate("/customer/home");
+      }
+    });
   };
 
   return (

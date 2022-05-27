@@ -19,7 +19,6 @@ import axios from "../../utils/axios"; //Added by Ethan for the Modal stuff
 
 const Item = styled(Card)(({ theme }) => ({
   display: "relative",
-  height: "73vh",
   textAlign: "center",
 }));
 
@@ -41,6 +40,18 @@ const defaultRequests = [
     vehicleRegistration: "JSM123",
     contractorName: "Rocco",
     issue: "Car is having trouble steering",
+  },
+  {
+    vehicle: "Nissan Patrol",
+    vehicleRegistration: "DKing",
+    contractorName: "Jesse",
+    issue: "Car ran out of coolant",
+  },
+  {
+    vehicle: "Toyota Corolla",
+    vehicleRegistration: "ASM123",
+    contractorName: "Rocco",
+    issue: "Car is having trouble breaking",
   },
 ];
 
@@ -91,7 +102,7 @@ const CustomerHomePage = () => {
       <CssBaseline />
 
       <Grid container>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <Typography variant="h3" sx={{ marginTop: "10px" }}>
             Home Page
           </Typography>
@@ -104,7 +115,24 @@ const CustomerHomePage = () => {
           display: "relative",
         }}
       >
-        <Item></Item>
+        <Grid container spacing={1} alignItems="">
+          {defaultRequests.map((req) => {
+            return (
+              <Grid
+                item
+                xs={3}
+                sx={{
+                  margin: "auto",
+                  padding: "10px",
+                }}
+              >
+                <Item sx={{ maxWidth: "320px" }}>
+                  <ServiceRequest request={req} />
+                </Item>
+              </Grid>
+            );
+          })}
+        </Grid>
         {/* <Grid
           container
           direction="row"
