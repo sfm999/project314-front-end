@@ -77,12 +77,11 @@ export default function ContractorSignUp() {
         console.log(response.status);
         window.localStorage.setItem("logged", "true");
         return response.status;
-        
       })
       .catch(function (error) {
         console.log(error);
       });
-      return res;
+    return res;
   };
 
   const handleSubmit = (event) => {
@@ -99,15 +98,14 @@ export default function ContractorSignUp() {
       data.get("role"),
       data.get("password")
     ).then((res) => {
-        if (res === 201) {
-            console.log("YES");
-            navigate("/contractor/home");
-        }
-        else {
-            console.log("Incorrect Signup values or already created");
-        }
-    })
-    
+      if (res === 201) {
+        console.log("YES");
+        navigate("/contractor/home");
+      } else {
+        console.log("Incorrect Signup values or already created");
+      }
+    });
+
     // if (window.localStorage.getItem("logged-in") === "true") {
     //   console.log("Just Inside If ", window.localStorage.getItem("logged-in"));
     //   //navigate("/contractor/home");

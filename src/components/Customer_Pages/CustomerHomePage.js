@@ -28,30 +28,63 @@ const defaultRequests = [
     vehicleRegistration: "RGY672",
     contractorName: "Ludicrous",
     issue: "Car is overheating",
+    id: 1,
   },
   {
     vehicle: "Nissan Skyline",
     vehicleRegistration: "DKing",
     contractorName: "Jesse",
     issue: "Car ran out of fuel",
+    id: 2,
   },
   {
     vehicle: "Toyota Camry",
     vehicleRegistration: "JSM123",
     contractorName: "Rocco",
     issue: "Car is having trouble steering",
+    id: 3,
   },
   {
     vehicle: "Nissan Patrol",
     vehicleRegistration: "DKing",
     contractorName: "Jesse",
     issue: "Car ran out of coolant",
+    id: 4,
   },
   {
     vehicle: "Toyota Corolla",
     vehicleRegistration: "ASM123",
     contractorName: "Rocco",
     issue: "Car is having trouble breaking",
+    id: 5,
+  },
+  {
+    vehicle: "Nissan GT Danga",
+    vehicleRegistration: "Dangaa",
+    contractorName: "Dang",
+    issue: "Car ran out of God dang fuel or something maybe",
+    id: 6,
+  },
+  {
+    vehicle: "Toyota Hilux",
+    vehicleRegistration: "Befcke",
+    contractorName: "Beefboy",
+    issue: "Car is having trouble keeping up with the other beefcakes",
+    id: 7,
+  },
+  {
+    vehicle: "Nissan Patrol",
+    vehicleRegistration: "patrol",
+    contractorName: "Patroller",
+    issue: "Car ran out of the stuff that makes it cool",
+    id: 8,
+  },
+  {
+    vehicle: "Toyota Corolla",
+    vehicleRegistration: "corola",
+    contractorName: "Roccorola",
+    issue: "Car is having problems rocking and/or rolling",
+    id: 9,
   },
 ];
 
@@ -74,6 +107,9 @@ const CustomerHomePage = () => {
 
   const [serviceOpen, setServiceOpen] = useState(false);
 
+  const handleOpen = () => setServiceOpen(true);
+  const handleClose = () => setServiceOpen(false);
+
   const sendDataToHomePage = (index) => {
     console.log(index);
     setRequest(index);
@@ -91,6 +127,7 @@ const CustomerHomePage = () => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
   return (
     <Box
       sx={{
@@ -115,101 +152,38 @@ const CustomerHomePage = () => {
           display: "relative",
         }}
       >
-        <Grid container spacing={1} alignItems="">
+        <Grid container spacing={1} justifyContent="space-evenly">
           {defaultRequests.map((req) => {
             return (
               <Grid
                 item
-                xs={3}
+                xs={4}
+                md={3}
+                xl={2}
                 sx={{
-                  margin: "auto",
-                  padding: "10px",
+                  margin: "10px",
+                  padding: "1px",
                 }}
+                key={req.id}
               >
-                <Item sx={{ maxWidth: "320px" }}>
+                <Item
+                  sx={{
+                    maxWidth: "320px",
+                    minWidth: "210px",
+                    maxHeight: "301px",
+                  }}
+                >
                   <ServiceRequest request={req} />
                 </Item>
               </Grid>
             );
           })}
         </Grid>
-        {/* <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          sx={{
-            marginTop: "10px",
-          }}
-        >
-          <Grid container>
-
-            <Grid item>
-
-              <Typography variant="h4" component="h6" noWrap align="center">
-                Request Details
-              </Typography>
-
-              <Divider sx={{ marginTop: "10px", marginBottom: "10px" }} />
-
-              <Item sx={{ overflow: "auto" }}>
-                <Card sx={{ margin: "5px", display: "relative" }}>
-                  <Grid
-                    container
-                    direction="column"
-                    alignItems="center"
-                    justifyContent="center"
-                    sx={{ display: "relative" }}
-                  >
-                    {defaultRequests &&
-                      defaultRequests.map((request) => {
-                        return (
-                          <Grid item>
-                            <Card
-                              sx={{
-                                display: "block",
-                                margin: "10px",
-                                boxShadow: 3,
-                                width: "100%",
-                              }}
-                            >
-                              <ServiceRequest request={request} />
-                            </Card>
-                          </Grid>
-                        );
-                      })}
-                  </Grid>
-
-                  {}
-                </Card>
-              </Item>
-            </Grid>
-
-            <Grid item xs={4}>
-              <Item>
-                <Card sx={{ margin: "5px" }}>
-                  <Typography variant="h4" component="h6" noWrap>
-                    List of Contractors
-                  </Typography>
-                </Card>
-              </Item>
-            </Grid>
-
-            <Grid item xs={4}>
-              <Item>
-                <Card sx={{ margin: "5px" }}>
-                  <Typography variant="h4" component="h6" noWrap>
-                    Your Contractor
-                  </Typography>
-                </Card>
-              </Item>
-            </Grid>
-          </Grid>
-        </Grid> */}
       </Card>
 
       {/* Request service button  */}
       <Button
-        onClick={() => setServiceOpen(!serviceOpen)}
+        onClick={handleOpen}
         fullWidth
         variant="outlined"
         size="large"
@@ -232,7 +206,7 @@ const CustomerHomePage = () => {
 
       <Modal
         open={serviceOpen}
-        onClose={!serviceOpen}
+        onClose={handleClose}
         aria-labelledby="modal-title"
       >
         <ServiceRequestModal
