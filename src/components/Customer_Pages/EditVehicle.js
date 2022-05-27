@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Box, Container, styled } from "@mui/system";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import CustomButton from "../sub-components/CustomButton";
 
 const TextBox = styled(TextField)({
@@ -47,6 +47,11 @@ const customerVehicle = {
 };
 
 const EditVehicle = () => {
+  const location = useLocation();
+  console.log(
+    "Printing vehicle id from passing in params in navigate(), hopefully?",
+    location.state.vehicleID
+  );
   const [formValues, setFormValues] = useState(customerVehicle);
 
   // Handle page change (back button)

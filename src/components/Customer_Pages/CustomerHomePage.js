@@ -1,17 +1,8 @@
 import { useCallback, useEffect, useState } from "react"; //Added by Ethan for modal stuff
-import {
-  Button,
-  Card,
-  Container,
-  CssBaseline,
-  Divider,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Button, Card, CssBaseline, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
 import "../css/Home.css";
-import CustomButton from "../sub-components/CustomButton";
 import ServiceRequest from "./Service_Request/ServiceRequest";
 import ServiceRequestModal from "./Service_Request/ServiceRequestModal";
 import Modal from "@mui/material/Modal"; //Import for MUI modal
@@ -83,7 +74,7 @@ const defaultRequests = [
     vehicle: "Toyota Corolla",
     vehicleRegistration: "corola",
     contractorName: "Roccorola",
-    issue: "Car is having problems rocking and/or rolling",
+    issue: "Car is having problemsnpm rocking and/or rolling",
     id: 9,
   },
 ];
