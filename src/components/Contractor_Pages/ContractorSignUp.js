@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -52,6 +53,8 @@ const defaultValues = {
 
 export default function ContractorSignUp() {
   let navigate = useNavigate();
+  const [logged, setLogged] = useState(false);
+  window.localStorage.setItem("logged", "false");
 
   const register = async (
     first_name,
@@ -61,7 +64,7 @@ export default function ContractorSignUp() {
     role,
     password
   ) => {
-    await axios
+    let res = await axios
       .post("/users/register/", {
         first_name,
         last_name,
@@ -71,14 +74,15 @@ export default function ContractorSignUp() {
         password,
       })
       .then(function (response) {
-        if (response.status === 201) {
-          window.localStorage.setItem("logged-in", "true");
-        }
-        console.log(response);
+        console.log(response.status);
+        window.localStorage.setItem("logged", "true");
+        return response.status;
+        
       })
       .catch(function (error) {
         console.log(error);
       });
+      return res;
   };
 
   const handleSubmit = (event) => {
@@ -86,6 +90,7 @@ export default function ContractorSignUp() {
     const data = new FormData(event.currentTarget);
 
     data.append("role", "S");
+    window.localStorage.setItem("role", data.get("role"));
     register(
       data.get("first_name"),
       data.get("last_name"),
@@ -93,11 +98,20 @@ export default function ContractorSignUp() {
       data.get("abn"),
       data.get("role"),
       data.get("password")
-    );
-    window.localStorage.setItem("role", data.get("role"));
-    if (window.localStorage.getItem("logged-in") === "true") {
-      navigate("/contractor/home");
-    }
+    ).then((res) => {
+        if (res === 201) {
+            console.log("YES");
+            navigate("/contractor/home");
+        }
+        else {
+            console.log("Incorrect Signup values or already created");
+        }
+    })
+    
+    // if (window.localStorage.getItem("logged-in") === "true") {
+    //   console.log("Just Inside If ", window.localStorage.getItem("logged-in"));
+    //   //navigate("/contractor/home");
+    // }
   };
 
   return (
