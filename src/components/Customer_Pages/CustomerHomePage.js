@@ -1,21 +1,13 @@
-<<<<<<< HEAD
-import { Button, Card, Container, CssBaseline, Divider, Grid, Modal, Typography } from '@mui/material';
-=======
 import { useCallback, useEffect, useState } from "react"; //Added by Ethan for modal stuff
 import { Button, Card, Container, CssBaseline, Divider, Grid, Typography } from '@mui/material';
->>>>>>> 86303a32c4b7be52708c753ac7356fb50bd22974
 import { Box } from '@mui/system';
 import { styled } from '@mui/material/styles';
 import '../css/Home.css';
 import CustomButton from '../sub-components/CustomButton';
 import ServiceRequest from './Service_Request/ServiceRequest';
-<<<<<<< HEAD
-import { useState } from 'react';
-=======
 import ServiceRequestModal from './Service_Request/ServiceRequestModal';
 import Modal from '@mui/material/Modal'; //Import for MUI modal
 import axios from "../../utils/axios"; //Added by Ethan for the Modal stuff
->>>>>>> 86303a32c4b7be52708c753ac7356fb50bd22974
 
 const Item = styled(Card)(({ theme }) => ({
   display: "relative",
@@ -58,25 +50,13 @@ const requestValues = {
 
 
 const CustomerHomePage = () => {
-<<<<<<< HEAD
 
-  const [requests, setRequests] = useState(defaultRequests);
-  const [showModal, setShowModal] = useState(false);
-  
-  const addRequest = (request) => {
-    setRequests((prevRequests) => {
-      return [...prevRequests, request]
-    })    
-    setShowModal(false);
-  }
-
-=======
   const [profile, setProfile] = useState();
   const [vehicle, setvehicle] = useState(vehicleValues);
   const [modalOpen, setOpen] = useState(false);
   const [request, setRequest] = useState(requestValues);
-  const serviceOpen = () => setOpen(true);
-  const serviceClose = () => setOpen(false);
+
+  const [serviceOpen, setServiceOpen] = useState(false);
 
   const sendDataToHomePage = (index) => {
     console.log(index);
@@ -92,10 +72,10 @@ const CustomerHomePage = () => {
     });
   }, []);
 
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
->>>>>>> 86303a32c4b7be52708c753ac7356fb50bd22974
   return (
     // Overarching container 
     <Box
@@ -141,10 +121,6 @@ const CustomerHomePage = () => {
               
               {/* Divider */}
               <Divider sx={{ marginTop: "10px", marginBottom: "10px"}}/>
-
-              <div style={{textAlign: "center"}}>
-                <CustomButton text="Make a new service request" />
-              </div>
               
               <Item sx={{overflow: "auto"}}>
                 <Card sx={{margin: "5px", display: "relative"}}>
@@ -163,10 +139,6 @@ const CustomerHomePage = () => {
                   { }
                 </Card>
               </Item>
-                
-              { showModal && <Modal>
-                test
-              </Modal>}
             </Grid>
 
             {/* List of Contractors */}
@@ -204,33 +176,32 @@ const CustomerHomePage = () => {
 
       {/* Request service button  */}
       <Button 
-            onClick = {serviceOpen}
-            fullWidth
-            variant="outlined"
-            size='large'
-            sx={{
-              color: "black",
-              border: "1px solid black",
-              marginBottom: "10px",
-              minHeight: "80px",
-              fontSize:"1.8rem",
-              top: 0,
-              '&:hover': {
-                backgroundColor: 'black',
-                color: 'white',
-                border: "none"
-                }
-            }}
-            onClick={handleNewRequest}
-          >Request Service</Button>
-          <Modal
-            open = {modalOpen}
-            onClose = {serviceClose}
-            aria-labelledby="modal-title"
-          >
-            <ServiceRequestModal profile={profile} vehicle={vehicle} sendDataToHomePage={sendDataToHomePage}/>
-          </Modal>
-          
+        onClick = {() => setServiceOpen(!serviceOpen)}
+        fullWidth
+        variant="outlined"
+        size='large'
+        sx={{
+          color: "black",
+          border: "1px solid black",
+          marginBottom: "10px",
+          minHeight: "80px",
+          fontSize:"1.8rem",
+          top: 0,
+          '&:hover': {
+            backgroundColor: 'black',
+            color: 'white',
+            border: "none"
+            }
+        }}
+      >Request Service</Button>
+
+      <Modal
+        open = {serviceOpen}
+        onClose = {!serviceOpen}
+        aria-labelledby="modal-title"
+      >
+        <ServiceRequestModal profile={profile} vehicle={vehicle} sendDataToHomePage={sendDataToHomePage}/>
+      </Modal>
     </Box>
     );
 }

@@ -71,7 +71,7 @@ const PaymentProcess = () => {
   const [activeStep, setActiveStep] = useState(0)
 
   const handleExit = () => {
-    let path = "/customerProfile"
+    let path = "/customer/profile"
     navigate(path)
   }
 

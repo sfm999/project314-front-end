@@ -48,12 +48,11 @@ const ManageVehicle = () => {
 
   const [selectedRows, setSelectedRows] = useState([]);
   const [editAlert, setEditAlert] = useState(false)
-  const [editVehiclePressed, setEditVehiclePressed] = useState(false)
 
   let navigate = useNavigate();
 
   const handleAddVehicleClick = () => {
-    let path = '/addVehicle'
+    let path = '/customer/vehicles/add'
     navigate(path)
   }
 
@@ -63,13 +62,13 @@ const ManageVehicle = () => {
     }else if(selectedRows.length > 1){
       setEditAlert(true);
     }else{
-      let path = '/editVehicle'
-      navigate(path)
+      let path = '/customer/vehicles/edit';
+      navigate(path);
     }
   }
 
   const handleBackClick = () => {
-    let path = '/CustomerProfile'
+    let path = '/customer/profile'
     navigate(path)
   }
 

@@ -1,9 +1,6 @@
 
-import { useCallback, useEffect, useState } from "react";
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import { List, ListItem, ListItemText, ListItemAvatar, Typography, Card, Grid } from "@mui/material";
+import { useState } from "react";
+import { Box, Button, List, ListItem, ListItemAvatar, TextField, Typography } from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import CarCrashIcon from '@mui/icons-material/CarCrash';
@@ -11,8 +8,6 @@ import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import DoneIcon from '@mui/icons-material/Done';
 import ListItemTextContainer from "../../sub-components/ListItemTextContainer";
-import TextField from '@mui/material/TextField';
-import { getDialogActionsUtilityClass } from "@mui/material";
 
 
 const style = {
@@ -42,6 +37,8 @@ const requestValues = {
 
 
 const ServiceRequestModal = ({profile, vehicle, sendDataToHomePage }) => {
+
+
     const [clicked, setClicked] = useState(false);
     const [locationDenied, setDenied] = useState();
     const [location, setLocation] = useState(locationValues);

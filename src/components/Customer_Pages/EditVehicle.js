@@ -41,14 +41,14 @@ const customerVehicle = {
 
 const EditVehicle = () => {
 
-  const [formValues, setFormValues] = useState(customerVehicle)
+  const [formValues, setFormValues] = useState(customerVehicle);
 
   // Handle page change (back button)
   let navigate = useNavigate();
   const handleBackClick = (e) => {
     e.preventDefault() // Prevent form cancellation
-    let path = '/manageVehicles'
-    navigate(path)
+    let path = '/customer/vehicles/manage';
+    navigate(path);
   }
 
   // Each time a form field changes, grab the name of the input
