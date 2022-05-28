@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react"; //Added by Ethan for modal stuff
-import { Button, Card, CssBaseline, Grid, Typography } from "@mui/material";
+import { Button, Card, CssBaseline, Grid, Typography, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
 import "../css/Home.css";
@@ -7,6 +7,11 @@ import ServiceRequest from "./Service_Request/ServiceRequest";
 import ServiceRequestModal from "./Service_Request/ServiceRequestModal";
 import Modal from "@mui/material/Modal"; //Import for MUI modal
 import axios from "../../utils/axios"; //Added by Ethan for the Modal stuff
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const Item = styled(Card)(({ theme }) => ({
   display: "relative",
@@ -195,7 +200,39 @@ const CustomerHomePage = () => {
         Request Service
       </Button>
 
-      <Modal
+      <Dialog open={serviceOpen} onClose={handleClose}>
+        
+        
+        <DialogContent>
+          <DialogContentText>
+            Time to make a request my child
+          </DialogContentText>
+          <DialogContentText>
+            <Typography>{profile?.first_name}</Typography>
+          </DialogContentText>
+          <TextField
+            autofocus
+            multiline
+            maxRows={4}
+            margin="dense"
+            name="issue"
+            id="issue"
+            label="issue"
+            type="issue"
+          />
+
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+
+          {/*This should also actually submit the request, or send the
+             the user to the payment screen :) */}
+          <Button onClick={handleClose}>Submit Request</Button>
+        </DialogActions>
+
+      </Dialog>
+      {/*<Modal
         open={serviceOpen}
         onClose={handleClose}
         aria-labelledby="modal-title"
@@ -205,7 +242,7 @@ const CustomerHomePage = () => {
           vehicle={vehicle}
           sendDataToHomePage={sendDataToHomePage}
         />
-      </Modal>
+      </Modal>*/}
     </Box>
   );
 };

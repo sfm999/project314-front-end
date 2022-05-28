@@ -42,7 +42,7 @@ export default function ContractorProfile() {
 
     const fetchData = useCallback(async () => {
         const ID = window.localStorage.getItem("userID");
-        await axios.get(`users/clients/${ID}`).then((response) => {
+        await axios.get(`users/contractor/${ID}`).then((response) => {
             setProfile(response.data);
         });
     })

@@ -60,7 +60,6 @@ const requestList = [
 
 ];
 
-//have an object that holds the request info
 
 
 const listButton = styled(ListItemButton) (({ theme }) => ({
@@ -98,6 +97,7 @@ export default function ContractorHome() {
 
     const [coordsValues, setCoords] = useState(ContractorCoords);
     const [requests, setRequests] = useState(requestList);
+    const [visibleRequests, setVisibleRequests] = useState([]);
 
 
 
@@ -156,11 +156,20 @@ export default function ContractorHome() {
             });
     }
 
+    function filterRequests() {
+      let requestsArray = [];
+      let newArray;
+
+      requestList.map((requests) => {
+        requests.map()
+      })
+    }
+
     useEffect(() => {
         let ignore = false;
         if (!ignore) getLocation()
 
-        //getRequests()
+        setVisibleRequests(filterRequests());
 
         
         return() => {ignore = true;}
@@ -197,7 +206,7 @@ export default function ContractorHome() {
                           <ListItem button key={requests.ID}>
                             <ListItemText key={requests.ID} 
                               primary={requests.name} 
-                              secondary={compareLocation(requests.longitude, requests.latitude)}/>
+                              secondary={<Typography>{compareLocation(requests.longitude, requests.latitude)}</Typography>}/>
                           </ListItem>
                         );
                       })}
