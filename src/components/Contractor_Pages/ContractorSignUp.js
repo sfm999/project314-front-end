@@ -229,7 +229,7 @@ export default function ContractorSignUp() {
           >
             Sign Up
           </Button>
-          <Link href="/ContractorSignIn" variant="body2">
+          <Link href="/contractor/sign-in" variant="body2">
             Already have an account? Sign in
           </Link>
         </Box>

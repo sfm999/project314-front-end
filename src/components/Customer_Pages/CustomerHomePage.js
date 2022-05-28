@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"; //Added by Ethan for modal stuff
+import { createRef, forwardRef, useCallback, useEffect, useState } from "react"; //Added by Ethan for modal stuff
 import { Button, Card, CssBaseline, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
@@ -119,6 +119,16 @@ const CustomerHomePage = () => {
     fetchData();
   }, [fetchData]);
 
+  const ref = createRef();
+
+  const serviceRequestModal = forwardRef((props, ref) => (
+    <ServiceRequestModal
+      profile={profile}
+      vehicle={vehicle}
+      sendDataToHomePage={sendDataToHomePage}
+    />
+  ));
+
   return (
     <Box
       sx={{
@@ -203,6 +213,7 @@ const CustomerHomePage = () => {
         <ServiceRequestModal
           profile={profile}
           vehicle={vehicle}
+          ref={ref}
           sendDataToHomePage={sendDataToHomePage}
         />
       </Modal>
