@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import CustomButton from "../sub-components/CustomButton";
 
 import axios from "../../utils/axios";
+import useAuth from "../../hooks/useAuth";
 
 const columns = [
   { field: "make", headerName: "Make", flex: 1 },
@@ -40,7 +41,7 @@ const ManageVehicle = () => {
   // having a variable such as editVehiclePressed, which would allow us to essentially swap out the current
   // screen for the edit vehicle page, and then we can also maintain the vehicle selected, as currently
   // we simply navigate to the edit vehicle page
-
+  const { userID } = useAuth();
   const [selectedRows, setSelectedRows] = useState([]);
   const [editAlert, setEditAlert] = useState(false);
   const [vehicleList, setVehicleList] = useState([]);
@@ -90,7 +91,7 @@ const ManageVehicle = () => {
   };
 
   const fetchVehicles = async () => {
-    axios.get(`users/vehicles/`).then((response) => {
+    axios.get(`users/vehicles/?user=${userID}`).then((response) => {
       console.log(response.data);
       setVehicleList(response.data);
     });
