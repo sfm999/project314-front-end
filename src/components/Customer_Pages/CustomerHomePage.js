@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState, createRef, forwardRef } from "react"; //Added by Ethan for modal stuff
-import { Button, Card, CssBaseline, Grid, Typography, TextField, List, ListItem, } from "@mui/material";
+import React, { useCallback, useEffect, useState, createRef, forwardRef } from "react"; //Added by Ethan for modal stuff
+import { Button, Card, CssBaseline, Grid, Typography, TextField, List, ListItem, ListItemText, } from "@mui/material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
 import "../css/Home.css";
@@ -20,6 +20,10 @@ import {
   MyLocationIcon,
   DoneIcon,
 } from "./Service_Request/imports";
+
+import useAuth from "../../hooks/useAuth";
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
 
 const Item = styled(Card)(({ theme }) => ({
   display: "relative",
@@ -117,7 +121,14 @@ const CustomerHomePage = () => {
   const [locationDenied, setDenied] = useState();
   const [location, setLocation] = useState(locationValues);
 
+  const { userID } = useAuth();
+  const [vehicleList, setVehicleList] = useState([]);
+
   const [serviceOpen, setServiceOpen] = useState(false);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(1);
+  const open = Boolean(anchorEl);
 
   const handleOpen = () => setServiceOpen(true);
   const handleClose = () => setServiceOpen(false);
@@ -145,6 +156,28 @@ const CustomerHomePage = () => {
     );
   }
 
+  const handleVehicleSelect = (event) => {
+    setAnchorEl(event.currentTarget);
+  }
+
+  const handleItemClick = (event, index) => {
+    setSelectedIndex(index);
+    setAnchorEl(null);
+  }
+  
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  }
+
+  
+
+  const fetchVehicles = async () => {
+    axios.get(`users/vehicles/?user=${userID}`).then((response) => {
+      console.log(response.data);
+      setVehicleList(response.data);
+    });
+  }
+
   const fetchData = useCallback(async () => {
     const ID = window.localStorage.getItem("userID");
     console.log("Printing from within fetchData:", ID);
@@ -156,7 +189,9 @@ const CustomerHomePage = () => {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+    fetchVehicles();
+    console.log("vehicle")
+  }, [fetchData], [fetchVehicles]);
 
   const ref = createRef();
 
@@ -248,38 +283,87 @@ const CustomerHomePage = () => {
         
         
         <DialogContent>
-          <DialogContentText>
+          <DialogContentText variant="h5">
             Time to make a request my child
           </DialogContentText>
-          <DialogContentText>
-            <Typography>Name: {profile?.first_name}  {profile?.last_name}</Typography>
-          </DialogContentText>
-          <TextField
-            autofocus
-            multiline
-            maxRows={4}
-            margin="dense"
-            name="issue"
-            id="issue"
-            label="Issue Description"
-            type="issue"
-          />
+          <Grid container>
+            <Grid item>
+              <DialogContentText>
+                <Typography>Name: {profile?.first_name}  {profile?.last_name}</Typography>
+              </DialogContentText>
+              <TextField
+                autofocus
+                multiline
+                maxRows={4}
+                margin="dense"
+                name="issue"
+                id="issue"
+                label="Issue Description"
+                type="issue"
+              />
+            </Grid>
+            <Grid item>
+              <List>
+              <ListItem>
+                <Typography>
+                  get current location: 
+                </Typography>
+                <Button onClick={getLocation}>
+                  {clicked ? <MyLocationIcon /> : <LocationSearchingIcon />}
+                </Button>
+                <Typography>
+                  {locationDenied ? "Allow access to location services" : ""}
+                  {clicked && !locationDenied ? <DoneIcon /> : ""}
+                </Typography>
+              </ListItem>
+            </List>
+        
+            </Grid>
+            <Grid item>
+              <List>
+                <ListItem
+                  button
+                  id="lock-button"
+                  aria-haspopup="listbox"
+                  area-controls="lock-menu"
+                  area-label="when device is locked"
+                  area-expanded={open ? 'true' : undefined}
+                  onclick={handleVehicleSelect}
+                >
+                  <ListItemText
+                    primary="Vehicle List"
+                    secondary={vehicleList[selectedIndex]}
+                    />
 
+                </ListItem>
+              </List>
+              <Menu
+                id="lock-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onclose={handleMenuClose}
+                menuListProps={{
+                  'area-labelledby': 'lock-button',
+                  role: 'listbox'
+                }}
+                >
+                  {vehicleList.map((vehicle, index) => (
+                    <MenuItem
+                      key={vehicle}
+                      disabled={index === 0}
+                      selected={index === selectedIndex}
+                      onClick = {(event) => handleItemClick(event, index)}
+                    >
+                      {vehicle.registration}
+                      </MenuItem>
+                  ))}
+                </Menu>
+            </Grid>
+          </Grid>
         </DialogContent>
-
-        <DialogContent>
-          <List>
-            <ListItem>
-              <Button onClick={getLocation}>
-                {clicked ? <MyLocationIcon /> : <LocationSearchingIcon />}
-              </Button>
-              <Typography>
-                {locationDenied ? "Allow access to location services" : ""}
-                {clicked && !locationDenied ? <DoneIcon /> : ""}
-              </Typography>
-            </ListItem>
-          </List>
-        </DialogContent>
+          
+          
+          
 
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
