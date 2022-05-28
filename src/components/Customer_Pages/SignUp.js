@@ -54,13 +54,13 @@ const defaultValues = {
 export default function SignUp() {
   let navigate = useNavigate();
 
-  const register = async (first_name, last_name, email, roll, password) => {
+  const register = async (first_name, last_name, email, role, password) => {
     const res = await axios
       .post("/users/register/", {
         first_name,
         last_name,
         email,
-        role: roll,
+        role,
         password,
       })
       .then(function (response) {

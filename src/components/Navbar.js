@@ -38,12 +38,8 @@ const Navbar = () => {
         {isAuthenticated && role === "C" && (
           <Link to="/customer/home">Customer Home Page</Link>
         )}
-        {!isAuthenticated && role === "C" && (
-          <Link to="/customer/sign-in">Sign In</Link>
-        )}
-        {!isAuthenticated && role === "C" && (
-          <Link to="/customer/sign-up">Sign Up</Link>
-        )}
+        {!isAuthenticated && <Link to="/customer/sign-in">Sign In</Link>}
+        {!isAuthenticated && <Link to="/customer/sign-up">Sign Up</Link>}
         {isAuthenticated && role === "C" && (
           <Link to="/customer/test-page">Test Page</Link>
         )}

@@ -1,28 +1,24 @@
 import { Alert, Button, CssBaseline, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataGrid } from "@mui/x-data-grid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../sub-components/CustomButton";
 
+import axios from "../../utils/axios";
+
 const columns = [
-  { field: "id", headerName: "ID", flex: 1 },
   { field: "make", headerName: "Make", flex: 1 },
   { field: "model", headerName: "Model", flex: 1 },
   {
     field: "year",
     headerName: "Year",
-    type: "number",
     flex: 1,
   },
   {
-    field: "Make and Model",
-    headerName: "Make & Model",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
+    field: "rego",
+    headerName: "Registration",
     flex: 1,
-    valueGetter: (params) =>
-      `${params.row.make || ""} ${params.row.model || ""}`,
   },
 ];
 
@@ -47,6 +43,7 @@ const ManageVehicle = () => {
 
   const [selectedRows, setSelectedRows] = useState([]);
   const [editAlert, setEditAlert] = useState(false);
+  const [vehicleList, setVehicleList] = useState([]);
 
   let navigate = useNavigate();
 
@@ -61,8 +58,8 @@ const ManageVehicle = () => {
     } else if (selectedRows.length > 1) {
       setEditAlert(true);
     } else {
-      let path = "/customer/vehicles/edit";
-      navigate(path, { state: { vehicleID: selectedRows[0].id } });
+      let path = `/customer/vehicles/${selectedRows[0]}/edit`;
+      navigate(path);
     }
   };
 
@@ -71,13 +68,37 @@ const ManageVehicle = () => {
     navigate(path);
   };
 
-  const handleRemoveVehicles = () => {
-    console.log("Rows before filtering:", rows);
-    rows = rows.filter((row) => {
-      return !selectedRows.includes(row);
+  const removeVehicle = async (id) => {
+    // Delete from database via API
+    axios.delete(`users/vehicles/${id}`).then((response) => {
+      console.log(response.data);
     });
-    console.log("Rows after filtering:", rows);
   };
+
+  const handleRemoveVehicles = () => {
+    // API call to remove vehicle
+    for (let i = 0; i < selectedRows.length; i += 1) {
+      removeVehicle(selectedRows[i]);
+    }
+
+    // Filter vehicle list to match on client side to prevent extra call
+    setVehicleList(
+      vehicleList.filter((row) => {
+        return !selectedRows.includes(row.id);
+      })
+    );
+  };
+
+  const fetchVehicles = async () => {
+    axios.get(`users/vehicles/`).then((response) => {
+      console.log(response.data);
+      setVehicleList(response.data);
+    });
+  };
+
+  useEffect(() => {
+    fetchVehicles();
+  }, []);
 
   return (
     <Box
@@ -104,17 +125,12 @@ const ManageVehicle = () => {
         </Grid>
       </Grid>
       <DataGrid
-        rows={rows}
+        rows={vehicleList}
         columns={columns}
         checkboxSelection
         onSelectionModelChange={(ids) => {
           setEditAlert(false);
-          // Get the selected ID's
-          const selectedIDs = new Set(ids);
-          // Get the actual info from the rows selected
-          const selectedRows = rows.filter((row) => selectedIDs.has(row.id));
-          // Set the piece of state with the new selected rows
-          setSelectedRows(selectedRows);
+          setSelectedRows(ids);
         }}
         sx={{
           marginTop: "20px",

@@ -8,8 +8,9 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, Container, styled } from "@mui/system";
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router";
+import axios from "../../utils/axios";
 import CustomButton from "../sub-components/CustomButton";
 
 const TextBox = styled(TextField)({
@@ -48,10 +49,11 @@ const customerVehicle = {
 
 const EditVehicle = () => {
   const location = useLocation();
-  console.log(
-    "Printing vehicle id from passing in params in navigate(), hopefully?",
-    location.state.vehicleID
-  );
+  const { vehicleID } = useParams();
+  // console.log(
+  //   "Printing vehicle id from passing in params in navigate(), hopefully?",
+  //   location.state.vehicleID
+  // );
   const [formValues, setFormValues] = useState(customerVehicle);
 
   // Handle page change (back button)
@@ -79,10 +81,28 @@ const EditVehicle = () => {
   // Honestly I don't think the const data bit is necessary as
   // from what I understand, the handleFormChange takes care of grabbing
   // any content onChange.
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // Don't refresh :)
     console.log(formValues);
+
+    axios.put(`users/vehicles/${vehicleID}/`, formValues).then((response) => {
+      console.log(response.data);
+      let path = "/customer/vehicles/manage";
+      navigate(path);
+    });
   };
+
+  const fetchVehicle = async () => {
+    axios.get(`users/vehicles/${vehicleID}`).then((response) => {
+      console.log(response.data);
+      setFormValues(response.data);
+    });
+  };
+
+  useEffect(() => {
+    console.log("VID", vehicleID);
+    fetchVehicle();
+  }, []);
 
   return (
     <Box
@@ -129,6 +149,7 @@ const EditVehicle = () => {
                 label="Vehicle Registration"
                 id="rego"
                 variant="outlined"
+                value={formValues.rego}
                 onChange={handleFormChange}
               />
             </Grid>
@@ -143,6 +164,7 @@ const EditVehicle = () => {
                 label="Vehicle Colour"
                 id="colour"
                 variant="outlined"
+                value={formValues.colour}
                 onChange={handleFormChange}
               />
             </Grid>

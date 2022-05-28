@@ -14,7 +14,6 @@ export function CustomerProfile() {
   const { userID } = useAuth();
   const [profile, setProfile] = useState();
 
-
   // Handle changing url with router v6 useNavigate insted of useHistory
   let navigate = useNavigate();
 
@@ -30,10 +29,9 @@ export function CustomerProfile() {
 
   const fetchData = useCallback(async () => {
     const ID = window.localStorage.getItem("userID");
-    console.log("Printing from within fetchData:", ID);
-    await axios.get(`users/${ID}`).then((response) => {
-      setProfile(response.data);
-      console.log("The data from the response given by axios:", response.data);
+    await axios.get(`users/client/?user=${ID}`).then((response) => {
+      console.log(response.data[0]);
+      setProfile(response.data[0]);
     });
   }, []);
 

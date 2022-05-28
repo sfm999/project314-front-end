@@ -44,7 +44,7 @@ export function Details({ profile }) {
                   variant="body2"
                   color="text.primary"
                 >
-                  {profile?.first_name + " " + profile?.last_name}
+                  {profile?.user.first_name + " " + profile?.user.last_name}
                 </Typography>
               </React.Fragment>
             }
@@ -78,7 +78,7 @@ export function Details({ profile }) {
                   variant="body2"
                   color="text.primary"
                 >
-                  {profile?.email}
+                  {profile?.user.email}
                 </Typography>
               </React.Fragment>
             }
@@ -146,7 +146,9 @@ export function Details({ profile }) {
                   variant="body2"
                   color="text.primary"
                 >
-                  {profile?.plan}
+                  {profile?.subscription_status === "S"
+                    ? "Subscription"
+                    : "Pay-on-Demand"}
                 </Typography>
               </React.Fragment>
             }
