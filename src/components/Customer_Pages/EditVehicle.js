@@ -57,7 +57,7 @@ const EditVehicle = () => {
   let navigate = useNavigate();
   const handleBackClick = (e) => {
     e.preventDefault(); // Prevent form cancellation
-    let path = "/customer/vehicles/manage";
+    let path = "/customer/profile";
     navigate(path);
   };
 

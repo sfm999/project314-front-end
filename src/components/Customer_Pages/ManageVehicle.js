@@ -47,11 +47,6 @@ const ManageVehicle = () => {
     }
   };
 
-  const handleBackClick = () => {
-    let path = "/customer/profile";
-    navigate(path);
-  };
-
   const removeVehicle = async (id) => {
     // Delete from database via API
     axios.delete(`users/vehicles/${id}`).then((response) => {
@@ -87,8 +82,7 @@ const ManageVehicle = () => {
   return (
     <Box
       style={{
-        height: "60vh",
-        width: "90%",
+        height: "40vh",
         margin: "auto",
         paddingTop: "10px",
       }}
@@ -96,7 +90,7 @@ const ManageVehicle = () => {
       <CssBaseline />
       <Grid container>
         <Grid item xs={3}>
-          <Typography variant="h3">Manage Vehicle</Typography>
+          <Typography variant="h3">Vehicle(s)</Typography>
         </Grid>
         <Grid item xs={4}>
           {editAlert && (
@@ -104,9 +98,6 @@ const ManageVehicle = () => {
           )}
         </Grid>
         <Grid item xs={3} />
-        <Grid item xs={2}>
-          <CustomButton text="Go Back" onClick={handleBackClick} size="large" />
-        </Grid>
       </Grid>
       <DataGrid
         rows={vehicleList}
@@ -117,7 +108,7 @@ const ManageVehicle = () => {
           setSelectedRows(ids);
         }}
         sx={{
-          marginTop: "20px",
+          marginTop: "10px",
           marginLeft: "auto",
           marginRight: "auto",
           marginBottom: "10px",

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "../../utils/axios";
 import useAuth from "../../hooks/useAuth";
 import useIsMountedRef from "../../hooks/useIsMountedRef";
+import ManageVehicle from "./ManageVehicle";
 
 export function CustomerProfile() {
   const isMountedRef = useIsMountedRef();
@@ -50,26 +51,7 @@ export function CustomerProfile() {
           <Details profile={profile} />
           {/* {profile && <Details profile={profile} />} */}
         </Grid>
-        <Grid container item xs={4}>
-          <Button
-            type="submit"
-            fullWidth
-            size="large"
-            variant="outlined"
-            sx={{
-              color: "black",
-              border: "1px solid black",
-              "&:hover": {
-                backgroundColor: "black",
-                color: "white",
-                border: "none",
-              },
-              mb: 2,
-            }}
-            onClick={handleVehicleClick}
-          >
-            Manage Current Vehicles
-          </Button>
+        <Grid item xs={4}>
           <Button
             type="submit"
             fullWidth
@@ -89,9 +71,9 @@ export function CustomerProfile() {
           >
             Payment Plan
           </Button>
-          <Button fullWidth variant="contained" color="error" size="large">
-            Delete Plan
-          </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <ManageVehicle />
         </Grid>
       </Grid>
     </Container>
