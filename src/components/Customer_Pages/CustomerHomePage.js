@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react"; //Added by Ethan for modal stuff
-import { Button, Card, CssBaseline, Grid, Typography, TextField } from "@mui/material";
+import { useCallback, useEffect, useState, createRef, forwardRef } from "react"; //Added by Ethan for modal stuff
+import { Button, Card, CssBaseline, Grid, Typography, TextField, List, ListItem, } from "@mui/material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
 import "../css/Home.css";
@@ -12,6 +12,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import {
+  PersonIcon,
+  ReceiptLongIcon,
+  CarCrashIcon,
+  LocationSearchingIcon,
+  MyLocationIcon,
+  DoneIcon,
+} from "./Service_Request/imports";
 
 const Item = styled(Card)(({ theme }) => ({
   display: "relative",
@@ -96,10 +104,18 @@ const requestValues = {
   latitude: "",
 };
 
+const locationValues = {
+  longitude: null,
+  latitude: null,
+}
+
 const CustomerHomePage = () => {
   const [profile, setProfile] = useState();
   const [vehicle, setvehicle] = useState(vehicleValues);
   const [request, setRequest] = useState(requestValues);
+  const [clicked, setClicked] = useState(false);
+  const [locationDenied, setDenied] = useState();
+  const [location, setLocation] = useState(locationValues);
 
   const [serviceOpen, setServiceOpen] = useState(false);
 
@@ -110,6 +126,24 @@ const CustomerHomePage = () => {
     console.log(index);
     setRequest(index);
   };
+
+  function getLocation() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocation({
+          longitude: position.coords.longitude,
+          latitude: position.coords.latitude,
+        });
+        console.log(location.longitude, location.latitude);
+        setClicked(!clicked);
+        setDenied(false);
+      },
+      (err) => {
+        console.log(err);
+        setDenied(true);
+      }
+    );
+  }
 
   const fetchData = useCallback(async () => {
     const ID = window.localStorage.getItem("userID");
@@ -123,6 +157,16 @@ const CustomerHomePage = () => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  const ref = createRef();
+
+  const serviceRequestModal = forwardRef((props, ref) => (
+    <ServiceRequestModal
+      profile={profile}
+      vehicle={vehicle}
+      sendDataToHomePage={sendDataToHomePage}
+    />
+  ));
 
   return (
     <Box
@@ -208,7 +252,7 @@ const CustomerHomePage = () => {
             Time to make a request my child
           </DialogContentText>
           <DialogContentText>
-            <Typography>{profile?.first_name}</Typography>
+            <Typography>Name: {profile?.first_name}  {profile?.last_name}</Typography>
           </DialogContentText>
           <TextField
             autofocus
@@ -217,10 +261,24 @@ const CustomerHomePage = () => {
             margin="dense"
             name="issue"
             id="issue"
-            label="issue"
+            label="Issue Description"
             type="issue"
           />
 
+        </DialogContent>
+
+        <DialogContent>
+          <List>
+            <ListItem>
+              <Button onClick={getLocation}>
+                {clicked ? <MyLocationIcon /> : <LocationSearchingIcon />}
+              </Button>
+              <Typography>
+                {locationDenied ? "Allow access to location services" : ""}
+                {clicked && !locationDenied ? <DoneIcon /> : ""}
+              </Typography>
+            </ListItem>
+          </List>
         </DialogContent>
 
         <DialogActions>
@@ -240,6 +298,7 @@ const CustomerHomePage = () => {
         <ServiceRequestModal
           profile={profile}
           vehicle={vehicle}
+          ref={ref}
           sendDataToHomePage={sendDataToHomePage}
         />
       </Modal>*/}

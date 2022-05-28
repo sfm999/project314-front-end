@@ -23,24 +23,7 @@ const columns = [
   },
 ];
 
-let rows = [
-  { id: 1, make: "Toyota", model: "Corolla", year: 1992 },
-  { id: 2, make: "Mitsubishi", model: "Pajero", year: 2004 },
-  { id: 3, make: "Nissan", model: "Skyline", year: 1993 },
-  { id: 4, make: "Volkswagon", model: "Tureg", year: 2010 },
-  { id: 5, make: "Mercedes", model: "Benz C-Class", year: 2018 },
-  { id: 6, make: "BMW", model: "m4", year: 2021 },
-  { id: 7, make: "Tesla", model: "X", year: 2021 },
-  { id: 8, make: "Honda", model: "Accord", year: 2008 },
-  { id: 9, make: "Volvo", model: "850", year: 1991 },
-  { id: 10, make: "Lexus", model: "RX300", year: 1996 },
-];
-
 const ManageVehicle = () => {
-  // Need to figure out a way to pass the vehicle to the edit vehicle page. This could possibly be done with
-  // having a variable such as editVehiclePressed, which would allow us to essentially swap out the current
-  // screen for the edit vehicle page, and then we can also maintain the vehicle selected, as currently
-  // we simply navigate to the edit vehicle page
   const { userID } = useAuth();
   const [selectedRows, setSelectedRows] = useState([]);
   const [editAlert, setEditAlert] = useState(false);

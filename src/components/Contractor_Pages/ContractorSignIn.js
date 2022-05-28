@@ -17,9 +17,10 @@ import { deepOrange } from "@mui/material/colors";
 
 import { useNavigate } from "react-router-dom";
 
-import { setSession } from '../../utils/jwt'
-import axios from '../../utils/axios';
-import { useFetch } from '../../hooks/useFetch';
+import { setSession } from "../../utils/jwt";
+import axios from "../../utils/axios";
+import { useFetch } from "../../hooks/useFetch";
+import useAuth from "../../hooks/useAuth";
 
 const TextBox = styled(TextField)({
   "& input:valid + fieldset": {
@@ -48,21 +49,22 @@ const TextBox = styled(TextField)({
 });
 
 const defaultValues = {
-    email: "",
-    password:"",
-}
+  email: "",
+  password: "",
+};
 const tempValues = {
-    email: "",
-    password:"",
-}
+  email: "",
+  password: "",
+};
 
 export default function ContractorSignIn() {
+  const { login } = useAuth();
 
-  const [url, setUrl] = useState('http://localhost:8000/');
-  const { data: client, isPending, error } = useFetch(url, { type: 'GET' });
+  const [url, setUrl] = useState("http://localhost:8000/");
+  const { data: client, isPending, error } = useFetch(url, { type: "GET" });
 
   const [validated, setValidated] = useState(false);
-  
+
   const [formValues, setFormValues] = useState(defaultValues);
   const navigate = useNavigate();
 
@@ -72,28 +74,20 @@ export default function ContractorSignIn() {
     setFormValues({
       ...formValues,
       [name]: value,
-    })
-  }
-
-  // const login = async(email, password) => {
-
-  //     await axios.post('', {email, password,})
-  //     .then(response => {
-  //         console.log(response.data.access)
-  //         setSession(response.data.access)
-  //         navigate("/ContractorProfile");
-  //     })
-  //     .catch(error => {console.log(error)})
-  // };
+    });
+  };
 
   const handleSubmit = (event) => {
-      event.preventDefault();
-      const data = new FormData(event.currentTarget);
-      const temp_url = `http://localhost:8000/clients?email=${data.get('email')}`
-      setUrl(temp_url)
-      console.log("New url:", url)
-      console.log(client)
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
 
+    /* Trying to get the status code from the PromiseResult that login returns */
+    login(data.get("email"), data.get("password")).then((res) => {
+      if (res === 200) {
+        window.localStorage.setItem("role", "S");
+        navigate("/contractor/home");
+      }
+    });
   };
 
   return (
@@ -138,10 +132,6 @@ export default function ContractorSignIn() {
             autoComplete="new-password"
             onChange={handleFormChange}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             fullWidth
@@ -151,13 +141,8 @@ export default function ContractorSignIn() {
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
             <Grid item>
-              <Link href="/ContractorSignUp" variant="body2">
+              <Link href="/contractor/sign-up" variant="body2">
                 Don't have an account? Sign Up
               </Link>
             </Grid>

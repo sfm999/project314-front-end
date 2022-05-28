@@ -50,10 +50,7 @@ const customerVehicle = {
 const EditVehicle = () => {
   const location = useLocation();
   const { vehicleID } = useParams();
-  // console.log(
-  //   "Printing vehicle id from passing in params in navigate(), hopefully?",
-  //   location.state.vehicleID
-  // );
+
   const [formValues, setFormValues] = useState(customerVehicle);
 
   // Handle page change (back button)
