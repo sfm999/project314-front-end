@@ -330,9 +330,9 @@ const CustomerHomePage = () => {
                   <ListItemText
                     primary="Vehicle List"
                     secondary={
-                      vehicleList[selectedIndex].make +
+                      vehicleList[selectedIndex]?.make +
                       " " +
-                      vehicleList[selectedIndex].model
+                      vehicleList[selectedIndex]?.model
                     }
                   />
                 </ListItem>
