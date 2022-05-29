@@ -113,6 +113,15 @@ const locationValues = {
   latitude: null,
 }
 
+const defaultVehicleList = [{
+  rego: "",
+    make: "",
+    model: "",
+    colour: "",
+    year: "",
+    user: ""
+}]
+
 const CustomerHomePage = () => {
   const [profile, setProfile] = useState();
   const [vehicle, setvehicle] = useState(vehicleValues);
@@ -122,16 +131,21 @@ const CustomerHomePage = () => {
   const [location, setLocation] = useState(locationValues);
 
   const { userID } = useAuth();
-  const [vehicleList, setVehicleList] = useState([]);
+  const [vehicleList, setVehicleList] = useState(defaultVehicleList);
 
   const [serviceOpen, setServiceOpen] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const [paymentOpen, setPaymentOpen] = useState(false);
+
   const open = Boolean(anchorEl);
 
   const handleOpen = () => setServiceOpen(true);
   const handleClose = () => setServiceOpen(false);
+
+  const handlePaymentClose = () => setPaymentOpen(false);
 
   const sendDataToHomePage = (index) => {
     console.log(index);
@@ -162,6 +176,7 @@ const CustomerHomePage = () => {
 
   const handleItemClick = (event, index) => {
     setSelectedIndex(index);
+    console.log(index);
     setAnchorEl(null);
   }
   
@@ -169,7 +184,17 @@ const CustomerHomePage = () => {
     setAnchorEl(null);
   }
 
-  
+  const openPayment = () => {
+    setPaymentOpen(true);
+  }
+
+  const submitRequest = () => {
+    setPaymentOpen(false);
+    handleClose();
+
+  }
+
+
 
   const fetchVehicles = async () => {
     axios.get(`users/vehicles/?user=${userID}`).then((response) => {
@@ -190,18 +215,18 @@ const CustomerHomePage = () => {
   useEffect(() => {
     fetchData();
     fetchVehicles();
-    console.log("vehicle")
-  }, [fetchData], [fetchVehicles]);
+    //console.log(vehicleList[1].rego);
+  }, [fetchData]);
 
   const ref = createRef();
-
+/*
   const serviceRequestModal = forwardRef((props, ref) => (
     <ServiceRequestModal
       profile={profile}
       vehicle={vehicle}
       sendDataToHomePage={sendDataToHomePage}
     />
-  ));
+  ));*/
 
   return (
     <Box
@@ -289,10 +314,10 @@ const CustomerHomePage = () => {
           <Grid container>
             <Grid item>
               <DialogContentText>
-                <Typography>Name: {profile?.first_name}  {profile?.last_name}</Typography>
+                Name: {profile?.first_name}  {profile?.last_name}
               </DialogContentText>
               <TextField
-                autofocus
+                autoFocus
                 multiline
                 maxRows={4}
                 margin="dense"
@@ -328,12 +353,12 @@ const CustomerHomePage = () => {
                   area-controls="lock-menu"
                   area-label="when device is locked"
                   area-expanded={open ? 'true' : undefined}
-                  onclick={handleVehicleSelect}
+                  onClick={handleVehicleSelect}
                 >
                   <ListItemText
                     primary="Vehicle List"
-                    secondary={vehicleList[selectedIndex]}
-                    />
+                    secondary={vehicleList[selectedIndex].make + " " + vehicleList[selectedIndex].model}
+                  />
 
                 </ListItem>
               </List>
@@ -341,23 +366,23 @@ const CustomerHomePage = () => {
                 id="lock-menu"
                 anchorEl={anchorEl}
                 open={open}
-                onclose={handleMenuClose}
-                menuListProps={{
+                onClose={handleMenuClose}
+                menulistprops={{
                   'area-labelledby': 'lock-button',
                   role: 'listbox'
                 }}
-                >
+              >
                   {vehicleList.map((vehicle, index) => (
                     <MenuItem
-                      key={vehicle}
-                      disabled={index === 0}
+                      key={index}
+                      disabled={index === selectedIndex}
                       selected={index === selectedIndex}
                       onClick = {(event) => handleItemClick(event, index)}
                     >
-                      {vehicle.registration}
+                      {vehicle.make + " " + vehicle.model}
                       </MenuItem>
                   ))}
-                </Menu>
+              </Menu>
             </Grid>
           </Grid>
         </DialogContent>
@@ -370,9 +395,31 @@ const CustomerHomePage = () => {
 
           {/*This should also actually submit the request, or send the
              the user to the payment screen :) */}
-          <Button onClick={handleClose}>Submit Request</Button>
+          <Button onClick={openPayment}>Submit Request</Button>
         </DialogActions>
+      <Dialog open={paymentOpen} onClose={handlePaymentClose}>
+        <DialogContent>
+          <TextField
+            id="card_number"
+            label="Card Number"/>
+          <TextField 
+            id="card_holder_name"
+            label="Card Holder Name"
+          />
+          <TextField 
+            id="expiry_date"
+            label="Expiry Date"
+          />
+          <TextField
+            id="cvc"
+            label="CVC"
+          />
 
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={submitRequest}>Submit Request</Button>
+        </DialogActions>
+      </Dialog>
       </Dialog>
       {/*<Modal
         open={serviceOpen}
