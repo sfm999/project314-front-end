@@ -78,7 +78,7 @@ const AddVehicle = () => {
 
     axios.post(`users/vehicles/`, submitData).then((response) => {
       console.log(response.data);
-      navigate("/customer/vehicles/manage");
+      navigate("/customer/profile");
     });
   };
 
