@@ -90,7 +90,7 @@ const ManageVehicle = () => {
       <CssBaseline />
       <Grid container>
         <Grid item xs={3}>
-          <Typography variant="h3">Vehicle(s)</Typography>
+          <Typography variant="h5">Vehicles</Typography>
         </Grid>
         <Grid item xs={4}>
           {editAlert && (

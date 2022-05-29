@@ -30,10 +30,11 @@ const Navbar = () => {
         {!isAuthenticated && !isCustomer && (
           <Link to="/contractor/sign-up">Sign up</Link>
         )}
-
+        {/* 
         {isAuthenticated && role === "C" && (
           <Link to="/customer/booking">Seek Service</Link>
-        )}
+        )} */}
+
         {isAuthenticated && role === "C" && (
           <Link to="/customer/profile">Customer Profile</Link>
         )}
@@ -46,9 +47,9 @@ const Navbar = () => {
         {!isAuthenticated && isCustomer && (
           <Link to="/customer/sign-up">Sign Up</Link>
         )}
-        {isAuthenticated && role === "C" && (
+        {/* {isAuthenticated && role === "C" && (
           <Link to="/customer/test-page">Test Page</Link>
-        )}
+        )} */}
       </div>
     </nav>
   );

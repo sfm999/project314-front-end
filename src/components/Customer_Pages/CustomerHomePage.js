@@ -1,5 +1,22 @@
-import React, { useCallback, useEffect, useState, createRef, forwardRef } from "react"; //Added by Ethan for modal stuff
-import { Button, Card, CssBaseline, Grid, Typography, TextField, List, ListItem, ListItemText, } from "@mui/material";
+import React, {
+  useCallback,
+  useEffect,
+  useState,
+  createRef,
+  forwardRef,
+} from "react"; //Added by Ethan for modal stuff
+import {
+  Button,
+  Card,
+  CssBaseline,
+  Grid,
+  Typography,
+  TextField,
+  List,
+  ListItem,
+  ListItemText,
+  Container,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
 import "../css/Home.css";
@@ -7,11 +24,11 @@ import ServiceRequest from "./Service_Request/ServiceRequest";
 import ServiceRequestModal from "./Service_Request/ServiceRequestModal";
 import Modal from "@mui/material/Modal"; //Import for MUI modal
 import axios from "../../utils/axios"; //Added by Ethan for the Modal stuff
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import {
   PersonIcon,
   ReceiptLongIcon,
@@ -22,8 +39,8 @@ import {
 } from "./Service_Request/imports";
 
 import useAuth from "../../hooks/useAuth";
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
 
 const Item = styled(Card)(({ theme }) => ({
   display: "relative",
@@ -111,16 +128,18 @@ const requestValues = {
 const locationValues = {
   longitude: null,
   latitude: null,
-}
+};
 
-const defaultVehicleList = [{
-  rego: "",
+const defaultVehicleList = [
+  {
+    rego: "",
     make: "",
     model: "",
     colour: "",
     year: "",
-    user: ""
-}]
+    user: "",
+  },
+];
 
 const CustomerHomePage = () => {
   const [profile, setProfile] = useState();
@@ -172,36 +191,33 @@ const CustomerHomePage = () => {
 
   const handleVehicleSelect = (event) => {
     setAnchorEl(event.currentTarget);
-  }
+  };
 
   const handleItemClick = (event, index) => {
     setSelectedIndex(index);
     console.log(index);
     setAnchorEl(null);
-  }
-  
+  };
+
   const handleMenuClose = () => {
     setAnchorEl(null);
-  }
+  };
 
   const openPayment = () => {
     setPaymentOpen(true);
-  }
+  };
 
   const submitRequest = () => {
     setPaymentOpen(false);
     handleClose();
-
-  }
-
-
+  };
 
   const fetchVehicles = async () => {
     axios.get(`users/vehicles/?user=${userID}`).then((response) => {
       console.log(response.data);
       setVehicleList(response.data);
     });
-  }
+  };
 
   const fetchData = useCallback(async () => {
     const ID = window.localStorage.getItem("userID");
@@ -217,16 +233,6 @@ const CustomerHomePage = () => {
     fetchVehicles();
     //console.log(vehicleList[1].rego);
   }, [fetchData]);
-
-  const ref = createRef();
-/*
-  const serviceRequestModal = forwardRef((props, ref) => (
-    <ServiceRequestModal
-      profile={profile}
-      vehicle={vehicle}
-      sendDataToHomePage={sendDataToHomePage}
-    />
-  ));*/
 
   return (
     <Box
@@ -304,35 +310,45 @@ const CustomerHomePage = () => {
         Request Service
       </Button>
 
+      {/* Dialog window for adding new service request */}
       <Dialog open={serviceOpen} onClose={handleClose}>
-        
-        
+        {/* Actual content */}
         <DialogContent>
-          <DialogContentText variant="h5">
-            Time to make a request my child
-          </DialogContentText>
-          <Grid container>
-            <Grid item>
-              <DialogContentText>
-                Name: {profile?.first_name}  {profile?.last_name}
-              </DialogContentText>
-              <TextField
-                autoFocus
-                multiline
-                maxRows={4}
-                margin="dense"
-                name="issue"
-                id="issue"
-                label="Issue Description"
-                type="issue"
-              />
-            </Grid>
-            <Grid item>
-              <List>
-              <ListItem>
-                <Typography>
-                  get current location: 
+          {/* Wrapper container */}
+          <Container>
+            {/* Title */}
+            <DialogContentText variant="h5">
+              Time to make a request my child
+            </DialogContentText>
+
+            {/* Contains the form fields and location button */}
+            <Grid container>
+              {/* Vehicle list */}
+              <Grid item xs={8}></Grid>
+
+              {/* Issue description */}
+              <Grid item xs={8}>
+                <DialogContentText sx={{ marginTop: "5px" }}>
+                  Name: {profile?.first_name} {profile?.last_name}
+                </DialogContentText>
+                <TextField
+                  autoFocus
+                  multiline
+                  maxRows={4}
+                  margin="dense"
+                  name="issue"
+                  id="issue"
+                  label="Issue Description"
+                  type="issue"
+                />
+              </Grid>
+              <Grid item xs={9}>
+                <Typography sx={{ margin: "auto" }}>
+                  Get current location
                 </Typography>
+              </Grid>
+
+              <Grid item xs={4}>
                 <Button onClick={getLocation}>
                   {clicked ? <MyLocationIcon /> : <LocationSearchingIcon />}
                 </Button>
@@ -340,55 +356,15 @@ const CustomerHomePage = () => {
                   {locationDenied ? "Allow access to location services" : ""}
                   {clicked && !locationDenied ? <DoneIcon /> : ""}
                 </Typography>
-              </ListItem>
-            </List>
-        
+              </Grid>
+              <Grid item xs={2}>
+                <List>
+                  <ListItem></ListItem>
+                </List>
+              </Grid>
             </Grid>
-            <Grid item>
-              <List>
-                <ListItem
-                  button
-                  id="lock-button"
-                  aria-haspopup="listbox"
-                  area-controls="lock-menu"
-                  area-label="when device is locked"
-                  area-expanded={open ? 'true' : undefined}
-                  onClick={handleVehicleSelect}
-                >
-                  <ListItemText
-                    primary="Vehicle List"
-                    secondary={vehicleList[selectedIndex].make + " " + vehicleList[selectedIndex].model}
-                  />
-
-                </ListItem>
-              </List>
-              <Menu
-                id="lock-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleMenuClose}
-                menulistprops={{
-                  'area-labelledby': 'lock-button',
-                  role: 'listbox'
-                }}
-              >
-                  {vehicleList.map((vehicle, index) => (
-                    <MenuItem
-                      key={index}
-                      disabled={index === selectedIndex}
-                      selected={index === selectedIndex}
-                      onClick = {(event) => handleItemClick(event, index)}
-                    >
-                      {vehicle.make + " " + vehicle.model}
-                      </MenuItem>
-                  ))}
-              </Menu>
-            </Grid>
-          </Grid>
+          </Container>
         </DialogContent>
-          
-          
-          
 
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
@@ -397,29 +373,17 @@ const CustomerHomePage = () => {
              the user to the payment screen :) */}
           <Button onClick={openPayment}>Submit Request</Button>
         </DialogActions>
-      <Dialog open={paymentOpen} onClose={handlePaymentClose}>
-        <DialogContent>
-          <TextField
-            id="card_number"
-            label="Card Number"/>
-          <TextField 
-            id="card_holder_name"
-            label="Card Holder Name"
-          />
-          <TextField 
-            id="expiry_date"
-            label="Expiry Date"
-          />
-          <TextField
-            id="cvc"
-            label="CVC"
-          />
-
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={submitRequest}>Submit Request</Button>
-        </DialogActions>
-      </Dialog>
+        <Dialog open={paymentOpen} onClose={handlePaymentClose}>
+          <DialogContent>
+            <TextField id="card_number" label="Card Number" />
+            <TextField id="card_holder_name" label="Card Holder Name" />
+            <TextField id="expiry_date" label="Expiry Date" />
+            <TextField id="cvc" label="CVC" />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={submitRequest}>Submit Request</Button>
+          </DialogActions>
+        </Dialog>
       </Dialog>
       {/*<Modal
         open={serviceOpen}
@@ -438,3 +402,78 @@ const CustomerHomePage = () => {
 };
 
 export default CustomerHomePage;
+
+// <Grid item xs={2}>
+//                 <DialogContentText>
+//                   Name: {profile?.first_name} {profile?.last_name}
+//                 </DialogContentText>
+//                 <TextField
+//                   autoFocus
+//                   multiline
+//                   maxRows={4}
+//                   margin="dense"
+//                   name="issue"
+//                   id="issue"
+//                   label="Issue Description"
+//                   type="issue"
+//                 />
+//               </Grid>
+//               <Grid item>
+//                 <List>
+//                   <ListItem>
+//                     <Typography>get current location:</Typography>
+//                     <Button onClick={getLocation}>
+//                       {clicked ? <MyLocationIcon /> : <LocationSearchingIcon />}
+//                     </Button>
+//                     <Typography>
+//                       {locationDenied
+//                         ? "Allow access to location services"
+//                         : ""}
+//                       {clicked && !locationDenied ? <DoneIcon /> : ""}
+//                     </Typography>
+//                   </ListItem>
+//                 </List>
+//               </Grid>
+//               <Grid item>
+//                 <List>
+//                   <ListItem
+//                     button
+//                     id="lock-button"
+//                     aria-haspopup="listbox"
+//                     area-controls="lock-menu"
+//                     area-label="when device is locked"
+//                     area-expanded={open ? "true" : undefined}
+//                     onClick={handleVehicleSelect}
+//                   >
+//                     <ListItemText
+//                       primary="Vehicle List"
+//                       secondary={
+//                         vehicleList[selectedIndex].make +
+//                         " " +
+//                         vehicleList[selectedIndex].model
+//                       }
+//                     />
+//                   </ListItem>
+//                 </List>
+//                 <Menu
+//                   id="lock-menu"
+//                   anchorEl={anchorEl}
+//                   open={open}
+//                   onClose={handleMenuClose}
+//                   menulistprops={{
+//                     "area-labelledby": "lock-button",
+//                     role: "listbox",
+//                   }}
+//                 >
+//                   {vehicleList.map((vehicle, index) => (
+//                     <MenuItem
+//                       key={index}
+//                       disabled={index === selectedIndex}
+//                       selected={index === selectedIndex}
+//                       onClick={(event) => handleItemClick(event, index)}
+//                     >
+//                       {vehicle.make + " " + vehicle.model}
+//                     </MenuItem>
+//                   ))}
+//                 </Menu>
+//               </Grid>

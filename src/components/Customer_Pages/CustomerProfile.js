@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { Button, Container, Grid } from "@mui/material";
+import { Button, ButtonGroup, Container, Grid } from "@mui/material";
 import React from "react";
 import Details from "./Details";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import axios from "../../utils/axios";
 import useAuth from "../../hooks/useAuth";
 import useIsMountedRef from "../../hooks/useIsMountedRef";
 import ManageVehicle from "./ManageVehicle";
+import CustomButton from "../sub-components/CustomButton";
 
 export function CustomerProfile() {
   const isMountedRef = useIsMountedRef();
@@ -36,6 +37,8 @@ export function CustomerProfile() {
     });
   }, []);
 
+  const handleEditCardDetails = () => {};
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -51,27 +54,37 @@ export function CustomerProfile() {
           <Details profile={profile} />
           {/* {profile && <Details profile={profile} />} */}
         </Grid>
-        <Grid item xs={4}>
-          <Button
-            type="submit"
-            fullWidth
-            size="large"
-            variant="outlined"
-            sx={{
-              color: "black",
-              border: "1px solid black",
-              "&:hover": {
-                backgroundColor: "black",
-                color: "white",
-                border: "none",
-              },
-              mb: 2,
-            }}
-            onClick={handlePaymentPlanClick}
+        <Grid item xs={3}>
+          <ButtonGroup
+            orientation="vertical"
+            aria-label="vertical outlined button group"
           >
-            Payment Plan
-          </Button>
+            <CustomButton
+              text="Payment Plan"
+              onClick={handlePaymentPlanClick}
+              size="large"
+            />
+
+            <CustomButton
+              text="Change plan"
+              onClick={handleEditCardDetails}
+              size="large"
+            />
+
+            <CustomButton
+              text="Edit payment details"
+              onClick={handleEditCardDetails}
+              size="large"
+            />
+
+            <CustomButton
+              text="Edit Billing Details"
+              onClick={handleEditCardDetails}
+              size="large"
+            />
+          </ButtonGroup>
         </Grid>
+        <Grid item xs={1} />
         <Grid item xs={12}>
           <ManageVehicle />
         </Grid>
