@@ -68,7 +68,7 @@ const AddVehicle = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent form cancellation
+    e.preventDefault(); // Prevent form cancellatinpmon
     console.log(formValues); // The values
 
     const submitData = {
@@ -76,10 +76,18 @@ const AddVehicle = () => {
       user: userID,
     };
 
-    axios.post(`users/vehicles/`, submitData).then((response) => {
-      console.log(response.data);
-      navigate("/customer/profile");
+    axios.post(`users/vehicles/`, submitData).catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(error.request);
+      }
     });
+    // .then((response) => {
+    //   console.log("test", response.data);
+    //   navigate("/customer/profile");
+    // })
+    // .then((data) => console.log("testing", data));
   };
 
   return (
