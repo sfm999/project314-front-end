@@ -243,6 +243,10 @@ const CustomerHomePage = () => {
 
     await axios.post(`users/requests/`, submitData).then((response) => {
       console.log(response.data);
+      fetchData();
+      fetchVehicles();
+      fetchRequests();
+      fetchRequestHistory();
     });
   };
 
@@ -413,9 +417,7 @@ const CustomerHomePage = () => {
         onClose={handleClose}
       >
         <DialogContent>
-          <DialogContentText variant="h5">
-            Time to make a request my child
-          </DialogContentText>
+          <DialogContentText variant="h5">Service Request</DialogContentText>
           <Grid container>
             <Grid item>
               <DialogContentText>

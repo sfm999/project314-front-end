@@ -192,7 +192,7 @@ export default function ContractorSignUp() {
             variant="outlined"
             autoComplete="new-password"
           />
-          <Grid container spacing={1}>
+          {/* <Grid container spacing={1}>
             <Grid item xs={1} />
             <Grid item xs={4}>
               <TextBox
@@ -219,7 +219,7 @@ export default function ContractorSignUp() {
                 variant="outlined"
               />
             </Grid>
-          </Grid>
+          </Grid> */}
 
           <Button
             type="submit"
