@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 
 import { setSession } from "../../utils/jwt";
 import axios from "../../utils/axios";
-import { useFetch } from "../../hooks/useFetch";
+//import { useFetch } from "../../hooks/useFetch";
 import useAuth from "../../hooks/useAuth";
 
 const TextBox = styled(TextField)({
@@ -59,11 +59,6 @@ const tempValues = {
 
 export default function ContractorSignIn() {
   const { login } = useAuth();
-
-  const [url, setUrl] = useState("http://localhost:8000/");
-  const { data: client, isPending, error } = useFetch(url, { type: "GET" });
-
-  const [validated, setValidated] = useState(false);
 
   const [formValues, setFormValues] = useState(defaultValues);
   const navigate = useNavigate();

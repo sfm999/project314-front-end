@@ -42,19 +42,15 @@ export default function ContractorProfile() {
 
     const fetchData = useCallback(async () => {
         const ID = window.localStorage.getItem("userID");
-        await axios.get(`users/contractor/${ID}`).then((response) => {
+        await axios.get(`users/contractor/?user=${ID}`).then((response) => {
+            console.log(response.data);
             setProfile(response.data);
         });
-    })
+    }, []);
     
     React.useEffect(() => {
         fetchData();
     }, [fetchData]);
-/*
-    const setContractor = async (first_name, last_name, email, password) => {
-        await axios.get() //then get the details
-    };
-*/
     return(
         <Grid container spacing = {2} sx={{ paddingRight: "30px"}}>
 

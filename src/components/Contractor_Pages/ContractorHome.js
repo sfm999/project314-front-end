@@ -9,6 +9,8 @@ import { Typography } from "@mui/material";
 import { FixedSizeList } from "react-window";
 import { deepOrange, grey } from "@mui/material/colors";
 import { useState, useEffect } from "react";
+import ContractorRequestDetails from "./ContractorRequestDetails";
+import Button from '@mui/material/Button';
 
 const ContractorCoords = {
   longitude: null,
@@ -55,32 +57,17 @@ const listButton = styled(ListItemButton)(({ theme }) => ({
   },
 }));
 
-function RenderList(props) {
-  const { index, style } = props;
-
-  return (
-    <ListItem style={style} key={index} component="div" disablePadding>
-      <ListItemButton
-        key="ItemButton"
-        sx={{
-          "&:hover, &:focus": {
-            bgcolor: grey[500],
-          },
-        }}
-
-        //onclick open more details
-        //also change background color on click
-      >
-        <ListItemText primary={`Item ${index + 1}`} />
-      </ListItemButton>
-    </ListItem>
-  );
-}
-
 export default function ContractorHome() {
   const [coordsValues, setCoords] = useState(ContractorCoords);
   const [requests, setRequests] = useState(requestList);
   const [visibleRequests, setVisibleRequests] = useState([]);
+
+  const [acceptedRequest, setAcceptedRequest] = useState();
+  const [existingCurrentRequest, setExistingCurrentRequest] = useState(false);
+
+  const [selectedIndex, setSelectedIndex] = useState(1);
+
+  const [requestVisible, setRequestVisible] = useState(false)
 
   function compareLocation(longitude, latitude) {
     var currentLongitude = (coordsValues.longitude * Math.PI) / 180;
@@ -130,6 +117,19 @@ export default function ContractorHome() {
     });
   }
 
+  const openRequestDetails = (event, index) => {
+    setRequestVisible(!requestVisible);
+    console.log(index)
+    setSelectedIndex(index);
+  }
+
+  const setActiveRequest = (event, index) => {
+    console.log("SENT",index);
+    setAcceptedRequest(index);
+    console.log("Accepted Request", acceptedRequest);
+    setExistingCurrentRequest(true);
+  }
+
   function filterRequests() {
     let requestsArray = [];
     let newArray;
@@ -150,62 +150,56 @@ export default function ContractorHome() {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} md={6}>
-        <Typography variant="h6">Service Requests</Typography>
-        <FixedSizeList
-          height={400}
-          width={360}
-          itemSize={46}
-          itemCount={requests.length} //this will be the amount of requests
-          overscanCount={5}
-        >
-          {RenderList}
-        </FixedSizeList>
-        {/*
-                    This will have the extra details about the vehicle that
-                    needs to be serviced
-                    will include 
-                    1. Vehicle model
-                    2. Customer name
-                    3. Location
-                 */}
+      <Grid item>
+        <Typography>
+          List of Requests
+        </Typography>
+        <React.Fragment>
+          <List>
+            {requestList &&
+              requestList.map((requests, index) => {
+                return (
+                  <ListItem button onClick={(event) => openRequestDetails(event, index)}  key={index}>
+                    <ListItemText
+                      key={index}
+                      primary={requests.name}
+                      secondary={
+                        <Typography>
+                          {compareLocation(requests.longitude, requests.latitude)} km
+                        </Typography>
+                      }
+                    />
+                  </ListItem>
+                );
+              })}
+          </List>
+        </React.Fragment>
       </Grid>
+      <Grid item>
+        <Typography>
+          Request Details
+        </Typography>
+        { requestVisible && <ContractorRequestDetails 
+          requests={requestList[selectedIndex]}/>}
+        { requestVisible && 
+        <Button onClick = {(event) => setActiveRequest(event, requestList[selectedIndex])}>
+          Submit
+        </Button>}
 
-      <React.Fragment>
-        <List>
-          {requestList &&
-            requestList.map((requests) => {
-              return (
-                <ListItem button key={requests.ID}>
-                  <ListItemText
-                    key={requests.ID}
-                    primary={requests.name}
-                    secondary={
-                      <Typography>
-                        {compareLocation(requests.longitude, requests.latitude)}
-                      </Typography>
-                    }
-                  />
-                </ListItem>
-              );
-            })}
-        </List>
-      </React.Fragment>
-      {/*<Grid item xs={12} md={6}>
-                <Typography variant='h6'>Request Details</Typography>
-                
-                    This will have the list of the vehicles that need 
-                    servicing withing 50km of the contractor
-                    will include
-                    1. Vehicle model
-                    2. Vehicle manufacturer
-                    2. Vehicle colour
-                    3. Customer name
-                    4. Any other details
-                <Typography>
-                    longitude: {coordsValues.longitude} and latitude: {coordsValues.latitude}
-                </Typography>
-            </Grid>*/}
+      </Grid>
+      <Grid item>
+        <Typography>
+          Current Request
+        </Typography>
+        { existingCurrentRequest ? (
+          <List>
+            <ListItem>
+              <ListItemText primary="Name: "
+                secondary={acceptedRequest.name}/>
+            </ListItem>
+          </List>) : "No active requests"}
+        
+      </Grid>
     </Grid>
   );
 }
