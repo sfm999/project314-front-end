@@ -138,8 +138,6 @@ const CustomerHomePage = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const [paymentOpen, setPaymentOpen] = useState(false);
-
   const open = Boolean(anchorEl);
 
   const handleOpen = () => setServiceOpen(true);

@@ -62,6 +62,7 @@ export function CustomerProfile() {
     setValue(event.target.value);
   };
 
+  // Idk why I have to reverse the ternary options but it is what makes it work ='(
   const [value, setValue] = useState(
     profile?.subscription_status ? "pay-on-demand" : "subscription"
   );
