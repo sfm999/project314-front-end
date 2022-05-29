@@ -1,22 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
 .navbar {
-    padding: 42px;
-    display: relative;
-    align-items: center;
-    max-width: 90%;
-    margin: 0 auto;
-    border-bottom: 4px solid #f2f2f2;
+  padding: 30px;
+  display: relative;
+  align-items: center;
+  max-width: 100%;
+  margin: 0 auto;
+  border-bottom: 4px solid #f2f2f2;
+  background-color: #8c8b9f;
 }
 
 .navbar h1 {
-    color: #00000F;
+  color: #00000f;
 }
 
 .margin .links {
-    margin-left: auto;
+  margin-left: auto;
 }
 
+<<<<<<< HEAD
 .navbar a{
     margin: 0px 20px 20px 20px;
     text-decoration: none;
@@ -24,9 +26,18 @@
     float: right;
     background-color: white;
     color: black;
+=======
+.navbar a {
+  margin-left: 16px;
+  text-decoration: none;
+  font-weight: bold;
+  float: right;
+  background-color: #8c8b9f;
+  color: black;
+>>>>>>> b56ac1d198bdc38bbd293da7091dbcfb431923c6
 }
 
 .navbar a:hover {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }

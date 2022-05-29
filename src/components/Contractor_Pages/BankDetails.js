@@ -42,7 +42,7 @@ const defaultCardValues = {
   securityCode: "",
 };
 
-const CardDetails = () => {
+const BankDetails = () => {
   const [cardDetails, setCardDetails] = useState(defaultCardValues);
 
   const setNewCardDetails = (event) => {
@@ -67,7 +67,6 @@ const CardDetails = () => {
   */
   const handleSubmit = () => {
     console.log(cardDetails);
-    navigate("/customer/profile");
   };
 
   return (
@@ -159,4 +158,4 @@ const CardDetails = () => {
   );
 };
 
-export default CardDetails;
+export default BankDetails;
