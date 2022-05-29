@@ -201,7 +201,14 @@ const CustomerHomePage = () => {
     fetchVehicles();
   }, [fetchData]);
 
-  const handleSubmit = () => {};
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget);
+    console.log("VEHICLE STUFF",vehicleList[selectedIndex]);
+    console.log("ISSUE: ", data.get("issue"));
+    console.log("Location: ", location);
+    console.log("CUSTOMER: ", profile)
+  };
 
   return (
     <Box
@@ -278,8 +285,8 @@ const CustomerHomePage = () => {
       >
         Request Service
       </Button>
-
-      <Dialog open={serviceOpen} onClose={handleClose}>
+      
+      <Dialog component="form" noValidate onSubmit={handleSubmit} open={serviceOpen} onClose={handleClose}>
         <DialogContent>
           <DialogContentText variant="h5">
             Time to make a request my child
@@ -365,7 +372,7 @@ const CustomerHomePage = () => {
 
           {/*This should also actually submit the request, or send the
              the user to the payment screen :) */}
-          <Button onClick={handleSubmit}>Submit Request</Button>
+          <Button type="submit">Submit Request</Button>
         </DialogActions>
         {/* <Dialog open={paymentOpen} onClose={handlePaymentClose}>
           <DialogContent>
