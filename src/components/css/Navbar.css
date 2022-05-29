@@ -18,18 +18,6 @@
   margin-left: auto;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-.navbar a{
-    margin: 0px 20px 20px 20px;
-    text-decoration: none;
-    padding: 6px;
-    float: right;
-    background-color: white;
-    color: black;
-=======
-=======
->>>>>>> b56ac1d198bdc38bbd293da7091dbcfb431923c6
 .navbar a {
   margin-left: 16px;
   text-decoration: none;
@@ -37,10 +25,6 @@
   float: right;
   background-color: #8c8b9f;
   color: black;
-<<<<<<< HEAD
->>>>>>> b56ac1d198bdc38bbd293da7091dbcfb431923c6
-=======
->>>>>>> b56ac1d198bdc38bbd293da7091dbcfb431923c6
 }
 
 .navbar a:hover {

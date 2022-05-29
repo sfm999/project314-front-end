@@ -55,7 +55,7 @@ const CardDetails = () => {
 
   let navigate = useNavigate();
 
-  const handleExit = () => {
+  const handleBack = () => {
     let path = "/customer/profile";
     navigate(path);
   };
@@ -147,7 +147,7 @@ const CardDetails = () => {
             />
           </Grid>
           <Grid item xs={2}>
-            <CustomButton text="exit" onClick={handleExit} size="large" />
+            <CustomButton text="back" onClick={handleBack} size="large" />
           </Grid>
           <Grid item xs={1} />
           <Grid item xs={2}>

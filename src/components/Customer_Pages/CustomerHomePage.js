@@ -303,13 +303,6 @@ const CustomerHomePage = () => {
       },
     },
   ];
-<<<<<<< HEAD
-
-  const handleNewRequest = () => {
-    console.log("test");
-  };
-=======
->>>>>>> b56ac1d198bdc38bbd293da7091dbcfb431923c6
 
   return (
     <Box

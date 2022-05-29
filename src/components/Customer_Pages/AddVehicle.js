@@ -83,11 +83,7 @@ const AddVehicle = () => {
         console.log(error.request);
       }
     });
-    // .then((response) => {
-    //   console.log("test", response.data);
-    //   navigate("/customer/profile");
-    // })
-    // .then((data) => console.log("testing", data));
+    navigate("/customer/profile");
   };
 
   return (
