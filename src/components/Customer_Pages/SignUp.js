@@ -165,32 +165,6 @@ export default function SignUp() {
                 autoComplete="new-password"
               />
             </Grid>
-            <Grid item xs={1} />
-            <Grid item xs={4}>
-              <TextBox
-                margin="normal"
-                required
-                fullWidth
-                name="age"
-                label="Age"
-                type="text"
-                id="age"
-                variant="outlined"
-              />
-            </Grid>
-            <Grid item xs={2} />
-            <Grid item xs={4}>
-              <TextBox
-                margin="normal"
-                required
-                fullWidth
-                name="gender"
-                label="Gender"
-                type="text"
-                id="gender"
-                variant="outlined"
-              />
-            </Grid>
             <Grid item xs={12}>
               <Button
                 type="submit"

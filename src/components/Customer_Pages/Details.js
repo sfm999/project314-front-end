@@ -10,8 +10,7 @@ import {
 import BadgeIcon from "@mui/icons-material/Badge";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import MailIcon from "@mui/icons-material/Mail";
-import PersonIcon from "@mui/icons-material/Person";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export function Details({ profile }) {
   return (
@@ -85,40 +84,6 @@ export function Details({ profile }) {
           />
         </ListItem>
 
-        {/* Might not neet this as we don't have age in database yet but probs should idk why not and it makes sense to 
-        <ListItem alignItems="flex-start">
-          <ListItemAvatar>
-            <Avatar>
-              <PersonIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            primary={
-              <React.Fragment>
-                <Typography
-                  component="span"
-                  variant="body1"
-                  color="text.primary"
-                  sx={{ fontWeight: "bold" }}
-                >
-                  Age
-                </Typography>
-              </React.Fragment>
-            }
-            secondary={
-              <React.Fragment>
-                <Typography
-                  sx={{ display: "inline" }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  {profile?.age + " years old"}
-                </Typography>
-              </React.Fragment>
-            }
-          />
-        </ListItem> */}
         <ListItem>
           <ListItemAvatar>
             <Avatar>
