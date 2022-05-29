@@ -1,6 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { Button, ButtonGroup, Container, Grid } from "@mui/material";
+import {
+  Button,
+  ButtonGroup,
+  Container,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import Details from "./Details";
 import { useNavigate } from "react-router-dom";
@@ -37,11 +48,23 @@ export function CustomerProfile() {
     });
   }, []);
 
-  const handleEditCardDetails = () => {};
+  const handleEditCardDetails = () => {
+    let path = "/customer/card-details";
+    navigate(path);
+  };
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  /* @KAINE: I think this is where you'd made the api call to update*/
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  const [value, setValue] = useState(
+    profile?.subscription_status ? "pay-on-demand" : "subscription"
+  );
 
   return (
     <Container maxWidth="100%" sx={{ width: "90%", paddingTop: "20px" }}>
@@ -54,37 +77,45 @@ export function CustomerProfile() {
           <Details profile={profile} />
           {/* {profile && <Details profile={profile} />} */}
         </Grid>
-        <Grid item xs={3}>
-          <ButtonGroup
-            orientation="vertical"
-            aria-label="vertical outlined button group"
-          >
-            <CustomButton
-              text="Payment Plan"
-              onClick={handlePaymentPlanClick}
-              size="large"
-            />
+        <Grid item xs={4}>
+          <>
+            <ButtonGroup
+              orientation="vertical"
+              aria-label="vertical outlined button group"
+              sx={{ margin: "4px" }}
+            >
+              <FormControl>
+                <FormLabel id="payment-plan-radio-buttons-group-form-label">
+                  <Typography variant="h6">Payment Plan</Typography>
+                </FormLabel>
+                <RadioGroup
+                  row
+                  aria-labelledby="payment-plan-radio-buttons-group-label"
+                  name="payment-plan-radio-buttons-group"
+                  value={value}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel
+                    value="subscription"
+                    control={<Radio />}
+                    label="subscription"
+                  />
+                  <FormControlLabel
+                    value="pay-on-demand"
+                    control={<Radio />}
+                    label="pay-on-demand"
+                  />
+                </RadioGroup>
+              </FormControl>
 
-            <CustomButton
-              text="Change plan"
-              onClick={handleEditCardDetails}
-              size="large"
-            />
-
-            <CustomButton
-              text="Edit payment details"
-              onClick={handleEditCardDetails}
-              size="large"
-            />
-
-            <CustomButton
-              text="Edit Billing Details"
-              onClick={handleEditCardDetails}
-              size="large"
-            />
-          </ButtonGroup>
+              <CustomButton
+                text="Edit card details"
+                onClick={handleEditCardDetails}
+                size="large"
+              />
+            </ButtonGroup>
+          </>
         </Grid>
-        <Grid item xs={1} />
         <Grid item xs={12}>
           <ManageVehicle />
         </Grid>

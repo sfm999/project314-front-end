@@ -1,41 +1,39 @@
-import { Container, Grid, Typography, styled, TextField} from "@mui/material";
+import { Container, Grid, Typography, styled, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import CustomTextBox from '../../sub-components/CustomTextBox';
+import CustomTextBox from "../sub-components/CustomTextBox";
 
-const TextBox = styled(TextField) ({
-  '& input:valid + fieldset': {
-      borderColor: '#c2c2c2',
-      borderWidth: 2,
+const TextBox = styled(TextField)({
+  "& input:valid + fieldset": {
+    borderColor: "#c2c2c2",
+    borderWidth: 2,
   },
-  '& input:invalid + fieldset': {
-      borderWidth: 2,
+  "& input:invalid + fieldset": {
+    borderWidth: 2,
   },
-  '& input:valid:focus + fieldset': {
-      borderLeftWidth: 6,
-      padding: '4px !important',
+  "& input:valid:focus + fieldset": {
+    borderLeftWidth: 6,
+    padding: "4px !important",
   },
-  '& .MuiOutlinedInput-root': {
-      '& fieldset': {
-          borderColor: '#c2c2c2',
-      },
-      '&:hover fieldset': {
-          borderColor: '#f2f2f2',
-      },
-      '&.Mui-focused fieldset': {
-          borderColor: '#f2f2f2',
-      },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "#c2c2c2",
     },
+    "&:hover fieldset": {
+      borderColor: "#f2f2f2",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#f2f2f2",
+    },
+  },
 });
 
 const PersonalDetails = ({ setDetails, currentDetails }) => {
-
   const handleFormChange = (e) => {
     setDetails(e);
-  }
-
+  };
 
   return (
-    <Container sx={{ display: "relative"}}>
+    <Container sx={{ display: "relative" }}>
       <Typography variant="h3" align="left">
         Enter Personal Details
       </Typography>
@@ -78,7 +76,7 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
           </Grid>
           {/* Line 3 | Address line 2 */}
           <Grid item xs={12}>
-          <TextBox
+            <TextBox
               margin="normal"
               required
               fullWidth
@@ -126,7 +124,7 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
 
           {/* Line 5 | phone */}
           <Grid item xs={5}>
-          <TextBox
+            <TextBox
               margin="normal"
               required
               fullWidth
@@ -144,7 +142,7 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
 
           {/* Line 5 | fax */}
           <Grid item xs={5}>
-          <TextBox
+            <TextBox
               margin="normal"
               required
               fullWidth
@@ -156,11 +154,10 @@ const PersonalDetails = ({ setDetails, currentDetails }) => {
               value={currentDetails.fax}
             />
           </Grid>
-
         </Grid>
       </Box>
     </Container>
-    );
-}
- 
+  );
+};
+
 export default PersonalDetails;

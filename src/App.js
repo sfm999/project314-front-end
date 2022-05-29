@@ -20,7 +20,7 @@ import InitialRequest from "./components/InitialRequest";
 import ManageVehicle from "./components/Customer_Pages/ManageVehicle";
 import AddVehicle from "./components/Customer_Pages/AddVehicle";
 import EditVehicle from "./components/Customer_Pages/EditVehicle";
-import PaymentProcess from "./components/Customer_Pages/PaymentProcess";
+import CardDetails from "./components/Customer_Pages/CardDetails";
 import useAuth from "./hooks/useAuth";
 
 function App() {
@@ -97,7 +97,7 @@ function App() {
                 path="/customer/vehicles/:vehicleID/edit/"
                 element={<EditVehicle />}
               />
-              <Route path="/customer/payment" element={<PaymentProcess />} />
+              <Route path="/customer/card-details" element={<CardDetails />} />
 
               {/* Just a page to test things out on */}
               <Route path="/customer/test-page" element={<TestPage />} />
@@ -108,7 +108,7 @@ function App() {
                 element={<InitialRequest />}
               />
             </Routes>
-            ){/* END ROUTES */}
+            {/* END ROUTES */}
           </div>
         </div>
       )}
