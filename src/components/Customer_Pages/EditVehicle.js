@@ -76,7 +76,7 @@ const EditVehicle = () => {
 
     axios.put(`users/vehicles/${vehicleID}/`, formValues).then((response) => {
       console.log(response.data);
-      let path = "/customer/vehicles/manage";
+      let path = "/customer/profile";
       navigate(path);
     });
   };

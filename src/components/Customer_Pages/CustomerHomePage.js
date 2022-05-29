@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
-import "../css/Home.css";
 import ServiceRequest from "./Service_Request/ServiceRequest";
 import axios from "../../utils/axios"; //Added by Ethan for the Modal stuff
 import Dialog from "@mui/material/Dialog";

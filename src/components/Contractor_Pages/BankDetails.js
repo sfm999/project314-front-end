@@ -42,7 +42,7 @@ const defaultCardValues = {
   securityCode: "",
 };
 
-const CardDetails = () => {
+const BankDetails = () => {
   const [cardDetails, setCardDetails] = useState(defaultCardValues);
 
   const setNewCardDetails = (event) => {
@@ -55,7 +55,7 @@ const CardDetails = () => {
 
   let navigate = useNavigate();
 
-  const handleBack = () => {
+  const handleExit = () => {
     let path = "/customer/profile";
     navigate(path);
   };
@@ -67,7 +67,6 @@ const CardDetails = () => {
   */
   const handleSubmit = () => {
     console.log(cardDetails);
-    navigate("/customer/profile");
   };
 
   return (
@@ -147,7 +146,7 @@ const CardDetails = () => {
             />
           </Grid>
           <Grid item xs={2}>
-            <CustomButton text="back" onClick={handleBack} size="large" />
+            <CustomButton text="exit" onClick={handleExit} size="large" />
           </Grid>
           <Grid item xs={1} />
           <Grid item xs={2}>
@@ -159,4 +158,4 @@ const CardDetails = () => {
   );
 };
 
-export default CardDetails;
+export default BankDetails;

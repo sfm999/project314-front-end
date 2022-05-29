@@ -5,7 +5,6 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import Home from "./components/Home";
 import "./App.css";
 import CustomerProfile from "./components/Customer_Pages/CustomerProfile";
 import SignIn from "./components/Customer_Pages/SignIn";
