@@ -16,7 +16,7 @@ import ContractorProfile from "./components/Contractor_Pages/ContractorProfile";
 import ContractorHome from "./components/Contractor_Pages/ContractorHome";
 import CustomerHomePage from "./components/Customer_Pages/CustomerHomePage";
 import TestPage from "./components/TestPage";
-import InitialRequest from "./components/InitialRequest";
+import InitialRequest from "./components/initialRequest";
 import ManageVehicle from "./components/Customer_Pages/ManageVehicle";
 import AddVehicle from "./components/Customer_Pages/AddVehicle";
 import EditVehicle from "./components/Customer_Pages/EditVehicle";

@@ -14,13 +14,10 @@ import Container from "@mui/material/Container";
 import { deepOrange } from "@mui/material/colors";
 
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 
 import { setSession } from "../../utils/jwt";
 import axios from "../../utils/axios";
 //import { useFetch } from "../../hooks/useFetch";
-=======
->>>>>>> 5583968cfff797445ac3c5847752ffba778b8c7a
 import useAuth from "../../hooks/useAuth";
 
 const TextBox = styled(TextField)({
