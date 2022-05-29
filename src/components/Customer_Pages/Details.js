@@ -14,8 +14,15 @@ import React from "react";
 
 export function Details({ profile }) {
   return (
-    <Card sx={{ display: "flex", flexGrow: 1, minWidth: "240px" }}>
-      <List sx={{ width: "100%", maxWidth: 420, bgcolor: "background.paper" }}>
+    <Card
+      sx={{
+        display: "flex",
+        flexGrow: 1,
+        minWidth: "240px",
+        backgroundColor: "#f1f0f8",
+      }}
+    >
+      <List sx={{ width: "100%", maxWidth: 420, bgcolor: "#f1f0f8" }}>
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
             <Avatar>

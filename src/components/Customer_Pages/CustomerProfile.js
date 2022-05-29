@@ -58,8 +58,17 @@ export function CustomerProfile() {
   }, [fetchData]);
 
   /* @KAINE: I think this is where you'd made the api call to update*/
-  const handleChange = (event) => {
+  const handlePaymentPlanChange = async (event) => {
     setValue(event.target.value);
+    console.log(event.target.value);
+
+    await axios
+      .put(`users/client/${profile.id}/`, {
+        subscription_status: event.target.value === "subscription" ? "S" : "P",
+      })
+      .then((response) => {
+        fetchData();
+      });
   };
 
   // Idk why I have to reverse the ternary options but it is what makes it work ='(
@@ -94,7 +103,7 @@ export function CustomerProfile() {
                   aria-labelledby="payment-plan-radio-buttons-group-label"
                   name="payment-plan-radio-buttons-group"
                   value={value}
-                  onChange={handleChange}
+                  onChange={handlePaymentPlanChange}
                 >
                   <FormControlLabel
                     value="subscription"

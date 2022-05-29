@@ -12,15 +12,15 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <h1>Find my Mechanic</h1>
-      <div className="links">
+      <div className="links" style={{ marginRight: 40, marginBottom: 10 }}>
         {/* <Link to="/">Generic Home</Link> */}
 
         {isAuthenticated && role === "S" && (
-          <Link to="/contractor/home">Contractor Home Page</Link>
+          <Link to="/contractor/home">Home</Link>
         )}
 
         {isAuthenticated && role === "S" && (
-          <Link to="/contractor/profile">Contractor Profile</Link>
+          <Link to="/contractor/profile">Profile</Link>
         )}
 
         {!isAuthenticated && !isCustomer && (
@@ -36,10 +36,10 @@ const Navbar = () => {
         )} */}
 
         {isAuthenticated && role === "C" && (
-          <Link to="/customer/profile">Customer Profile</Link>
+          <Link to="/customer/profile">Profile</Link>
         )}
         {isAuthenticated && role === "C" && (
-          <Link to="/customer/home">Customer Home Page</Link>
+          <Link to="/customer/home">Home</Link>
         )}
         {!isAuthenticated && isCustomer && (
           <Link to="/customer/sign-in">Sign In</Link>

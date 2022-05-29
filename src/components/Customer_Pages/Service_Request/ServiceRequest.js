@@ -21,7 +21,7 @@ import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 
 const ServiceRequest = ({ request }) => {
   return (
-    <List sx={{ width: "100%", backgroundColor: "#bdbdbd" }}>
+    <List sx={{ width: "100%", backgroundColor: "#8c8b9f" }}>
       {/* Customer requesting service */}
       <ListItem alignItems="flex-start">
         {/* Customer icon */}
@@ -32,7 +32,7 @@ const ServiceRequest = ({ request }) => {
         {/* Customer | {request.customerName} */}
         <ListItemTextContainer
           primaryText="Vehicle"
-          secondaryText={request.vehicle}
+          secondaryText={`${request.vehicle.make} ${request.vehicle.model}`}
         />
       </ListItem>
 
@@ -46,7 +46,7 @@ const ServiceRequest = ({ request }) => {
         {/* Vehicle Registration | {request.vehicleRegistration} */}
         <ListItemTextContainer
           primaryText="Vehicle Registration"
-          secondaryText={request.vehicleRegistration}
+          secondaryText={request.vehicle.rego}
         />
       </ListItem>
 
@@ -60,7 +60,11 @@ const ServiceRequest = ({ request }) => {
         {/* Contractor | {request.contractorName} */}
         <ListItemTextContainer
           primaryText="Contractor"
-          secondaryText={request.contractorName}
+          secondaryText={
+            request.contractor.first_name
+              ? `${request.contractor.first_name} ${request.contractor.last_name}`
+              : "Request Pending"
+          }
         />
       </ListItem>
 
@@ -74,7 +78,7 @@ const ServiceRequest = ({ request }) => {
         {/* Car Problem | {request.issue} */}
         <ListItemTextContainer
           primaryText="Issue"
-          secondaryText={request.issue}
+          secondaryText={request.description}
         />
       </ListItem>
     </List>

@@ -67,6 +67,7 @@ const CardDetails = () => {
   */
   const handleSubmit = () => {
     console.log(cardDetails);
+    navigate("/customer/profile");
   };
 
   return (

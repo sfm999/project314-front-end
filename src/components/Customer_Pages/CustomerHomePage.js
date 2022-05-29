@@ -9,6 +9,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  Stack,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
@@ -28,6 +29,7 @@ import {
 import useAuth from "../../hooks/useAuth";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import { DataGrid } from "@mui/x-data-grid";
 
 const Item = styled(Card)(({ theme }) => ({
   display: "relative",
@@ -130,6 +132,9 @@ const CustomerHomePage = () => {
   const [locationDenied, setDenied] = useState();
   const [location, setLocation] = useState(locationValues);
 
+  const [requests, setRequests] = useState([]);
+  const [requestHistory, setRequestHistory] = useState([]);
+
   const { userID } = useAuth();
   const [vehicleList, setVehicleList] = useState(defaultVehicleList);
 
@@ -187,6 +192,21 @@ const CustomerHomePage = () => {
     });
   };
 
+  const fetchRequests = async () => {
+    console.log("FETCH REQUESTS");
+    axios.get(`users/requests/?client=${userID}&status=I`).then((response) => {
+      console.log("REQUESTS", response.data);
+      setRequests(response.data);
+    });
+  };
+
+  const fetchRequestHistory = async () => {
+    axios.get(`users/requests/?client=${userID}&status=C`).then((response) => {
+      console.log("REQUESTS", response.data);
+      setRequestHistory(response.data);
+    });
+  };
+
   const fetchData = useCallback(async () => {
     const ID = window.localStorage.getItem("userID");
     console.log("Printing from within fetchData:", ID);
@@ -199,43 +219,123 @@ const CustomerHomePage = () => {
   useEffect(() => {
     fetchData();
     fetchVehicles();
+    fetchRequests();
+    fetchRequestHistory();
   }, [fetchData]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log("VEHICLE STUFF",vehicleList[selectedIndex]);
+    console.log("VEHICLE STUFF", vehicleList[selectedIndex]);
     console.log("ISSUE: ", data.get("issue"));
     console.log("Location: ", location);
-    console.log("CUSTOMER: ", profile)
+    console.log("CUSTOMER: ", profile);
+
+    const submitData = {
+      client: userID,
+      vehicle: vehicleList[selectedIndex].id,
+      description: data.get("issue"),
+      location_latitude: location.latitude,
+      location_longitude: location.longitude,
+    };
+
+    setServiceOpen(false);
+
+    await axios.post(`users/requests/`, submitData).then((response) => {
+      console.log(response.data);
+    });
   };
+
+  const columns = [
+    {
+      field: "first_name",
+      headerName: "Contractor First Name",
+      minWidth: 100,
+      flex: 1,
+      valueGetter: (params) => {
+        return params.row.contractor.first_name;
+      },
+    },
+    {
+      field: "last_name",
+      headerName: "Contractor Last Name",
+      minWidth: 100,
+      flex: 1,
+      valueGetter: (params) => {
+        return params.row.contractor.last_name;
+      },
+    },
+    {
+      field: "make",
+      headerName: "Make",
+      minWidth: 120,
+      flex: 1,
+      valueGetter: (params) => {
+        return params.row.vehicle.make;
+      },
+    },
+    {
+      field: "model",
+      headerName: "Model",
+      minWidth: 200,
+      flex: 1,
+      valueGetter: (params) => {
+        return params.row.vehicle.model;
+      },
+    },
+    {
+      field: "rego",
+      headerName: "Registration",
+      type: "date",
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (params) => {
+        return params.row.vehicle.rego;
+      },
+    },
+    {
+      field: "issue",
+      headerName: "Issue",
+      type: "date",
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (params) => {
+        return params.row.description;
+      },
+    },
+  ];
 
   return (
     <Box
       sx={{
         mx: "auto",
+        mt: 2,
         width: "90%",
         height: "100%",
+        spacing: 2,
       }}
     >
       <CssBaseline />
-
-      <Grid container>
-        <Grid item xs={4}>
-          <Typography variant="h3" sx={{ marginTop: "10px" }}>
-            Home Page
-          </Typography>
-        </Grid>
-      </Grid>
 
       <Card
         sx={{
           width: "100%",
           display: "relative",
+          padding: 2,
         }}
+        style={{ backgroundColor: "#f1f0f8" }}
       >
-        <Grid container spacing={1} justifyContent="space-evenly">
-          {defaultRequests.map((req) => {
+        <Stack direction="row">
+          <Typography variant="h4" sx={{ marginTop: "10px" }}>
+            Requests
+          </Typography>
+          <Box sx={{ flexGrow: 1 }} />
+          <Button variant="contained" size="large" onClick={handleOpen}>
+            Request Service
+          </Button>
+        </Stack>
+        <Grid container spacing={1} justifyContent="left">
+          {requests.map((req) => {
             return (
               <Grid
                 item
@@ -261,10 +361,29 @@ const CustomerHomePage = () => {
             );
           })}
         </Grid>
+
+        <Typography variant="h6" sx={{ marginTop: "10px" }}>
+          Request History
+        </Typography>
+        <Box
+          sx={{
+            height: 300,
+            "& .row-class": {
+              border: { color: "black" },
+            },
+          }}
+        >
+          <DataGrid
+            sx={{ borderColor: "darkgrey" }}
+            columns={columns}
+            rows={requestHistory}
+            getRowClassName={(params) => "row-class"}
+          />
+        </Box>
       </Card>
 
       {/* Request service button  */}
-      <Button
+      {/* <Button
         onClick={handleOpen}
         fullWidth
         variant="outlined"
@@ -284,9 +403,15 @@ const CustomerHomePage = () => {
         }}
       >
         Request Service
-      </Button>
-      
-      <Dialog component="form" noValidate onSubmit={handleSubmit} open={serviceOpen} onClose={handleClose}>
+      </Button> */}
+
+      <Dialog
+        component="form"
+        noValidate
+        onSubmit={handleSubmit}
+        open={serviceOpen}
+        onClose={handleClose}
+      >
         <DialogContent>
           <DialogContentText variant="h5">
             Time to make a request my child
