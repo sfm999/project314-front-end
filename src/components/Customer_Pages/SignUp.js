@@ -86,7 +86,11 @@ export default function SignUp() {
       data.get("password")
     ).then((res) => {
       if (res.status === 201) {
-        navigate("/customer/sign-in");
+        navigate("/customer/sign-in", {
+          state: {
+            email: data.get("email"),
+          },
+        });
       }
     });
   };

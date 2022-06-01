@@ -16,7 +16,7 @@ import {
 import { green } from "@mui/material/colors";
 
 import useAuth from "../../hooks/useAuth";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 const TextBox = styled(TextField)({
   "& input:valid + fieldset": {
@@ -53,6 +53,8 @@ export default function SignIn() {
   const { login } = useAuth();
 
   let navigate = useNavigate();
+
+  const { state } = useLocation();
 
   const [formValues, setFormValues] = useState(defaultValues);
 
@@ -106,8 +108,9 @@ export default function SignIn() {
             id="email"
             variant="outlined"
             autoComplete="email"
-            autoFocus
+            autoFocus={state ? false : true}
             onChange={handleFormChange}
+            defaultValue={state ? state.email : ""}
           />
           <TextBox
             margin="normal"
@@ -117,6 +120,7 @@ export default function SignIn() {
             label="Password"
             type="password"
             id="password"
+            autoFocus={state ? true : false}
             autoComplete="current-password"
             onChange={handleFormChange}
           />

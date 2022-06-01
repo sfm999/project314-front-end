@@ -64,7 +64,7 @@ export default function ContractorSignUp() {
     role,
     password
   ) => {
-    let res = await axios
+    return await axios
       .post("/users/register/", {
         first_name,
         last_name,
@@ -81,7 +81,6 @@ export default function ContractorSignUp() {
       .catch(function (error) {
         console.log(error);
       });
-    return res;
   };
 
   const handleSubmit = (event) => {
