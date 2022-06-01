@@ -6,20 +6,27 @@ import {
   Navigate,
 } from "react-router-dom";
 import "./App.css";
-import CustomerProfile from "./components/Customer_Pages/CustomerProfile";
-import SignIn from "./components/Customer_Pages/SignIn";
-import SignUp from "./components/Customer_Pages/SignUp";
-import ContractorSignUp from "./components/Contractor_Pages/ContractorSignUp";
-import ContractorSignIn from "./components/Contractor_Pages/ContractorSignIn";
-import ContractorProfile from "./components/Contractor_Pages/ContractorProfile";
-import ContractorHome from "./components/Contractor_Pages/ContractorHome";
-import CustomerHomePage from "./components/Customer_Pages/CustomerHomePage";
+
+import {
+  SignIn,
+  SignUp,
+  CustomerProfile,
+  CustomerHomePage,
+  AddVehicle,
+  EditVehicle,
+  ManageVehicle,
+  CardDetails,
+} from "./components/Customer_Pages";
+
+import {
+  ContractorHome,
+  ContractorProfile,
+  ContractorSignIn,
+  ContractorSignUp,
+} from "./components/Contractor_Pages";
+
 import TestPage from "./components/TestPage";
 import InitialRequest from "./components/InitialRequest";
-import ManageVehicle from "./components/Customer_Pages/ManageVehicle";
-import AddVehicle from "./components/Customer_Pages/AddVehicle";
-import EditVehicle from "./components/Customer_Pages/EditVehicle";
-import CardDetails from "./components/Customer_Pages/CardDetails";
 import useAuth from "./hooks/useAuth";
 
 function App() {

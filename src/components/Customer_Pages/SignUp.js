@@ -86,7 +86,7 @@ export default function SignUp() {
       data.get("password")
     ).then((res) => {
       if (res.status === 201) {
-        navigate("/customer/home");
+        navigate("/customer/sign-in");
       }
     });
   };
