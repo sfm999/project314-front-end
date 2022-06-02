@@ -4,12 +4,17 @@ import {
   Button,
   ButtonGroup,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   FormControl,
   FormControlLabel,
   FormLabel,
   Grid,
   Radio,
   RadioGroup,
+  TextField,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -71,6 +76,23 @@ export function CustomerProfile() {
       });
   };
 
+  const handleClick = () => {};
+
+  /* @KAINE | Put code here to submit changes to api for personal details */
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+
+    // first-name, last-name
+
+    setDetailsOpen(false);
+  };
+
+  const [detailsOpen, setDetailsOpen] = useState(false);
+
+  const handleOpen = () => setDetailsOpen(true);
+  const handleClose = () => setDetailsOpen(false);
+
   // Idk why I have to reverse the ternary options but it is what makes it work ='(
   const [value, setValue] = useState(
     profile?.subscription_status ? "pay-on-demand" : "subscription"
@@ -123,6 +145,12 @@ export function CustomerProfile() {
                 onClick={handleEditCardDetails}
                 size="large"
               />
+
+              <CustomButton
+                text="Edit Personal Details"
+                onClick={handleOpen}
+                size="large"
+              />
             </ButtonGroup>
           </>
         </Grid>
@@ -130,6 +158,54 @@ export function CustomerProfile() {
           <ManageVehicle />
         </Grid>
       </Grid>
+
+      <Dialog
+        component="form"
+        noValidate
+        onSubmit={handleSubmit}
+        open={detailsOpen}
+        onClose={handleClose}
+      >
+        <DialogTitle>Change Details</DialogTitle>
+        <DialogContent>
+          <Grid
+            container
+            spacing={1}
+            justifyContent="space-evenly"
+            alignItems="center"
+            sx={{
+              maxWidth: "200px",
+            }}
+          >
+            <Grid item xs={12}>
+              <Typography type="subtitle">
+                <strong>Current name:</strong> {profile?.user.first_name}{" "}
+                {profile?.user.last_name}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField id="first-name" name="first-name" label="First name" />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField id="last-name" name="last-name" label="Last name" />
+            </Grid>
+            {/* Dialog Buttons */}
+            <DialogActions>
+              <Grid item xs={6}>
+                <CustomButton
+                  text="cancel"
+                  onClick={handleClose}
+                  size="small"
+                />
+              </Grid>
+
+              <Grid item xs={6}>
+                <CustomButton text="Submit" size="small" type="submit" />
+              </Grid>
+            </DialogActions>
+          </Grid>
+        </DialogContent>
+      </Dialog>
     </Container>
   );
 }

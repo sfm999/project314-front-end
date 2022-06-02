@@ -1,6 +1,9 @@
 import {
   Avatar,
   Card,
+  Dialog,
+  DialogContent,
+  Grid,
   List,
   ListItem,
   ListItemAvatar,
@@ -10,7 +13,8 @@ import {
 import BadgeIcon from "@mui/icons-material/Badge";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import MailIcon from "@mui/icons-material/Mail";
-import React from "react";
+import CustomButton from "../sub-components/CustomButton";
+import React, { useState } from "react";
 
 export function Details({ profile }) {
   return (
