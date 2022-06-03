@@ -55,35 +55,18 @@ const BankDetailsForm = ({
       open={bankDetailsOpen}
       onClose={handleDetailsClose}
     >
-      <Container
-        sx={{
-          paddingBottom: "1%",
-        }}
-      >
+      <Container sx={{p: 3}}>
         <Box>
           <Grid
             container
-            spacing={1}
+            spacing={2}
             justifyContent="right"
             sx={{
-              display: "relative",
-              margin: "auto",
+              display: "relative"
             }}
           >
             <Grid item xs={12}>
-              <Typography variant="h4">Bank Details</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <TextBox
-                margin="normal"
-                required
-                fullWidth
-                name="accountName"
-                label="Account Name"
-                id="accountName"
-                type="string"
-                variant="outlined"
-              />
+              <Typography variant="h5">Bank Details</Typography>
             </Grid>
 
             <Grid item xs={12}>

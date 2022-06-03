@@ -41,7 +41,6 @@ export default function ContractorProfile() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    console.log("Account name:", data.get("accountName"));
     console.log("Account number:", data.get("accountNumber"));
     console.log("BSB:", data.get("BSB"));
 
@@ -58,29 +57,31 @@ export default function ContractorProfile() {
         marginTop: "2%",
       }}
     >
-      <Grid container spacing={1}>
+
+        <Grid container justifyContent="right" spacing={2} sx={{ marginTop: "7px" }}>
         <Grid item xs={8}>
           {profile && <ContractorDetails profile={profile} />}
         </Grid>
-
-        <Grid container xs={4} sx={{ marginTop: "7px" }}>
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <ContractorAccountDetails profile={profile} />
           </Grid>
-          <Grid item xs={12}>
-            <CustomButton
-              text="manage bank details"
+          <Grid item xs={4}>
+            <Button
+              variant="outlined"
               onClick={() => setBankDetailsOpen(true)}
-              size="medium"
-            />
+              size="large"
+              fullWidth
+            > Manage Bank Details
+              </Button>
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{mt: -1, mb: -1}} />
+
+          <Grid item xs={4}>
             <Button variant="contained" color="error" size="large" fullWidth>
               Delete Account
             </Button>
           </Grid>
-        </Grid>
         <BankDetailsForm
           bankDetailsOpen={bankDetailsOpen}
           handleBankSubmit={handleBankSubmit}
