@@ -81,13 +81,15 @@ const ManageVehicle = () => {
 
   return (
     <Box
+    minHeight="215px"
+    // height="30vh"
       style={{
         height: "40vh",
         margin: "auto",
-        paddingTop: "10px",
+        paddingTop: "20px",
       }}
     >
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <Grid container>
         <Grid item xs={3}>
           <Typography variant="h5">Vehicles</Typography>
@@ -117,7 +119,7 @@ const ManageVehicle = () => {
       />
 
       {/* Bar underneath table, containing add, edit, and remove button */}
-      <Box sx={{ height: 300 }}>
+      <Box>
         <Grid
           container
           justifyContent="space-evenly"

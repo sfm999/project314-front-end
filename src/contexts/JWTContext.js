@@ -31,6 +31,11 @@ const handlers = {
       userID,
     };
   },
+  LOGOUT: (state) => ({
+    ...state,
+    isAuthenticated: false,
+    userID: null,
+  }),
 };
 
 const reducer = (state, action) =>
@@ -40,6 +45,7 @@ const AuthContext = createContext({
   ...initialState,
   method: "jwt",
   login: () => Promise.resolve(),
+  logout: () => {},
 });
 
 AuthProvider.propTypes = {
@@ -109,12 +115,18 @@ function AuthProvider({ children }) {
     return statusCode;
   };
 
+  const logout = async () => {
+    setSession(null);
+    dispatch({ type: 'LOGOUT' });
+  };
+
   return (
     <AuthContext.Provider
       value={{
         ...state,
         method: "jwt",
         login,
+        logout,
       }}
     >
       {children}

@@ -4,6 +4,7 @@ import {
   Route,
   Routes,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import "./App.css";
 
@@ -50,6 +51,30 @@ function App() {
                     <Navigate to="/customer/home" />
                   ) : (
                     <Navigate to="/customer/sign-in" />
+                  )
+                }
+              />
+
+              <Route
+                exact
+                path="/customer"
+                element={
+                  isAuthenticated ? (
+                    <Navigate to="/customer/home" />
+                  ) : (
+                    <Navigate to="/customer/sign-in" />
+                  )
+                }
+              />
+
+              <Route
+                exact
+                path="/contractor"
+                element={
+                  isAuthenticated ? (
+                    <Navigate to="/contractor/home" />
+                  ) : (
+                    <Navigate to="/contractor/sign-in" />
                   )
                 }
               />

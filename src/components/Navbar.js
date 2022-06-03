@@ -4,7 +4,7 @@ import "./css/Navbar.css";
 import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const role = window.localStorage.getItem("role");
   const { pathname } = useLocation();
   const isCustomer = pathname.includes("customer");
@@ -14,6 +14,9 @@ const Navbar = () => {
       <h1>Find my Mechanic</h1>
       <div className="links" style={{ marginRight: 40, marginBottom: 10 }}>
         {/* <Link to="/">Generic Home</Link> */}
+        {isAuthenticated && isCustomer && <Link onClick={() => {logout();}} to="/customer/sign-in">Sign Out</Link>}
+
+        {isAuthenticated && !isCustomer && <Link onClick={() => {logout();}} to="/contractor/sign-in">Sign Out</Link>}
 
         {isAuthenticated && role === "S" && (
           <Link to="/contractor/home">Home</Link>
@@ -47,9 +50,9 @@ const Navbar = () => {
         {!isAuthenticated && isCustomer && (
           <Link to="/customer/sign-up">Sign Up</Link>
         )}
-        {/* {isAuthenticated && role === "C" && (
-          <Link to="/customer/test-page">Test Page</Link>
-        )} */}
+
+        
+
       </div>
     </nav>
   );
