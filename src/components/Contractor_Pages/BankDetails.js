@@ -35,20 +35,19 @@ const TextBox = styled(TextField)({
   },
 });
 
-const defaultCardValues = {
-  fullName: "",
-  cardNumber: "",
-  expiryDate: "",
-  securityCode: "",
+const defaultBankDetails = {
+  accountName: "",
+  accountNumber: "",
+  BSB: "",
 };
 
 const BankDetails = () => {
-  const [cardDetails, setCardDetails] = useState(defaultCardValues);
+  const [bankDetails, setBankDetails] = useState(defaultBankDetails);
 
-  const setNewCardDetails = (event) => {
+  const setNewBankDetails = (event) => {
     const { name, value } = event.target;
-    setCardDetails({
-      ...cardDetails,
+    setBankDetails({
+      ...bankDetails,
       [name]: value,
     });
   };
@@ -56,23 +55,22 @@ const BankDetails = () => {
   let navigate = useNavigate();
 
   const handleExit = () => {
-    const path = "/customer/profile";
+    const path = "/contractor/profile";
     navigate(path);
   };
 
   /* 
     @KAINE
-    I think this is where you'd have the api do the checking of the form fields possibly.
-    Else we have to get a library to check these field inputs
+    Do the API call here to update the bank details
   */
   const handleSubmit = () => {
-    console.log(cardDetails);
+    console.log(bankDetails);
   };
 
   return (
     <Container sx={{ display: "relative" }}>
       <Typography variant="h3" align="left">
-        Card Details
+        Bank Details
       </Typography>
       <Box>
         <Grid
@@ -83,18 +81,21 @@ const BankDetails = () => {
             margin: "auto",
           }}
         >
+          <Grid item>
+            <CustomButton text="exit" onClick={handleExit} size="large" />
+          </Grid>
           {/* Line 1 | Name on card*/}
           <Grid item xs={12}>
             <TextBox
               margin="normal"
               required
               fullWidth
-              name="fullName"
-              label="Full Name"
-              id="fullName"
+              name="accountName"
+              label="Account Name"
+              id="accountName"
               variant="outlined"
               autoFocus
-              onChange={setNewCardDetails}
+              onChange={setNewBankDetails}
               // value={currentDetails.fullName}
             />
           </Grid>
@@ -104,52 +105,33 @@ const BankDetails = () => {
               margin="normal"
               required
               fullWidth
-              name="cardNumber"
-              label="Card Number"
-              id="cardNumber"
+              name="accountNumber"
+              label="Account Number"
+              type="number"
+              id="accountNumber"
               variant="outlined"
-              onChange={setNewCardDetails}
+              onChange={setNewBankDetails}
               // value={currentDetails.cardNumber}
             />
           </Grid>
 
-          {/* Line 3 | Expiry date */}
-          <Grid item xs={5}>
+          {/* Line 3 | BSB Number */}
+          <Grid item xs={2}>
             <TextBox
               margin="normal"
               required
               fullWidth
-              name="expiryDate"
-              label="Expiry Date"
-              id="expiryDate"
+              name="BSB"
+              label="BSB"
+              id="BSB"
+              type="number"
               variant="outlined"
-              onChange={setNewCardDetails}
+              onChange={setNewBankDetails}
               // value={currentDetails.expiryDate}
             />
           </Grid>
-
-          {/* Makes a gap between fields */}
-          <Grid item xs={2} />
-
-          {/* Line 3 | Security Code */}
-          <Grid item xs={5}>
-            <TextBox
-              margin="normal"
-              required
-              fullWidth
-              name="securityCode"
-              label="Security Code"
-              id="securityCode"
-              variant="outlined"
-              onChange={setNewCardDetails}
-              // value={currentDetails.securityCode}
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <CustomButton text="exit" onClick={handleExit} size="large" />
-          </Grid>
-          <Grid item xs={1} />
-          <Grid item xs={2}>
+          <Grid item xs={10} />
+          <Grid item>
             <CustomButton text="submit" onClick={handleSubmit} size="large" />
           </Grid>
         </Grid>

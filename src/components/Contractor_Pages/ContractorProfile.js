@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
@@ -10,23 +10,13 @@ import ContractorDetails from "./ContractorDetails";
 import useAuth from "../../hooks/useAuth";
 import useIsMountedRef from "../../hooks/useIsMountedRef";
 
-// import { setSession } from '../../utils/jwt';
 import axios from "../../utils/axios";
-
-// const contractor = {
-//   first_name: "Jeff", //something.getdata(first_name)
-//   last_name: "Bezos",
-//   email: "JB111@uowmail.edu.au",
-//   abn: "51 824 753 556",
-//   //password: 1234567890
-// };
-
-//need a component that gets the information
+import { useNavigate } from "react-router";
 
 export default function ContractorProfile() {
   const isMountedRef = useIsMountedRef();
 
-  //   const [contractor, setContractor] = useState(contractor);
+  const navigate = useNavigate();
 
   const { userID } = useAuth();
 
@@ -43,6 +33,11 @@ export default function ContractorProfile() {
   React.useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  const handleEditBankDetails = () => {
+    const path = "/contractor/bank-details";
+    navigate(path);
+  };
   return (
     <Grid container spacing={2} sx={{ paddingRight: "30px" }}>
       <Grid item xs={8}>
@@ -50,7 +45,9 @@ export default function ContractorProfile() {
       </Grid>
       <Grid item xs={12} md={4}>
         <Grid item xs={12} md={15}>
-          <Button variant="contained">Manage Bank Details</Button>
+          <Button variant="contained" onClick={handleEditBankDetails}>
+            Manage Bank Details
+          </Button>
           {/*This whole list can me moved to another page */}
           <List>
             <ListItem>
