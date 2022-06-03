@@ -10,6 +10,7 @@ import {
   ListItem,
   ListItemText,
   Stack,
+  DialogTitle,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
@@ -242,6 +243,21 @@ const CustomerHomePage = () => {
     },
   ];
 
+  const [cancelOpen, setCancelOpen] = useState(false);
+  // TODO handleCancel
+  const handleCancel = (id) => {
+    console.log(id);
+    handleCancelOpen();
+  };
+
+  const handleCancelOpen = () => {
+    setCancelOpen(true);
+  };
+
+  const handleCancelClose = () => {
+    setCancelOpen(false);
+  };
+
   return (
     <Box
       sx={{
@@ -278,7 +294,7 @@ const CustomerHomePage = () => {
             return (
               <Grid
                 item
-                xs={4}
+                xs={12}
                 md={3}
                 xl={2}
                 sx={{
@@ -293,7 +309,7 @@ const CustomerHomePage = () => {
                     minWidth: "210px",
                   }}
                 >
-                  <ServiceRequest request={req} />
+                  <ServiceRequest request={req} handleCancel={handleCancel} />
                 </Item>
               </Grid>
             );
@@ -414,6 +430,17 @@ const CustomerHomePage = () => {
              the user to the payment screen :) */}
           <Button type="submit">Submit Request</Button>
         </DialogActions>
+      </Dialog>
+
+      {/* Cancel dialog */}
+      <Dialog
+        component="form"
+        noValidate
+        open={cancelOpen}
+        close={handleCancelClose}
+      >
+        <DialogTitle>Cancelling a Request</DialogTitle>
+        <DialogContent></DialogContent>
       </Dialog>
     </Box>
   );

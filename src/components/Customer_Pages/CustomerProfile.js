@@ -75,12 +75,10 @@ export function CustomerProfile() {
     setDetailsOpen(false);
   };
 
+  // state and functions to handle opening and closing of dialog
   const [detailsOpen, setDetailsOpen] = useState(false);
-
   const handleOpen = () => setDetailsOpen(true);
   const handleClose = () => setDetailsOpen(false);
-
-  console.log(profile?.subscription_status);
 
   return (
     <Box
