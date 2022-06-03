@@ -497,8 +497,8 @@ const CustomerHomePage = () => {
               <Grid item xs={12} sx={{ padding: "1.5%" }}>
                 <Typography variant="body1">
                   You're about to cancel a request. As you have a contractor who
-                  has accepted your service request, you will be charged a{" "}
-                  <strong>$25</strong> cancellation fee. Do you accept?
+                  has accepted your service request, you will have{" "}
+                  <strong>$25</strong> fee. Do you accept?
                 </Typography>
               </Grid>
             )}
