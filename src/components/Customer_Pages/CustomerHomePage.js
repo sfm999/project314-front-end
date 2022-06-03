@@ -31,6 +31,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { DataGrid } from "@mui/x-data-grid";
 
+import CustomButton from "../sub-components/CustomButton";
+
 const Item = styled(Card)(({ theme }) => ({
   display: "relative",
   textAlign: "center",
@@ -244,18 +246,35 @@ const CustomerHomePage = () => {
   ];
 
   const [cancelOpen, setCancelOpen] = useState(false);
-  // TODO handleCancel
-  const handleCancel = (id) => {
-    console.log(id);
-    handleCancelOpen();
-  };
+  const [contractorAllocated, setContractorAllocated] = useState(false);
+  const [requestID, setRequestID] = useState("");
 
-  const handleCancelOpen = () => {
+  // Handles setting the ID given by request, as well as contractorAllocated status.
+  // Opens the dialog for cancellation request confirmation
+  const handleCancel = (id, isAllocated) => {
+    setRequestID(id);
+    setContractorAllocated(isAllocated);
     setCancelOpen(true);
   };
 
+  // Called upon when a request is confirmed as cancelled.
+  // Will use contractorAllocated to determine if payment receipt generated (if we cbf)
+  const handleCancelRequest = () => {
+    // @KAINE | I believe this is where the API call takes place.
+    handleCancelClose();
+  };
+
   const handleCancelClose = () => {
+    if (contractorAllocated) {
+      console.log("You incurred a fee");
+    } else {
+      console.log("You did not incur any fee");
+    }
     setCancelOpen(false);
+  };
+
+  const handleCancelSubmit = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -343,7 +362,7 @@ const CustomerHomePage = () => {
         noValidate
         onSubmit={handleSubmit}
         open={serviceOpen}
-        onClose={handleClose}
+        close={handleClose}
       >
         <DialogContent>
           <DialogContentText variant="h5">Service Request</DialogContentText>
@@ -436,11 +455,74 @@ const CustomerHomePage = () => {
       <Dialog
         component="form"
         noValidate
+        onSubmit={handleCancelSubmit}
         open={cancelOpen}
-        close={handleCancelClose}
+        onClose={handleCancelClose}
       >
         <DialogTitle>Cancelling a Request</DialogTitle>
-        <DialogContent></DialogContent>
+        <DialogContent>
+          <Grid container justifyContent="space-evenly" alignItems="center">
+            {/* No Contractor Allocated Code */}
+            {!contractorAllocated && (
+              <Grid item xs={12} sx={{ padding: "1.5%" }}>
+                <Typography variant="body1">
+                  You're about to cancel a request. As you do not have a
+                  contractor at this time, you may cancel without incurring a
+                  fee.
+                </Typography>
+              </Grid>
+            )}
+            {!contractorAllocated && (
+              <Grid item>
+                <CustomButton
+                  text="abort"
+                  onClick={handleCancelClose}
+                  size="large"
+                />
+              </Grid>
+            )}
+            {!contractorAllocated && (
+              <Grid item>
+                <CustomButton
+                  text="cancel request"
+                  onClick={handleCancelRequest}
+                  type="submit"
+                  size="large"
+                />
+              </Grid>
+            )}
+
+            {/* Contractor Allocated Code, Cancellation fee incurred */}
+            {contractorAllocated && (
+              <Grid item xs={12} sx={{ padding: "1.5%" }}>
+                <Typography variant="body1">
+                  You're about to cancel a request. As you have a contractor who
+                  has accepted your service request, you will be charged a{" "}
+                  <strong>$25</strong> cancellation fee. Do you accept?
+                </Typography>
+              </Grid>
+            )}
+            {contractorAllocated && (
+              <Grid item>
+                <CustomButton
+                  text="abort"
+                  onClick={handleCancelClose}
+                  size="large"
+                />
+              </Grid>
+            )}
+            {contractorAllocated && (
+              <Grid item>
+                <CustomButton
+                  text="accept & cancel"
+                  onClick={handleCancelRequest}
+                  type="submit"
+                  size="large"
+                />
+              </Grid>
+            )}
+          </Grid>
+        </DialogContent>
       </Dialog>
     </Box>
   );

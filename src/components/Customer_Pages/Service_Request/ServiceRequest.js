@@ -21,8 +21,7 @@ import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 // on the home screen once a service request has been submitted.
 const ServiceRequest = ({ request, handleCancel }) => {
   const handleClick = (id, isAllocated) => {
-    console.log(id, isAllocated);
-    // handleCancel(id, isAllocated);
+    handleCancel(id, isAllocated);
   };
 
   return (
