@@ -41,7 +41,7 @@ const defaultBankDetails = {
   BSB: "",
 };
 
-const BankDetails = () => {
+const BankDetails = ({contractor}) => {
   const [bankDetails, setBankDetails] = useState(defaultBankDetails);
 
   const setNewBankDetails = (event) => {
@@ -59,6 +59,17 @@ const BankDetails = () => {
     navigate(path);
   };
 
+
+  // const handleChangeBankDetails = async (event) => {
+  //   await axios
+  //     .put(`users/contractor/${profile.id}/`, {
+  //       subscription_status: event.target.value,
+  //     })
+  //     .then((response) => {
+  //       fetchData();
+  //     });
+  // };
+
   /* 
     @KAINE
     Do the API call here to update the bank details
@@ -68,38 +79,35 @@ const BankDetails = () => {
   };
 
   return (
-    <Container sx={{ display: "relative" }}>
-      <Typography variant="h3" align="left">
+    <Container sx={{ display: "relative", padding: 2 }}>
+      <Typography variant="h4" align="left">
         Bank Details
       </Typography>
       <Box>
         <Grid
           container
           spacing={1}
+          justifyContent="right"
           sx={{
             display: "relative",
             margin: "auto",
           }}
         >
-          <Grid item>
-            <CustomButton text="exit" onClick={handleExit} size="large" />
-          </Grid>
-          {/* Line 1 | Name on card*/}
           <Grid item xs={12}>
             <TextBox
               margin="normal"
               required
               fullWidth
-              name="accountName"
-              label="Account Name"
-              id="accountName"
+              name="BSB"
+              label="BSB"
+              id="BSB"
+              type="string"
               variant="outlined"
-              autoFocus
               onChange={setNewBankDetails}
-              // value={currentDetails.fullName}
+              // value={currentDetails.expiryDate}
             />
           </Grid>
-          {/* Line 2 | Card number*/}
+
           <Grid item xs={12}>
             <TextBox
               margin="normal"
@@ -113,24 +121,10 @@ const BankDetails = () => {
               onChange={setNewBankDetails}
               // value={currentDetails.cardNumber}
             />
+          </Grid>          
+          <Grid item>
+            <CustomButton text="exit" onClick={handleExit} size="large" />
           </Grid>
-
-          {/* Line 3 | BSB Number */}
-          <Grid item xs={2}>
-            <TextBox
-              margin="normal"
-              required
-              fullWidth
-              name="BSB"
-              label="BSB"
-              id="BSB"
-              type="number"
-              variant="outlined"
-              onChange={setNewBankDetails}
-              // value={currentDetails.expiryDate}
-            />
-          </Grid>
-          <Grid item xs={10} />
           <Grid item>
             <CustomButton text="submit" onClick={handleSubmit} size="large" />
           </Grid>
