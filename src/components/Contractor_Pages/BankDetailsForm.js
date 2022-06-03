@@ -2,14 +2,11 @@ import {
   Box,
   Container,
   Dialog,
-  DialogTitle,
   Grid,
   styled,
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
-import { useNavigate } from "react-router";
 import CustomButton from "../sub-components/CustomButton";
 
 const TextBox = styled(TextField)({

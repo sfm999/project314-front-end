@@ -4,8 +4,6 @@ import {
   Route,
   Routes,
   Navigate,
-  useNavigate,
-  useLocation,
 } from "react-router-dom";
 import "./App.css";
 
@@ -27,16 +25,10 @@ import {
   ContractorSignUp,
 } from "./components/Contractor_Pages";
 
-import TestPage from "./components/TestPage";
-import InitialRequest from "./components/InitialRequest";
 import useAuth from "./hooks/useAuth";
-import { useCallback, useEffect } from "react";
-import axios from "./utils/axios";
 import AuthGuard from "./guards/AuthGuard";
 
 function App() {
-  // const navigate = useNavigate();
-  // const {pathname} = useLocation();
   const { isAuthenticated, isInitialized } = useAuth();
 
   return (
@@ -171,5 +163,4 @@ function App() {
     </Router>
   );
 }
-//<Route path="/SignIn" element={<SignIn />} />
 export default App;
