@@ -1,15 +1,7 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemButton from "@mui/material/ListItemButton";
-import { styled } from "@mui/material/styles";
 import { Stack, Typography } from "@mui/material";
-import { FixedSizeList } from "react-window";
-import { deepOrange, grey } from "@mui/material/colors";
 import { useState, useEffect } from "react";
-import ContractorRequestDetails from "./ContractorRequestDetails";
 import Button from "@mui/material/Button";
 
 import axios from "../../utils/axios";
@@ -20,46 +12,6 @@ const ContractorCoords = {
   longitude: null,
   latitude: null,
 };
-
-const requestInformationDefault = [
-  {
-    customerName: "",
-    issue: "",
-    vehicleModel: "",
-    vehicleManufacturer: "",
-    vehicleColor: "",
-    registration: "",
-  },
-];
-
-const requestList = [
-  {
-    ID: 1,
-    name: "Jeffry Jack",
-    longitude: 150.89583,
-    latitude: -34.39667,
-  },
-  {
-    ID: 2,
-    name: "Elon Musk",
-    longitude: 150.8499966,
-    latitude: -34.4333316,
-  },
-  {
-    ID: 3,
-    name: "Billy Joel",
-    longitude: 150.88582979,
-    latitude: -34.483998064,
-  },
-];
-
-const listButton = styled(ListItemButton)(({ theme }) => ({
-  color: theme.palette.getContrastText(deepOrange[500]),
-  backgroundColor: deepOrange[500],
-  "&:hover": {
-    backgroundColor: deepOrange[700],
-  },
-}));
 
 export default function ContractorHome() {
   const { userID } = useAuth();
@@ -330,65 +282,5 @@ export default function ContractorHome() {
         </Stack>
       </Grid>
     </Grid>
-    // <Grid container spacing={2}>
-    //   <Grid item>
-    //     <Typography>List of Requests</Typography>
-    //     <React.Fragment>
-    //       <List>
-    //         {requestList &&
-    //           requestList.map((requests, index) => {
-    //             return (
-    //               <ListItem
-    //                 button
-    //                 onClick={(event) => openRequestDetails(event, index)}
-    //                 key={index}
-    //               >
-    //                 <ListItemText
-    //                   key={index}
-    //                   primary={requests.name}
-    //                   secondary={
-    //                     <Typography>
-    //                       {compareLocation(
-    //                         requests.longitude,
-    //                         requests.latitude
-    //                       )}{" "}
-    //                       km
-    //                     </Typography>
-    //                   }
-    //                 />
-    //               </ListItem>
-    //             );
-    //           })}
-    //       </List>
-    //     </React.Fragment>
-    //   </Grid>
-    //   <Grid item>
-    //     <Typography>Request Details</Typography>
-    //     {requestVisible && (
-    //       <ContractorRequestDetails requests={requestList[selectedIndex]} />
-    //     )}
-    //     {requestVisible && (
-    //       <Button
-    //         onClick={(event) =>
-    //           setActiveRequest(event, requestList[selectedIndex])
-    //         }
-    //       >
-    //         Submit
-    //       </Button>
-    //     )}
-    //   </Grid>
-    //   <Grid item>
-    //     <Typography>Current Request</Typography>
-    //     {existingCurrentRequest ? (
-    //       <List>
-    //         <ListItem>
-    //           <ListItemText primary="Name: " secondary={acceptedRequest.name} />
-    //         </ListItem>
-    //       </List>
-    //     ) : (
-    //       "No active requests"
-    //     )}
-    //   </Grid>
-    // </Grid>
   );
 }
