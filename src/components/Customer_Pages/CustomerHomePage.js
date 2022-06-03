@@ -329,9 +329,9 @@ const CustomerHomePage = () => {
         style={{ backgroundColor: "#f1f0f8" }}
       >
         <Stack direction="row">
-          <Typography variant="h4" sx={{ marginTop: "10px" }}>
+          {requests.length > 0 && <Typography variant="h4" sx={{ marginTop: "10px" }}>
             Requests
-          </Typography>
+          </Typography>}
           <Box sx={{ flexGrow: 1 }} />
           <Button variant="contained" size="large" onClick={handleOpen}>
             Request Service

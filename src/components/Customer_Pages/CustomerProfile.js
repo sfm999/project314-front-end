@@ -56,9 +56,10 @@ export function CustomerProfile() {
   const handlePaymentPlanChange = async (event) => {
     await axios
       .put(`users/client/${profile.id}/`, {
-        subscription_status: event.target.value === "subscription" ? "S" : "P",
+        subscription_status: event.target.value,
       })
       .then((response) => {
+        
         fetchData();
       });
   };
@@ -108,20 +109,16 @@ export function CustomerProfile() {
                   row
                   aria-labelledby="payment-plan-radio-buttons-group-label"
                   name="payment-plan-radio-buttons-group"
-                  value={
-                    profile?.subscription_status === "S"
-                      ? "subscription"
-                      : "pay-on-demand"
-                  }
+                  value={profile?.subscription_status ? profile.subscription_status : null}
                   onChange={handlePaymentPlanChange}
                 >
                   <FormControlLabel
-                    value="subscription"
+                    value="S"
                     control={<Radio />}
                     label="subscription"
                   />
                   <FormControlLabel
-                    value="pay-on-demand"
+                    value="P"
                     control={<Radio />}
                     label="pay-on-demand"
                   />
