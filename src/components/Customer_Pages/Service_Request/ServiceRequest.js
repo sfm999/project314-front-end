@@ -1,27 +1,25 @@
-import { Container } from "@mui/system";
-import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
-import {
-  List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
-  Typography,
-  Card,
-} from "@mui/material";
+// React and MUI imports
 import React from "react";
+import { List, ListItem, ListItemAvatar } from "@mui/material";
+
+// Icons
+import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 import ListItemTextContainer from "../../sub-components/ListItemTextContainer";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import CarCrashIcon from "@mui/icons-material/CarCrash";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 
-// customerName: "Bill Burr"
-// vehicleRegistration: "rgy672"
-// contractorName: "Ludicrous"
-// issue: "Car is overheating"
-
+// Responsible for displaying the information within a card element
+// on the home screen once a service request has been submitted.
 const ServiceRequest = ({ request }) => {
   return (
-    <List sx={{ width: "100%", backgroundColor: "#8c8b9f" }}>
+    <List
+      sx={{
+        width: "100%",
+        backgroundColor: "#8c8b9f",
+        padding: "5px",
+      }}
+    >
       {/* Customer requesting service */}
       <ListItem alignItems="flex-start">
         {/* Customer icon */}

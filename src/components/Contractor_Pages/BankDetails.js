@@ -56,7 +56,7 @@ const BankDetails = () => {
   let navigate = useNavigate();
 
   const handleExit = () => {
-    let path = "/customer/profile";
+    const path = "/customer/profile";
     navigate(path);
   };
 

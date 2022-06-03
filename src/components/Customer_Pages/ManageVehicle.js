@@ -32,7 +32,7 @@ const ManageVehicle = () => {
   let navigate = useNavigate();
 
   const handleAddVehicleClick = () => {
-    let path = "/customer/vehicles/add";
+    const path = "/customer/vehicles/add";
     navigate(path);
   };
 
@@ -42,7 +42,7 @@ const ManageVehicle = () => {
     } else if (selectedRows.length > 1) {
       setEditAlert(true);
     } else {
-      let path = `/customer/vehicles/${selectedRows[0]}/edit`;
+      const path = `/customer/vehicles/${selectedRows[0]}/edit`;
       navigate(path);
     }
   };
@@ -117,7 +117,7 @@ const ManageVehicle = () => {
       />
 
       {/* Bar underneath table, containing add, edit, and remove button */}
-      <Box sx={{ height: "10vh" }}>
+      <Box sx={{ height: 300 }}>
         <Grid
           container
           justifyContent="space-evenly"

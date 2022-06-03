@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import {
-  Button,
   ButtonGroup,
   Container,
   Dialog,
@@ -17,13 +16,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
-import Details from "./Details";
+import { Details, ManageVehicle } from "./";
 import { useNavigate } from "react-router-dom";
 import axios from "../../utils/axios";
 import useAuth from "../../hooks/useAuth";
 import useIsMountedRef from "../../hooks/useIsMountedRef";
-import ManageVehicle from "./ManageVehicle";
 import CustomButton from "../sub-components/CustomButton";
 
 export function CustomerProfile() {
@@ -35,29 +32,23 @@ export function CustomerProfile() {
   // Handle changing url with router v6 useNavigate insted of useHistory
   let navigate = useNavigate();
 
-  const handleVehicleClick = () => {
-    let path = "/customer/vehicles/manage";
-    navigate(path);
-  };
-
-  const handlePaymentPlanClick = () => {
-    let path = "/customer/payment";
-    navigate(path);
-  };
-
+  // useCallback used to prevent useEffect infinite loop.
+  // Fetch data with user provided ID (gotten on login)
   const fetchData = useCallback(async () => {
     const ID = window.localStorage.getItem("userID");
     await axios.get(`users/client/?user=${ID}`).then((response) => {
-      console.log(response.data[0]);
       setProfile(response.data[0]);
     });
   }, []);
 
+  // Handles user editing card details. Redirects to page
+  // containing form to record said details.
   const handleEditCardDetails = () => {
-    let path = "/customer/card-details";
+    const path = "/customer/card-details";
     navigate(path);
   };
 
+  // Responsible for calling the fetchData function.
   useEffect(() => {
     fetchData();
   }, [fetchData]);

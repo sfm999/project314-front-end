@@ -49,7 +49,7 @@ const EditVehicle = () => {
   let navigate = useNavigate();
   const handleBackClick = (e) => {
     e.preventDefault(); // Prevent form cancellation
-    let path = "/customer/profile";
+    const path = "/customer/profile";
     navigate(path);
   };
 
@@ -76,7 +76,7 @@ const EditVehicle = () => {
 
     axios.put(`users/vehicles/${vehicleID}/`, formValues).then((response) => {
       console.log(response.data);
-      let path = "/customer/profile";
+      const path = "/customer/profile";
       navigate(path);
     });
   };

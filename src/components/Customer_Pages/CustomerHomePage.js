@@ -346,8 +346,8 @@ const CustomerHomePage = () => {
                 md={3}
                 xl={2}
                 sx={{
-                  margin: "10px",
-                  padding: "1px",
+                  margin: "5px",
+                  padding: "5px",
                 }}
                 key={req.id}
               >
@@ -377,36 +377,15 @@ const CustomerHomePage = () => {
           }}
         >
           <DataGrid
-            sx={{ borderColor: "darkgrey" }}
+            sx={{
+              borderColor: "darkgrey",
+            }}
             columns={columns}
             rows={requestHistory}
             getRowClassName={(params) => "row-class"}
           />
         </Box>
       </Card>
-
-      {/* Request service button  */}
-      {/* <Button
-        onClick={handleOpen}
-        fullWidth
-        variant="outlined"
-        size="large"
-        sx={{
-          color: "black",
-          border: "1px solid black",
-          marginBottom: "10px",
-          minHeight: "80px",
-          fontSize: "1.8rem",
-          top: 0,
-          "&:hover": {
-            backgroundColor: "black",
-            color: "white",
-            border: "none",
-          },
-        }}
-      >
-        Request Service
-      </Button> */}
 
       <Dialog
         component="form"

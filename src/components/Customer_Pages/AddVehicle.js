@@ -54,7 +54,7 @@ const AddVehicle = () => {
   let navigate = useNavigate();
   const handleBackClick = (e) => {
     e.preventDefault();
-    let path = "/customer/profile";
+    const path = "/customer/profile";
     navigate(path);
   };
 

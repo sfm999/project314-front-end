@@ -56,7 +56,7 @@ const CardDetails = () => {
   let navigate = useNavigate();
 
   const handleBack = () => {
-    let path = "/customer/profile";
+    const path = "/customer/profile";
     navigate(path);
   };
 
