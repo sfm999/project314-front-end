@@ -62,7 +62,6 @@ export function CustomerProfile() {
     fetchData();
   }, [fetchData]);
 
-  /* @KAINE: I think this is where you'd made the api call to update*/
   const handlePaymentPlanChange = async (event) => {
     setValue(event.target.value);
     console.log(event.target.value);
@@ -83,7 +82,7 @@ export function CustomerProfile() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    // first-name, last-name
+    // data: [first-name, last-name]
 
     setDetailsOpen(false);
   };
