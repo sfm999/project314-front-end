@@ -5,6 +5,7 @@ import {
   Routes,
   Navigate,
   useNavigate,
+  useLocation,
 } from "react-router-dom";
 import "./App.css";
 
@@ -29,10 +30,16 @@ import {
 import TestPage from "./components/TestPage";
 import InitialRequest from "./components/InitialRequest";
 import useAuth from "./hooks/useAuth";
+import { useCallback, useEffect } from "react";
+import axios from "./utils/axios";
+import AuthGuard from "./guards/AuthGuard";
 
 function App() {
-  const { isAuthenticated, isInitialized } = useAuth();
-  console.log("Is Authenticated", isAuthenticated);
+  // const navigate = useNavigate();
+  // const {pathname} = useLocation();
+  const { isAuthenticated, isInitialized, } = useAuth();
+
+
   return (
     <Router>
       {isInitialized && (
@@ -46,53 +53,42 @@ function App() {
               <Route
                 exact
                 path="/"
-                element={
-                  isAuthenticated ? (
-                    <Navigate to="/customer/home" />
-                  ) : (
-                    <Navigate to="/customer/sign-in" />
-                  )
-                }
+                element={<Navigate to="/customer/home" />}
               />
 
               <Route
                 exact
                 path="/customer"
-                element={
-                  isAuthenticated ? (
-                    <Navigate to="/customer/home" />
-                  ) : (
-                    <Navigate to="/customer/sign-in" />
-                  )
-                }
+                element={<Navigate to="/customer/home" />}
+              />
+
+              <Route
+                exact
+                path="/contractor/*"
+                element={<Navigate to="/contractor/home" />}
               />
 
               <Route
                 exact
                 path="/contractor"
-                element={
-                  isAuthenticated ? (
-                    <Navigate to="/contractor/home" />
-                  ) : (
-                    <Navigate to="/contractor/sign-in" />
-                  )
-                }
+                element={<Navigate to="/contractor/home" />}
+              />
+
+              <Route
+                exact
+                path="/customer/*"
+                element={<Navigate to="/customer/home" />}
               />
 
               <Route
                 exact
                 path="/customer"
-                element={
-                  isAuthenticated ? (
-                    <Navigate to="/customer/home" />
-                  ) : (
-                    <Navigate to="/customer/sign-in" />
-                  )
-                }
+                element={<Navigate to="/customer/home" />}
               />
 
               {/* Custome Home Page */}
-              <Route path="/customer/home" element={<CustomerHomePage />} />
+              
+              <Route path="/customer/home" element={<AuthGuard role='customer'><CustomerHomePage /></AuthGuard>} />
 
               {/* Customer(?) sign in and sign up */}
               <Route path="/customer/sign-in" element={<SignIn />} />
@@ -109,35 +105,27 @@ function App() {
               />
 
               {/* Contractor Home Page and Profile */}
-              <Route path="/contractor/home" element={<ContractorHome />} />
+              <Route path="/contractor/home" element={<AuthGuard><ContractorHome /></AuthGuard>} />
               <Route
                 path="/contractor/profile"
-                element={<ContractorProfile />}
+                element={<AuthGuard><ContractorProfile /></AuthGuard>}
               />
 
               {/* Customer Profile Page */}
-              <Route path="/customer/profile" element={<CustomerProfile />} />
+              <Route path="/customer/profile" element={<AuthGuard role='customer'><CustomerProfile /></AuthGuard>} />
 
               {/* Pages for Customer Functionality */}
               <Route
                 path="/customer/vehicles/manage"
                 element={<ManageVehicle />}
               />
-              <Route path="/customer/vehicles/add" element={<AddVehicle />} />
+              <Route path="/customer/vehicles/add" element={<AuthGuard role='customer'><AddVehicle /></AuthGuard>} />
               <Route
                 path="/customer/vehicles/:vehicleID/edit/"
                 element={<EditVehicle />}
               />
-              <Route path="/customer/card-details" element={<CardDetails />} />
+              <Route path="/customer/card-details" element={<AuthGuard role='customer'><CardDetails /></AuthGuard>} />
 
-              {/* Just a page to test things out on */}
-              <Route path="/customer/test-page" element={<TestPage />} />
-
-              {/*Adding this to test the location stuff for requests */}
-              <Route
-                path="/customer/InitialRequest"
-                element={<InitialRequest />}
-              />
             </Routes>
             {/* END ROUTES */}
           </div>
