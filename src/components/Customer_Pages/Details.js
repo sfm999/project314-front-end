@@ -48,14 +48,16 @@ export function Details({ profile }) {
             }
             secondary={
               <React.Fragment>
-                {profile?.user && <Typography
-                  sx={{ display: "inline" }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  {profile?.user.first_name + " " + profile?.user.last_name}
-                </Typography>}
+                {profile?.user && (
+                  <Typography
+                    sx={{ display: "inline" }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    {profile?.user.first_name + " " + profile?.user.last_name}
+                  </Typography>
+                )}
               </React.Fragment>
             }
           />
@@ -82,14 +84,16 @@ export function Details({ profile }) {
             }
             secondary={
               <React.Fragment>
-                {profile?.user &&<Typography
-                  sx={{ display: "inline" }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  {profile?.user.email}
-                </Typography>}
+                {profile?.user && (
+                  <Typography
+                    sx={{ display: "inline" }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    {profile?.user.email}
+                  </Typography>
+                )}
               </React.Fragment>
             }
           />
@@ -116,16 +120,18 @@ export function Details({ profile }) {
             }
             secondary={
               <React.Fragment>
-                {profile?.user &&<Typography
-                  sx={{ display: "inline" }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  {profile?.subscription_status === "S"
-                    ? "Subscription"
-                    : "Pay-on-Demand"}
-                </Typography>}
+                {profile?.user && (
+                  <Typography
+                    sx={{ display: "inline" }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    {profile?.subscription_status === "S"
+                      ? "Subscription"
+                      : "Pay-on-Demand"}
+                  </Typography>
+                )}
               </React.Fragment>
             }
           />

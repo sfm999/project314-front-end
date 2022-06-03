@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import {
+  Box,
   ButtonGroup,
-  Container,
+  CssBaseline,
   Dialog,
   DialogActions,
   DialogContent,
@@ -35,8 +36,7 @@ export function CustomerProfile() {
   // useCallback used to prevent useEffect infinite loop.
   // Fetch data with user provided ID (gotten on login)
   const fetchData = useCallback(async () => {
-    const ID = window.localStorage.getItem("userID");
-    await axios.get(`users/client/?user=${ID}`).then((response) => {
+    await axios.get(`users/client/?user=${userID}`).then((response) => {
       setProfile(response.data[0]);
     });
   }, []);
@@ -59,7 +59,6 @@ export function CustomerProfile() {
         subscription_status: event.target.value,
       })
       .then((response) => {
-        
         fetchData();
       });
   };
@@ -84,7 +83,16 @@ export function CustomerProfile() {
   console.log(profile?.subscription_status);
 
   return (
-    <Container maxWidth="100%" sx={{ width: "90%", paddingTop: "20px" }}>
+    <Box
+      sx={{
+        mx: "auto",
+        mt: 2,
+        width: "90%",
+        height: "100%",
+        spacing: 2,
+      }}
+    >
+      <CssBaseline />
       <Grid
         container
         columnSpacing={{ xs: 1, sm: 2, md: 3 }}
@@ -109,7 +117,11 @@ export function CustomerProfile() {
                   row
                   aria-labelledby="payment-plan-radio-buttons-group-label"
                   name="payment-plan-radio-buttons-group"
-                  value={profile?.subscription_status ? profile.subscription_status : null}
+                  value={
+                    profile?.subscription_status
+                      ? profile.subscription_status
+                      : null
+                  }
                   onChange={handlePaymentPlanChange}
                 >
                   <FormControlLabel
@@ -191,7 +203,7 @@ export function CustomerProfile() {
           </Grid>
         </DialogContent>
       </Dialog>
-    </Container>
+    </Box>
   );
 }
 
