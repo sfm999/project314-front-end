@@ -14,9 +14,27 @@ const Navbar = () => {
       <h1>Find my Mechanic</h1>
       <div className="links" style={{ marginRight: 40, marginBottom: 10 }}>
         {/* <Link to="/">Generic Home</Link> */}
-        {isAuthenticated && isCustomer && <Link onClick={() => {logout();}} to="/customer/sign-in">Sign Out</Link>}
+        {isAuthenticated && isCustomer && (
+          <Link
+            onClick={() => {
+              logout();
+            }}
+            to="/customer/sign-in"
+          >
+            Sign Out
+          </Link>
+        )}
 
-        {isAuthenticated && !isCustomer && <Link onClick={() => {logout();}} to="/contractor/sign-in">Sign Out</Link>}
+        {isAuthenticated && !isCustomer && (
+          <Link
+            onClick={() => {
+              logout();
+            }}
+            to="/contractor/sign-in"
+          >
+            Sign Out
+          </Link>
+        )}
 
         {isAuthenticated && role === "S" && (
           <Link to="/contractor/home">Home</Link>
@@ -50,9 +68,6 @@ const Navbar = () => {
         {!isAuthenticated && isCustomer && (
           <Link to="/customer/sign-up">Sign Up</Link>
         )}
-
-        
-
       </div>
     </nav>
   );

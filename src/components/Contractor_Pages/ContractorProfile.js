@@ -1,40 +1,33 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import * as React from "react";
 import Grid from "@mui/material/Grid";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
 import ContractorDetails from "./ContractorDetails";
 
 import useAuth from "../../hooks/useAuth";
 import useIsMountedRef from "../../hooks/useIsMountedRef";
 
-// import { setSession } from '../../utils/jwt';
 import axios from "../../utils/axios";
-
-// const contractor = {
-//   first_name: "Jeff", //something.getdata(first_name)
-//   last_name: "Bezos",
-//   email: "JB111@uowmail.edu.au",
-//   abn: "51 824 753 556",
-//   //password: 1234567890
-// };
-
-//need a component that gets the information
+import BankDetailsForm from "./BankDetailsForm";
+import {
+  Container,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
+import ContractorAccountDetails from "./ContractorAccountDetails";
+import CustomButton from "../sub-components/CustomButton";
 
 export default function ContractorProfile() {
   const isMountedRef = useIsMountedRef();
-
-  //   const [contractor, setContractor] = useState(contractor);
 
   const { userID } = useAuth();
 
   const [profile, setProfile] = useState();
 
   const fetchData = useCallback(async () => {
-    const ID = window.localStorage.getItem("userID");
-    await axios.get(`users/contractor/?user=${ID}`).then((response) => {
+    await axios.get(`users/contractor/?user=${userID}`).then((response) => {
       console.log(response.data);
       setProfile(response.data[0]);
     });
@@ -43,41 +36,115 @@ export default function ContractorProfile() {
   React.useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  const [bankDetailsOpen, setBankDetailsOpen] = useState(false);
+
+  // @KAINE | TODO, implement API call to update bank details
+  const handleBankSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+
+    console.log("Account number:", data.get("accountNumber"));
+    console.log("BSB:", data.get("BSB"));
+
+    handleBankDetailsClose();
+  };
+
+  const handleBankDetailsClose = () => {
+    setBankDetailsOpen(false);
+  };
+
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+  const handleDelete = () => {
+    console.log("You theoretically just deleted your account");
+    setDeleteDialogOpen(false);
+  };
+
   return (
-    <Grid container spacing={2} sx={{ paddingRight: "30px" }}>
-      <Grid item xs={8}>
-        {profile && <ContractorDetails profile={profile} />}
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <Grid item xs={12} md={15}>
-          <Button variant="contained">Manage Bank Details</Button>
-          {/*This whole list can me moved to another page */}
-          <List>
-            <ListItem>
-              <ListItemText
-                primary="Account Owner"
-                secondary={
-                  profile?.user?.first_name + " " + profile?.user?.last_name
-                }
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="BSB" secondary={profile?.BSB} />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="Account Number"
-                secondary={profile?.account}
-              />
-            </ListItem>
-          </List>
+    <Container
+      sx={{
+        marginTop: "2%",
+      }}
+    >
+      <Grid
+        container
+        justifyContent="right"
+        spacing={2}
+        sx={{ marginTop: "7px" }}
+      >
+        <Grid item xs={8}>
+          {profile && <ContractorDetails profile={profile} />}
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Button variant="contained" color="error">
-            Delete Account
+        <Grid item xs={4}>
+          <ContractorAccountDetails profile={profile} />
+        </Grid>
+        <Grid item xs={4}>
+          <Button
+            variant="outlined"
+            onClick={() => setBankDetailsOpen(true)}
+            size="large"
+            fullWidth
+          >
+            {" "}
+            Manage Bank Details
           </Button>
         </Grid>
+
+        <Grid item xs={12} sx={{ mt: -1, mb: -1 }} />
+
+        <Grid item xs={4}>
+          <Button
+            onClick={() => setDeleteDialogOpen(true)}
+            variant="contained"
+            color="error"
+            size="large"
+            fullWidth
+          >
+            Deactivate Account
+          </Button>
+        </Grid>
+        <BankDetailsForm
+          bankDetailsOpen={bankDetailsOpen}
+          handleBankSubmit={handleBankSubmit}
+          handleClose={handleBankDetailsClose}
+        />
       </Grid>
-    </Grid>
+
+      <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(true)}>
+        <DialogTitle color="error">WARNING</DialogTitle>
+        <DialogContent>
+          <Grid container spacing={1}>
+            <Grid item xs={12}>
+              <Typography variant="body1">
+                Are you sure you want to <strong>deactivate</strong> your
+                account? We haven't fully implemented the{" "}
+                <strong>reactivation</strong> of an account so this will be{" "}
+                <strong>permanent</strong>.
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <CustomButton
+                text="cancel"
+                onClick={() => setDeleteDialogOpen(false)}
+                size="large"
+              />
+            </Grid>
+
+            <Grid item xs={6}>
+              <Button
+                onClick={handleDelete}
+                variant="contained"
+                color="error"
+                size="large"
+                fullWidth
+              >
+                Deactivate Account
+              </Button>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </Dialog>
+    </Container>
   );
 }

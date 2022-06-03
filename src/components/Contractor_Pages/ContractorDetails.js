@@ -10,13 +10,12 @@ import {
 import BadgeIcon from "@mui/icons-material/Badge";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import MailIcon from "@mui/icons-material/Mail";
-import PersonIcon from "@mui/icons-material/Person";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export function ContractorDetails({ profile }) {
   return (
-    <Card sx={{ display: "flex", flexGrow: 1, minWidth: "240px" }}>
-      <List sx={{ width: "100%", maxWidth: 420, bgcolor: "Background.paper" }}>
+    <Card>
+      <List sx={{ bgcolor: "Background.paper" }}>
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
             <Avatar>
@@ -39,7 +38,6 @@ export function ContractorDetails({ profile }) {
             secondary={
               <React.Fragment>
                 <Typography
-                  sx={{ display: "inline" }}
                   component="span"
                   variant="body2"
                   color="text.primary"
@@ -51,7 +49,7 @@ export function ContractorDetails({ profile }) {
           />
         </ListItem>
 
-        <ListItem alignItems="flex-start">
+        <ListItem>
           <ListItemAvatar>
             <Avatar>
               <MailIcon />
@@ -73,7 +71,6 @@ export function ContractorDetails({ profile }) {
             secondary={
               <React.Fragment>
                 <Typography
-                  sx={{ display: "inline" }}
                   component="span"
                   variant="body2"
                   color="text.primary"
@@ -107,7 +104,6 @@ export function ContractorDetails({ profile }) {
             secondary={
               <React.Fragment>
                 <Typography
-                  sx={{ display: "inline" }}
                   component="span"
                   variant="body2"
                   color="text.primary"

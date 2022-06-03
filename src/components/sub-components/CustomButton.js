@@ -11,11 +11,12 @@ const CustomButton = ({ text, onClick, size, type }) => {
         "&:hover": {
           backgroundColor: "black",
           color: "white",
-          border: "none",
+          border: "1px solid black",
         },
       }}
       onClick={onClick}
       type={type ? type : ""}
+      fullWidth
     >
       {text}
     </Button>
