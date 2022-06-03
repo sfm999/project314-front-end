@@ -54,9 +54,6 @@ export function CustomerProfile() {
   }, [fetchData]);
 
   const handlePaymentPlanChange = async (event) => {
-    setValue(event.target.value);
-    console.log(event.target.value);
-
     await axios
       .put(`users/client/${profile.id}/`, {
         subscription_status: event.target.value === "subscription" ? "S" : "P",
@@ -83,10 +80,7 @@ export function CustomerProfile() {
   const handleOpen = () => setDetailsOpen(true);
   const handleClose = () => setDetailsOpen(false);
 
-  // Idk why I have to reverse the ternary options but it is what makes it work ='(
-  const [value, setValue] = useState(
-    profile?.subscription_status ? "pay-on-demand" : "subscription"
-  );
+  console.log(profile?.subscription_status);
 
   return (
     <Container maxWidth="100%" sx={{ width: "90%", paddingTop: "20px" }}>
@@ -114,7 +108,11 @@ export function CustomerProfile() {
                   row
                   aria-labelledby="payment-plan-radio-buttons-group-label"
                   name="payment-plan-radio-buttons-group"
-                  value={value}
+                  value={
+                    profile?.subscription_status === "S"
+                      ? "subscription"
+                      : "pay-on-demand"
+                  }
                   onChange={handlePaymentPlanChange}
                 >
                   <FormControlLabel
