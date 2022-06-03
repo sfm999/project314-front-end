@@ -16,6 +16,7 @@ const CustomButton = ({ text, onClick, size, type }) => {
       }}
       onClick={onClick}
       type={type ? type : ""}
+      fullWidth
     >
       {text}
     </Button>

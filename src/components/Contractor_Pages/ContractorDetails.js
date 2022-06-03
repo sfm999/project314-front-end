@@ -15,8 +15,8 @@ import React, { useEffect, useState } from "react";
 
 export function ContractorDetails({ profile }) {
   return (
-    <Card sx={{ display: "flex", flexGrow: 1, minWidth: "240px" }}>
-      <List sx={{ width: "100%", maxWidth: 420, bgcolor: "Background.paper" }}>
+    <Card>
+      <List sx={{ bgcolor: "Background.paper" }}>
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
             <Avatar>
@@ -31,6 +31,7 @@ export function ContractorDetails({ profile }) {
                   variant="body1"
                   color="text.primary"
                   sx={{ fontWeight: "bold" }}
+                  nowrap
                 >
                   Full Name
                 </Typography>
@@ -77,6 +78,7 @@ export function ContractorDetails({ profile }) {
                   component="span"
                   variant="body2"
                   color="text.primary"
+                  wrap
                 >
                   {profile?.user.email}
                 </Typography>

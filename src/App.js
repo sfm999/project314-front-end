@@ -33,7 +33,6 @@ import useAuth from "./hooks/useAuth";
 import { useCallback, useEffect } from "react";
 import axios from "./utils/axios";
 import AuthGuard from "./guards/AuthGuard";
-import BankDetails from "./components/Contractor_Pages/BankDetails";
 
 function App() {
   // const navigate = useNavigate();
@@ -125,14 +124,6 @@ function App() {
                 element={
                   <AuthGuard>
                     <ContractorProfile />
-                  </AuthGuard>
-                }
-              />
-              <Route
-                path="/contractor/bank-details"
-                element={
-                  <AuthGuard>
-                    <BankDetails />
                   </AuthGuard>
                 }
               />
