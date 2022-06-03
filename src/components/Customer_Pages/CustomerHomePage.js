@@ -355,7 +355,6 @@ const CustomerHomePage = () => {
                   sx={{
                     maxWidth: "320px",
                     minWidth: "210px",
-                    maxHeight: "301px",
                   }}
                 >
                   <ServiceRequest request={req} />
