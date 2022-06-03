@@ -112,7 +112,7 @@ export default function ContractorProfile() {
             size="large"
             fullWidth
           >
-            Delete Account
+            Deactivate Account
           </Button>
         </Grid>
         <BankDetailsForm
@@ -128,8 +128,10 @@ export default function ContractorProfile() {
           <Grid container spacing={1}>
             <Grid item xs={12}>
               <Typography variant="body1">
-                Deletion of your account is <strong>permanent</strong>. Are you
-                sure you want to continue with <strong>deletion</strong>?
+                Are you sure you want to <strong>deactivate</strong> your
+                account? We haven't fully implemented the{" "}
+                <strong>reactivation</strong> of an account so this will be{" "}
+                <strong>permanent</strong>.
               </Typography>
             </Grid>
             <Grid item xs={6}>
@@ -148,7 +150,7 @@ export default function ContractorProfile() {
                 size="large"
                 fullWidth
               >
-                Delete Account
+                Deactivate Account
               </Button>
             </Grid>
           </Grid>
