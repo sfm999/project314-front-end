@@ -61,8 +61,7 @@ const BankDetails = () => {
 
   /* 
     @KAINE
-    I think this is where you'd have the api do the checking of the form fields possibly.
-    Else we have to get a library to check these field inputs
+    Do the API call here to update the bank details
   */
   const handleSubmit = () => {
     console.log(bankDetails);
