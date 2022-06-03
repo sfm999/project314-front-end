@@ -48,14 +48,14 @@ export function Details({ profile }) {
             }
             secondary={
               <React.Fragment>
-                <Typography
+                {profile?.user && <Typography
                   sx={{ display: "inline" }}
                   component="span"
                   variant="body2"
                   color="text.primary"
                 >
                   {profile?.user.first_name + " " + profile?.user.last_name}
-                </Typography>
+                </Typography>}
               </React.Fragment>
             }
           />
@@ -82,14 +82,14 @@ export function Details({ profile }) {
             }
             secondary={
               <React.Fragment>
-                <Typography
+                {profile?.user &&<Typography
                   sx={{ display: "inline" }}
                   component="span"
                   variant="body2"
                   color="text.primary"
                 >
                   {profile?.user.email}
-                </Typography>
+                </Typography>}
               </React.Fragment>
             }
           />
@@ -116,7 +116,7 @@ export function Details({ profile }) {
             }
             secondary={
               <React.Fragment>
-                <Typography
+                {profile?.user &&<Typography
                   sx={{ display: "inline" }}
                   component="span"
                   variant="body2"
@@ -125,7 +125,7 @@ export function Details({ profile }) {
                   {profile?.subscription_status === "S"
                     ? "Subscription"
                     : "Pay-on-Demand"}
-                </Typography>
+                </Typography>}
               </React.Fragment>
             }
           />
