@@ -66,7 +66,6 @@ export function CustomerProfile() {
 
   const updateUserName = async (firstName, lastName, email) => {
     await axios.patch(`users/${userID}/`, {'first_name': firstName, 'last_name': lastName, email}).then((response) => {
-      console.log("UPDATED!!!!")
       fetchData();
     });
   }

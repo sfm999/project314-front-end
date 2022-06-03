@@ -15,6 +15,7 @@ import { deepOrange } from "@mui/material/colors";
 
 import axios from "../../utils/axios";
 import { useNavigate } from "react-router";
+import { Divider } from "@mui/material";
 
 const TextBox = styled(TextField)({
   "& input:valid + fieldset": {
@@ -61,6 +62,8 @@ export default function ContractorSignUp() {
     last_name,
     email,
     abn,
+    bsb,
+    account,
     role,
     password
   ) => {
@@ -70,6 +73,8 @@ export default function ContractorSignUp() {
         last_name,
         email,
         abn,
+        bsb,
+        account,
         role,
         password,
       })
@@ -89,16 +94,18 @@ export default function ContractorSignUp() {
 
     data.append("role", "S");
     window.localStorage.setItem("role", data.get("role"));
+
     register(
       data.get("first_name"),
       data.get("last_name"),
       data.get("email"),
       data.get("abn"),
+      data.get("bsb"),
+      data.get("account"),
       data.get("role"),
-      data.get("password")
+      data.get("password"),
     ).then((res) => {
       if (res === 201) {
-        console.log("YES");
         navigate("/contractor/home");
       } else {
         console.log("Incorrect Signup values or already created");
@@ -173,17 +180,6 @@ export default function ContractorSignUp() {
             margin="normal"
             required
             fullWidth
-            name="abn"
-            label="ABN"
-            type="abn"
-            id="abn"
-            variant="outlined"
-            autoComplete="ABN"
-          />
-          <TextBox
-            margin="normal"
-            required
-            fullWidth
             name="password"
             label="Password"
             type="password"
@@ -191,34 +187,46 @@ export default function ContractorSignUp() {
             variant="outlined"
             autoComplete="new-password"
           />
-          {/* <Grid container spacing={1}>
-            <Grid item xs={1} />
+          <Divider sx={{mt: 2, mb: 1}}/>
+          <Grid container spacing={1}>
+          <Grid item xs={12}>
+          <TextBox
+            margin="normal"
+            required
+            fullWidth
+            name="abn"
+            label="ABN"
+            type="abn"
+            id="abn"
+            variant="outlined"
+            autoComplete="ABN"
+          />
+          </Grid>
             <Grid item xs={4}>
               <TextBox
                 margin="normal"
                 required
                 fullWidth
-                name="age"
-                label="Age"
+                name="bsb"
+                label="BSB"
                 type="text"
-                id="age"
+                id="bsb"
                 variant="outlined"
               />
             </Grid>
-            <Grid item xs={2} />
-            <Grid item xs={4}>
+            <Grid item xs={8}>
               <TextBox
                 margin="normal"
                 required
                 fullWidth
-                name="gender"
-                label="Gender"
+                name="account"
+                label="Account Number"
                 type="text"
-                id="gender"
+                id="account"
                 variant="outlined"
               />
             </Grid>
-          </Grid> */}
+          </Grid>
 
           <Button
             type="submit"
