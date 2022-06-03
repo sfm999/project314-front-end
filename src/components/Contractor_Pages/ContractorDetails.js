@@ -31,7 +31,6 @@ export function ContractorDetails({ profile }) {
                   variant="body1"
                   color="text.primary"
                   sx={{ fontWeight: "bold" }}
-                  nowrap
                 >
                   Full Name
                 </Typography>
@@ -40,7 +39,6 @@ export function ContractorDetails({ profile }) {
             secondary={
               <React.Fragment>
                 <Typography
-                  sx={{ display: "inline" }}
                   component="span"
                   variant="body2"
                   color="text.primary"
@@ -52,7 +50,7 @@ export function ContractorDetails({ profile }) {
           />
         </ListItem>
 
-        <ListItem alignItems="flex-start">
+        <ListItem>
           <ListItemAvatar>
             <Avatar>
               <MailIcon />
@@ -74,11 +72,9 @@ export function ContractorDetails({ profile }) {
             secondary={
               <React.Fragment>
                 <Typography
-                  sx={{ display: "inline" }}
                   component="span"
                   variant="body2"
                   color="text.primary"
-                  wrap
                 >
                   {profile?.user.email}
                 </Typography>
@@ -109,7 +105,6 @@ export function ContractorDetails({ profile }) {
             secondary={
               <React.Fragment>
                 <Typography
-                  sx={{ display: "inline" }}
                   component="span"
                   variant="body2"
                   color="text.primary"

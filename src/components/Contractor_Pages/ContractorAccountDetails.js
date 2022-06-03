@@ -1,10 +1,19 @@
-import { Card, List, ListItem, ListItemText } from "@mui/material";
+import { Card, List, ListItem, ListItemText, Typography } from "@mui/material";
 
 const ContractorAccountDetails = ({ profile }) => {
   return (
     <Card>
-      <List>
-        <ListItem>
+      <Typography
+        variant="h6"
+        sx={{
+          paddingRight: "16px",
+          paddingLeft: "16px",
+        }}
+      >
+        <strong>Bank Details</strong>
+      </Typography>
+      <List sx={{ paddingTop: "0px" }}>
+        <ListItem sx={{ paddingTop: "0px" }}>
           <ListItemText
             secondary={
               profile?.user?.first_name + " " + profile?.user?.last_name
@@ -13,12 +22,12 @@ const ContractorAccountDetails = ({ profile }) => {
             <strong>Account Owner</strong>
           </ListItemText>
         </ListItem>
-        <ListItem>
+        <ListItem sx={{ paddingTop: "0px" }}>
           <ListItemText secondary={profile?.BSB}>
             <strong>BSB</strong>
           </ListItemText>
         </ListItem>
-        <ListItem>
+        <ListItem sx={{ paddingTop: "0px" }}>
           <ListItemText secondary={profile?.account}>
             <strong>Account Number</strong>
           </ListItemText>
