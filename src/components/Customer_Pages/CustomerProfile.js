@@ -63,12 +63,20 @@ export function CustomerProfile() {
       });
   };
 
-  const handleClick = () => {};
+
+  const updateUserName = async (firstName, lastName, email) => {
+    await axios.patch(`users/${userID}/`, {'first_name': firstName, 'last_name': lastName, email}).then((response) => {
+      console.log("UPDATED!!!!")
+      fetchData();
+    });
+  }
 
   /* @KAINE | Put code here to submit changes to api for personal details */
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
+    updateUserName(data.get('first-name'), data.get('last-name'), data.get('email-address'))
 
     // data: [first-name, last-name]
 
@@ -166,23 +174,22 @@ export function CustomerProfile() {
           <Grid
             container
             spacing={1}
-            justifyContent="space-evenly"
-            alignItems="center"
+            alignItems="right"
+            justifyContent="right"
             sx={{
-              maxWidth: "200px",
+              padding: 2,
+              maxWidth: "400px",
             }}
           >
+          
             <Grid item xs={12}>
-              <Typography type="subtitle">
-                <strong>Current name:</strong> {profile?.user.first_name}{" "}
-                {profile?.user.last_name}
-              </Typography>
+              <TextField fullWidth id="first-name" name="first-name" label="First name" defaultValue={profile?.user.first_name} />
             </Grid>
             <Grid item xs={12}>
-              <TextField id="first-name" name="first-name" label="First name" />
+              <TextField fullWidth id="last-name" name="last-name" label="Last name" defaultValue={profile?.user.last_name} />
             </Grid>
             <Grid item xs={12}>
-              <TextField id="last-name" name="last-name" label="Last name" />
+              <TextField fullWidth id="email-address" name="email-address" label="Email" defaultValue={profile?.user.email} />
             </Grid>
             {/* Dialog Buttons */}
             <DialogActions>
