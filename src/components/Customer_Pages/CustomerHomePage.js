@@ -108,7 +108,9 @@ const CustomerHomePage = () => {
   }
 
   const handleVehicleSelect = (event) => {
+    console.log(anchorEl);
     setAnchorEl(event.currentTarget);
+    console.log(anchorEl);
   };
 
   const handleItemClick = (event, index) => {
@@ -401,7 +403,7 @@ const CustomerHomePage = () => {
                 <ListItem
                   button
                   id="lock-button"
-                  aria-haspopup="listbox"
+                  area-haspopup="listbox"
                   area-controls="lock-menu"
                   area-label="when device is locked"
                   area-expanded={open ? "true" : undefined}

@@ -11,7 +11,12 @@ import { deepOrange, grey } from "@mui/material/colors";
 import { useState, useEffect } from "react";
 import ContractorRequestDetails from "./ContractorRequestDetails";
 import Button from "@mui/material/Button";
-
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
 import axios from "../../utils/axios";
 import { DataGrid } from "@mui/x-data-grid";
 import useAuth from "../../hooks/useAuth";
@@ -20,6 +25,57 @@ const ContractorCoords = {
   longitude: null,
   latitude: null,
 };
+
+const issues = [
+  {
+    issueName: 'Select an issue',
+    issueCost: ''
+  },
+  {
+    issueName: 'Replacement Battery',
+    issueCost: '$100-$450'
+  },
+  {
+    issueName: 'Oil change',
+    issueCost: '$65-$125',
+  },
+  {
+    issueName: 'Replaced Brake Fluid',
+    issueCost: '$70-$120',
+  },
+  {
+    issueName: 'Vehicle Towed',
+    issueCost: '$150-$400',
+  },
+  {
+    issueName: 'Busted start motor',
+    issueCost: '$150-$1100',
+  },
+  {
+    issueName: 'Control valve issues',
+    issueCost: '$70-$400',
+  },
+  {
+    issueName: 'Spark Plug Replacement',
+    issueCost: '$120-$250',
+  },
+  {
+    issueName: 'Engine overheated',
+    issueCost: '$100-$1500',
+  },
+  {
+    issueName: 'Alternator failure',
+    issueCost: '$400-$900',
+  },
+  {
+    issueName: 'Unlocked car',
+    issueCost: '$30-$50',
+  },
+  {
+    issueName: 'Replacement Key',
+    issueCost: '$250',
+  }
+];
 
 const requestInformationDefault = [
   {
@@ -73,10 +129,39 @@ export default function ContractorHome() {
 
   const [selectedIndex, setSelectedIndex] = useState(1);
 
+  
+
   const [requestVisible, setRequestVisible] = useState(false);
 
   const [unassignedSelection, setUnassignedSelection] = useState();
   const [inProgressSelection, setInProgressSelection] = useState();
+
+  const [listOfIssues, setListOfIssues] = useState(issues);
+  const [issueListOpen, setissueListOpen] = useState(false);
+
+  const [completedRequestOpen, setCompletedRequestOpen] = useState(false);
+
+  const openCompletedRequest = () => setCompletedRequestOpen(true);
+  const closeCompletedRequest = () => setCompletedRequestOpen(false);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedIssue, setSelectedIssue] = useState(1);
+
+  const open = Boolean(anchorEl);
+
+  const handleListSelect = (event, index) => {
+    setSelectedIssue(index);
+    setAnchorEl(null);
+  }
+
+  const handleListClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  }
+
+  const handleListClose = () => {
+    setAnchorEl(null);
+  }
+
 
   function compareLocation(longitude, latitude) {
     var currentLongitude = (coordsValues.longitude * Math.PI) / 180;
@@ -192,7 +277,13 @@ export default function ContractorHome() {
 
   const markCompleted = async () => {
     apiMarkCompleted(inProgressSelection[0]);
+    //also open up a dialog window that provides a list of issues
+    //and gets an estimated cost from said list
   };
+
+
+  
+
 
   useEffect(() => {
     let ignore = false;
@@ -314,7 +405,8 @@ export default function ContractorHome() {
             />
           </div>
           <Stack direction="row">
-            <Button onClick={markCompleted} variant="contained">
+            {/* <Button onClick={markCompleted} variant="contained"> */}
+            <Button onClick={openCompletedRequest} variant="contained">
               Mark Completed
             </Button>
           </Stack>
@@ -329,6 +421,76 @@ export default function ContractorHome() {
           </div>
         </Stack>
       </Grid>
+      <Dialog
+        component="form"
+        noValidate
+        onSubmit={markCompleted}
+        open={completedRequestOpen}
+        onClose={closeCompletedRequest}
+      >
+        <DialogContent>
+          <DialogContentText variant="h5">Please enter some details about the service</DialogContentText>
+          {/*Also put in the actual request details in somewhere*/}
+          <Grid container>
+            <Grid item>
+            <List>
+                <ListItem
+                  button
+                  id="lock-button"
+                  area-haspopup="listbox"
+                  area-controls="lock-menu"
+                  area-label="when device is locked"
+                  area-expanded={open ? "true" : undefined}
+                  onClick={handleListClick}
+                >
+                  <ListItemText>
+                    Car Issue
+                  </ListItemText>
+                </ListItem>
+              </List>
+              <Menu
+                id="lock-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleListClose}
+                menulistprops={{
+                  "area-labelledby": "lock-button",
+                  role: "listbox",
+                }}
+              >
+                {issues.map((issue, index) => (
+                  <MenuItem
+                    key={index}
+                    disabled={index === 0}
+                    selected={index === selectedIssue}
+                    onClick={(event) => handleListSelect(event, index)}
+                  >
+                    {issue.issueName + " - $" + issue.issueCost}
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Grid>
+            <Grid item>
+              <List>
+                <ListItem>
+                  <ListItemText
+                    primary={<Typography>Cost of {issues[selectedIssue].issueName}</Typography>}
+                    secondary={issues[selectedIssue].issueCost}/>
+                    
+                </ListItem>
+              </List>
+            </Grid>
+          </Grid>
+        
+          
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeCompletedRequest}>Cancel</Button>
+
+          <Button type="submit">Mark as Completed</Button>
+        </DialogActions>
+
+      </Dialog>
     </Grid>
     // <Grid container spacing={2}>
     //   <Grid item>
