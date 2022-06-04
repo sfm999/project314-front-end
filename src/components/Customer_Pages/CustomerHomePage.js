@@ -186,6 +186,7 @@ const CustomerHomePage = () => {
     });
   };
 
+  // Columns for the data grid
   const columns = [
     {
       field: "first_name",
@@ -460,6 +461,7 @@ const CustomerHomePage = () => {
         onClose={handleCancelClose}
       >
         <DialogTitle>Cancelling a Request</DialogTitle>
+
         <DialogContent>
           <Grid container justifyContent="space-evenly" alignItems="center">
             {/* No Contractor Allocated Code */}
