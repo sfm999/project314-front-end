@@ -22,7 +22,7 @@ import CustomButton from "../sub-components/CustomButton";
 export default function ContractorProfile() {
   const isMountedRef = useIsMountedRef();
 
-  const { userID } = useAuth();
+  const { userID, logout } = useAuth();
 
   const [profile, setProfile] = useState();
 
@@ -56,10 +56,21 @@ export default function ContractorProfile() {
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-  const handleDelete = () => {
-    console.log("You theoretically just deleted your account");
-    setDeleteDialogOpen(false);
-  };
+
+  const updateUserName = async (firstName, lastName, email) => {
+    await axios.patch(`users/${userID}/`, {'first_name': firstName, 'last_name': lastName, email}).then((response) => {
+      fetchData();
+    });
+  }
+
+
+  const handleDelete = async() => {
+    await axios.delete(`users/${userID}/`).then((response) => {
+      setDeleteDialogOpen(false);
+      logout()
+    });
+
+  }; 
 
   return (
     <Container
