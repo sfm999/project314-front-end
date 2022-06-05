@@ -43,20 +43,8 @@ const TextBox = styled(TextField)({
   },
 });
 
-/* 
-  SignUp() function
-
-  Responsible for:
-
-  - Accepting inputs for first name, last name, email address, and password
-  - Handlers for 'sign up' button, which submits the entered data to the API and creates an account.
-    Upon successful submission, redirects to 'sign in' page and passes email address for auto-population
-  - Handles link for redirection to sign in page if user has existing account
-
-  
-*/
 export default function SignUp() {
-  // Allows for on-the-fly navigation to other url's
+  // Allows for on-the-fly navigation of url's as well as taking data in
   let navigate = useNavigate();
 
   // This function performs the API call and submitting the data

@@ -66,6 +66,7 @@ export default function SignIn() {
   const [formValues, setFormValues] = useState(defaultValues);
 
   // Responsible for updating the data in 'formValues' as it is entered in the form
+  // See EditVehicle.js' version for more details
   const handleFormChange = (e) => {
     const { name, value } = e.target;
 

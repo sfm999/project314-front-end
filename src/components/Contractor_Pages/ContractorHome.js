@@ -83,25 +83,15 @@ export default function ContractorHome() {
   //es-lint
   const [selectedIndex, setSelectedIndex] = useState(1);
 
-<<<<<<< HEAD
-  const [requestVisible, setRequestVisible] = useState(false);
-=======
-  
-
   const [requestVisible, setRequestVisible] = useState(false); //a boolean to monitor if the request dialog is visible or not
->>>>>>> d94deb7d63abf9947fb964fdf21b34360a20c3a0
 
   const [unassignedSelection, setUnassignedSelection] = useState(); //unassigned selecitons
   const [inProgressSelection, setInProgressSelection] = useState(); //selecting inprogress requests
 
-<<<<<<< HEAD
-  const [completedRequestOpen, setCompletedRequestOpen] = useState(false);
-=======
   const [listOfIssues, setListOfIssues] = useState(issues); //the array issues put into a useState
   const [issueListOpen, setissueListOpen] = useState(false); //the issues selection button true = open, false = closed
 
   const [completedRequestOpen, setCompletedRequestOpen] = useState(false); //
->>>>>>> d94deb7d63abf9947fb964fdf21b34360a20c3a0
 
   const openCompletedRequest = () => setCompletedRequestOpen(true);
   const closeCompletedRequest = () => setCompletedRequestOpen(false);
@@ -161,7 +151,7 @@ export default function ContractorHome() {
     var r = 6371; //radius of the earth;
 
     var totalDistance = b * r;
-  
+
     if (totalDistance < 50) {
       return Math.round(totalDistance * 100) / 100;
     } else {
@@ -233,7 +223,7 @@ export default function ContractorHome() {
   };
 
   const apiMarkCompleted = async (id, issue, cost) => {
-<<<<<<< HEAD
+    //marks a currently assigned requests as completed
     axios
       .put(`users/requests/${id}/`, {
         status: "C",
@@ -245,14 +235,6 @@ export default function ContractorHome() {
         fetchMyRequests();
         fetchMyCompletedRequests();
       });
-=======
-    //marks a currently assigned requests as completed
-    axios.put(`users/requests/${id}/`, { status: "C", contractor_identified_issue: issue, estimated_cost_range: cost }).then((response) => {
-      fetchUnassignedRequests();
-      fetchMyRequests();
-      fetchMyCompletedRequests();
-    });
->>>>>>> d94deb7d63abf9947fb964fdf21b34360a20c3a0
   };
 
   const assignRequests = async () => {
@@ -274,7 +256,7 @@ export default function ContractorHome() {
     let ignore = false;
     if (!ignore) getLocation();
 
-    fetchUnassignedRequests();//grabs requests
+    fetchUnassignedRequests(); //grabs requests
     fetchMyRequests();
     fetchMyCompletedRequests();
 

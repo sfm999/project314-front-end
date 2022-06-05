@@ -30,7 +30,8 @@ const TextBox = styled(TextField)({
   },
 });
 
-// Dummy data just to see if the values change when editing form
+// Dummy data just to see if the values change when editing form.
+// Serves for form handling even without default values
 const customerVehicle = {
   make: "toyota",
   model: "corolla",
@@ -40,16 +41,17 @@ const customerVehicle = {
 };
 
 const EditVehicle = () => {
-  const location = useLocation();
+  // Grab the vehicle id from the url parameters
   const { vehicleID } = useParams();
 
+  // Holds the form data
   const [formValues, setFormValues] = useState(customerVehicle);
 
   // Handle page change (back button)
   let navigate = useNavigate();
   const handleBackClick = (e) => {
     e.preventDefault(); // Prevent form cancellation
-    const path = "/customer/profile";
+    const path = "/customer/profile"; // Navigate to customer profile
     navigate(path);
   };
 
@@ -67,29 +69,25 @@ const EditVehicle = () => {
     });
   };
 
-  // Honestly I don't think the const data bit is necessary as
-  // from what I understand, the handleFormChange takes care of grabbing
-  // any content onChange.
   const handleSubmit = async (e) => {
     e.preventDefault(); // Don't refresh :)
-    console.log(formValues);
 
+    // Submit the new vehicle details to the API for appendment to existing entry
     axios.put(`users/vehicles/${vehicleID}/`, formValues).then((response) => {
-      console.log(response.data);
       const path = "/customer/profile";
       navigate(path);
     });
   };
 
+  // Grab the vehicle from the API using the vehicleID we got from the url params
   const fetchVehicle = async () => {
     axios.get(`users/vehicles/${vehicleID}`).then((response) => {
-      console.log(response.data);
       setFormValues(response.data);
     });
   };
 
+  // Invoke the fetchVehicle() function on page load
   useEffect(() => {
-    console.log("VID", vehicleID);
     fetchVehicle();
   }, []);
 

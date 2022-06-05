@@ -1,9 +1,6 @@
 import {
   Avatar,
   Card,
-  Dialog,
-  DialogContent,
-  Grid,
   List,
   ListItem,
   ListItemAvatar,
@@ -13,9 +10,9 @@ import {
 import BadgeIcon from "@mui/icons-material/Badge";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import MailIcon from "@mui/icons-material/Mail";
-import CustomButton from "../sub-components/CustomButton";
-import React, { useState } from "react";
+import React from "react";
 
+// Takes in profile which is used to populate the list items
 export function Details({ profile }) {
   return (
     <Card

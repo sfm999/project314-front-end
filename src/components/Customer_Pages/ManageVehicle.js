@@ -24,18 +24,26 @@ const columns = [
 ];
 
 const ManageVehicle = () => {
+  // Get user id from the useAuth() hook
   const { userID } = useAuth();
+  // containes the selected rows of the table
   const [selectedRows, setSelectedRows] = useState([]);
+  // Responsible for determining if user clicked edit button.
   const [editAlert, setEditAlert] = useState(false);
+  // contains the list of vehicles gotten from the API
   const [vehicleList, setVehicleList] = useState([]);
 
+  // Allows for on-the-fly navigation of url's as well as taking data in
   let navigate = useNavigate();
 
+  // Handles the adding of a vehicle by redirecting to the add vehicle page/component
   const handleAddVehicleClick = () => {
     const path = "/customer/vehicles/add";
     navigate(path);
   };
 
+  // Responsible for checking whether only 1 vehicle is selected (editAlert = true if 0 or more than 1 vehicle is selected)
+  // navigate to custom vehicle edit page for the vehicle if no editAlert
   const handleEditVehicleClick = () => {
     if (selectedRows.length === 0) {
       setEditAlert(true);
@@ -47,6 +55,7 @@ const ManageVehicle = () => {
     }
   };
 
+  // Handles the remove vehicle click, which uses the id, gotten from selectedRows
   const removeVehicle = async (id) => {
     // Delete from database via API
     axios.delete(`users/vehicles/${id}`).then((response) => {
@@ -55,7 +64,7 @@ const ManageVehicle = () => {
   };
 
   const handleRemoveVehicles = () => {
-    // API call to remove vehicle
+    // API call to remove vehicle for each selected as gained from selectedRows
     for (let i = 0; i < selectedRows.length; i += 1) {
       removeVehicle(selectedRows[i]);
     }
@@ -68,6 +77,8 @@ const ManageVehicle = () => {
     );
   };
 
+  // Grabs the vehicles from the API for the specific user,
+  // as specified by the userID gained from useAuth()
   const fetchVehicles = async () => {
     axios.get(`users/vehicles/?user=${userID}`).then((response) => {
       console.log(response.data);
@@ -75,14 +86,15 @@ const ManageVehicle = () => {
     });
   };
 
+  // Grab the vehicles on component loading (see function above)
   useEffect(() => {
     fetchVehicles();
   }, []);
 
   return (
     <Box
-    minHeight="215px"
-    // height="30vh"
+      minHeight="215px"
+      // height="30vh"
       style={{
         height: "40vh",
         margin: "auto",
@@ -101,6 +113,8 @@ const ManageVehicle = () => {
         </Grid>
         <Grid item xs={3} />
       </Grid>
+
+      {/* The table that stores the vehicles */}
       <DataGrid
         rows={vehicleList}
         columns={columns}
