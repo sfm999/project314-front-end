@@ -301,9 +301,26 @@ const CustomerHomePage = () => {
 
   // Called upon when a request is confirmed as cancelled.
   // Will use contractorAllocated to determine if payment receipt generated (if we cbf)
-  const handleCancelRequest = () => {
-    handleCancelClose();
+  const handleCancelRequest = async () => {
+    let cost = 0;
+    if(contractorAllocated) {
+      cost = 25;
+    } 
+
+    axios
+        .put(`users/requests/${requestID}/`, {
+          status: "C",
+          contractor_identified_issue: 'Cancelled',
+          estimated_cost_range: cost,
+        })
+        .then((response) => {
+          fetchRequestHistory();
+          fetchRequests();
+        });
+
+      handleCancelClose();
   };
+  
 
   // Simple closes the cancel dialog window by setting cancelOpen variable to false
   const handleCancelClose = () => {
