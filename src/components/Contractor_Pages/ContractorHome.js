@@ -1,6 +1,6 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
-import { Stack, Typography,   List, ListItem, ListItemText, } from "@mui/material";
+import { Stack, Typography, List, ListItem, ListItemText } from "@mui/material";
 import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -20,53 +20,53 @@ const ContractorCoords = {
 
 const issues = [
   {
-    issueName: 'Select an issue',
-    issueCost: ''
+    issueName: "Select an issue",
+    issueCost: "",
   },
   {
-    issueName: 'Replacement Battery',
-    issueCost: '$100-$450'
+    issueName: "Replacement Battery",
+    issueCost: "$100-$450",
   },
   {
-    issueName: 'Oil change',
-    issueCost: '$65-$125',
+    issueName: "Oil change",
+    issueCost: "$65-$125",
   },
   {
-    issueName: 'Replaced Brake Fluid',
-    issueCost: '$70-$120',
+    issueName: "Replaced Brake Fluid",
+    issueCost: "$70-$120",
   },
   {
-    issueName: 'Vehicle Towed',
-    issueCost: '$150-$400',
+    issueName: "Vehicle Towed",
+    issueCost: "$150-$400",
   },
   {
-    issueName: 'Busted start motor',
-    issueCost: '$150-$1100',
+    issueName: "Busted start motor",
+    issueCost: "$150-$1100",
   },
   {
-    issueName: 'Control valve issues',
-    issueCost: '$70-$400',
+    issueName: "Control valve issues",
+    issueCost: "$70-$400",
   },
   {
-    issueName: 'Spark Plug Replacement',
-    issueCost: '$120-$250',
+    issueName: "Spark Plug Replacement",
+    issueCost: "$120-$250",
   },
   {
-    issueName: 'Engine overheated',
-    issueCost: '$100-$1500',
+    issueName: "Engine overheated",
+    issueCost: "$100-$1500",
   },
   {
-    issueName: 'Alternator failure',
-    issueCost: '$400-$900',
+    issueName: "Alternator failure",
+    issueCost: "$400-$900",
   },
   {
-    issueName: 'Unlocked car',
-    issueCost: '$30-$50',
+    issueName: "Unlocked car",
+    issueCost: "$30-$50",
   },
   {
-    issueName: 'Replacement Key',
-    issueCost: '$250',
-  }
+    issueName: "Replacement Key",
+    issueCost: "$250",
+  },
 ];
 
 export default function ContractorHome() {
@@ -79,17 +79,13 @@ export default function ContractorHome() {
   const [acceptedRequest, setAcceptedRequest] = useState();
   const [existingCurrentRequest, setExistingCurrentRequest] = useState(false);
 
+  //es-lint
   const [selectedIndex, setSelectedIndex] = useState(1);
-
-  
 
   const [requestVisible, setRequestVisible] = useState(false);
 
   const [unassignedSelection, setUnassignedSelection] = useState();
   const [inProgressSelection, setInProgressSelection] = useState();
-
-  const [listOfIssues, setListOfIssues] = useState(issues);
-  const [issueListOpen, setissueListOpen] = useState(false);
 
   const [completedRequestOpen, setCompletedRequestOpen] = useState(false);
 
@@ -104,16 +100,15 @@ export default function ContractorHome() {
   const handleListSelect = (event, index) => {
     setSelectedIssue(index);
     setAnchorEl(null);
-  }
+  };
 
   const handleListClick = (event) => {
     setAnchorEl(event.currentTarget);
-  }
+  };
 
   const handleListClose = () => {
     setAnchorEl(null);
-  }
-
+  };
 
   function compareLocation(longitude, latitude) {
     var currentLongitude = (coordsValues.longitude * Math.PI) / 180;
@@ -228,18 +223,15 @@ export default function ContractorHome() {
   };
 
   const markCompleted = async () => {
-
     //just use the array of issues with the selectedIssue index :)
-    console.log(issues[selectedIssue].issueName + " " + issues[selectedIssue].issueCost);
+    console.log(
+      issues[selectedIssue].issueName + " " + issues[selectedIssue].issueCost
+    );
 
     apiMarkCompleted(inProgressSelection[0]);
     //also open up a dialog window that provides a list of issues
     //and gets an estimated cost from said list
   };
-
-
-  
-
 
   useEffect(() => {
     let ignore = false;
@@ -385,11 +377,13 @@ export default function ContractorHome() {
         onClose={closeCompletedRequest}
       >
         <DialogContent>
-          <DialogContentText variant="h5">Please enter some details about the service</DialogContentText>
+          <DialogContentText variant="h5">
+            Please enter some details about the service
+          </DialogContentText>
           {/*Also put in the actual request details in somewhere*/}
           <Grid container>
             <Grid item>
-            <List>
+              <List>
                 <ListItem
                   button
                   id="lock-button"
@@ -399,9 +393,7 @@ export default function ContractorHome() {
                   area-expanded={open ? "true" : undefined}
                   onClick={handleListClick}
                 >
-                  <ListItemText>
-                    Car Issue
-                  </ListItemText>
+                  <ListItemText>Car Issue</ListItemText>
                 </ListItem>
               </List>
               <Menu
@@ -430,22 +422,23 @@ export default function ContractorHome() {
               <List>
                 <ListItem>
                   <ListItemText
-                    primary={<Typography>Cost of {issues[selectedIssue].issueName}</Typography>}
-                    secondary={issues[selectedIssue].issueCost}/>
-                    
+                    primary={
+                      <Typography>
+                        Cost of {issues[selectedIssue].issueName}
+                      </Typography>
+                    }
+                    secondary={issues[selectedIssue].issueCost}
+                  />
                 </ListItem>
               </List>
             </Grid>
           </Grid>
-        
-          
         </DialogContent>
         <DialogActions>
           <Button onClick={closeCompletedRequest}>Cancel</Button>
 
           <Button type="submit">Mark as Completed</Button>
         </DialogActions>
-
       </Dialog>
     </Grid>
   );
