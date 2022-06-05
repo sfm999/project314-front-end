@@ -1,6 +1,10 @@
 import { ListItemText, Typography } from "@mui/material";
 import React from 'react';
 
+/*
+  Text container styling and formatting for the listitemtext
+*/
+
 const ListItemTextContainer = ({ primaryText, secondaryText}) => {
   return (
     <ListItemText

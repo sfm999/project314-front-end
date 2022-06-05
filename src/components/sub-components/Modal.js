@@ -1,5 +1,7 @@
 import "./Modal.css"
 
+/*The modal used in customer home page and the servicerequestmodal.js*/
+
 const Modal = ({ children }) => {
     return ( 
         <div className="modal-backdrop">
