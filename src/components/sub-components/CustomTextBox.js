@@ -1,4 +1,9 @@
 import { styled, TextField } from "@mui/material";
+/*
+
+    Styling for a custom textbox which is used in a few of the webpages
+
+*/
 
 const CustomTextBox = ({ name, label, id, handleChange}) => {
   

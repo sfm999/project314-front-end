@@ -1,4 +1,9 @@
 import { Button } from "@mui/material";
+/*
+
+  This file holds the styling for a component for custom button which is used in a few webpages
+
+*/
 
 const CustomButton = ({ text, onClick, size, type }) => {
   return (
