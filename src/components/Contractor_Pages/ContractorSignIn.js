@@ -17,9 +17,10 @@ import { useNavigate } from "react-router-dom";
 
 import { setSession } from "../../utils/jwt";
 import axios from "../../utils/axios";
-//import { useFetch } from "../../hooks/useFetch";
 import useAuth from "../../hooks/useAuth";
 
+
+//styling for the textbox
 const TextBox = styled(TextField)({
   "& input:valid + fieldset": {
     borderColor: "green",
@@ -46,25 +47,27 @@ const TextBox = styled(TextField)({
   },
 });
 
+//user default values
 const defaultValues = {
   email: "",
   password: "",
 };
+//temporary values
 const tempValues = {
   email: "",
   password: "",
 };
 
 export default function ContractorSignIn() {
-  const { login } = useAuth();
+  const { login } = useAuth(); //login details from userAuth
 
-  const [formValues, setFormValues] = useState(defaultValues);
-  const navigate = useNavigate();
+  const [formValues, setFormValues] = useState(defaultValues); //sign in form values
+  const navigate = useNavigate(); //allows navigation to different webpages
 
-  const handleFormChange = (e) => {
+  const handleFormChange = (e) => { //updates values when they are changed in the form
     const { name, value } = e.target;
 
-    setFormValues({
+    setFormValues({ //sets the form values
       ...formValues,
       [name]: value,
     });

@@ -22,10 +22,14 @@ import CustomButton from "../sub-components/CustomButton";
 export default function ContractorProfile() {
   const isMountedRef = useIsMountedRef();
 
+  // gets user id and allows for logout
   const { userID, logout } = useAuth();
 
+  //holds all the profile details
   const [profile, setProfile] = useState();
 
+
+  //fetches the user details from the django back end and adds it to the profile useState
   const fetchData = useCallback(async () => {
     await axios.get(`users/contractor/?user=${userID}`).then((response) => {
       console.log(response.data);
@@ -40,23 +44,27 @@ export default function ContractorProfile() {
   const [bankDetailsOpen, setBankDetailsOpen] = useState(false);
 
   // @KAINE | TODO, implement API call to update bank details
+
+  //Submits the bank details
   const handleBankSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    console.log("Account number:", data.get("accountNumber"));
-    console.log("BSB:", data.get("BSB"));
+    // console.log("Account number:", data.get("accountNumber"));
+    // console.log("BSB:", data.get("BSB"));
 
-    handleBankDetailsClose();
+    handleBankDetailsClose(); //closes the bank details
   };
 
   const handleBankDetailsClose = () => {
     setBankDetailsOpen(false);
-  };
+  }; //closes the bank details
 
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); 
+  //use state for the delete account dialog, false = closed, true = open
 
 
+  //updates the user name 
   const updateUserName = async (firstName, lastName, email) => {
     await axios.patch(`users/${userID}/`, {'first_name': firstName, 'last_name': lastName, email}).then((response) => {
       fetchData();
@@ -64,6 +72,7 @@ export default function ContractorProfile() {
   }
 
 
+  //deletes the current account
   const handleDelete = async() => {
     await axios.delete(`users/${userID}/`).then((response) => {
       setDeleteDialogOpen(false);
@@ -85,9 +94,11 @@ export default function ContractorProfile() {
         sx={{ marginTop: "7px" }}
       >
         <Grid item xs={8}>
+          {/* the user profile gets displayed here */}
           {profile && <ContractorDetails profile={profile} />}
         </Grid>
         <Grid item xs={4}>
+          {/* The user account details displayed here */}
           <ContractorAccountDetails profile={profile} />
         </Grid>
         <Grid item xs={4}>
@@ -115,6 +126,7 @@ export default function ContractorProfile() {
             Deactivate Account
           </Button>
         </Grid>
+        {/*bank account details form*/}
         <BankDetailsForm
           bankDetailsOpen={bankDetailsOpen}
           handleBankSubmit={handleBankSubmit}
@@ -122,6 +134,7 @@ export default function ContractorProfile() {
         />
       </Grid>
 
+      {/*the dialog for deleting a contractor account */}
       <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(true)}>
         <DialogTitle color="error">WARNING</DialogTitle>
         <DialogContent>
