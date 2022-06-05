@@ -24,7 +24,11 @@ export function ContractorDetails({ profile }) {
           </ListItemAvatar>
           <ListItemText
             primary={
-              <React.Fragment>
+              <React.Fragment> 
+                {/* the react.fragment allows us to use multiple elements without adding 
+                    extras node to the DOM */}
+
+                {/*This is the full name label*/}
                 <Typography
                   component="span"
                   variant="body1"
@@ -37,6 +41,9 @@ export function ContractorDetails({ profile }) {
             }
             secondary={
               <React.Fragment>
+
+                {/*This is where the actual first and last name get pulled from the 
+                   home page and displayed to this page*/}
                 <Typography
                   component="span"
                   variant="body2"
@@ -52,12 +59,13 @@ export function ContractorDetails({ profile }) {
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <MailIcon />
+              <MailIcon /> {/*Email icon*/}
             </Avatar>
           </ListItemAvatar>
           <ListItemText
             primary={
               <React.Fragment>
+                {/*The label for the contractor email address*/}
                 <Typography
                   component="span"
                   variant="body1"
@@ -70,6 +78,8 @@ export function ContractorDetails({ profile }) {
             }
             secondary={
               <React.Fragment>
+                {/* where the email address gets pulled from the home page
+                    and displayed here in this typography*/}
                 <Typography
                   component="span"
                   variant="body2"
@@ -85,12 +95,13 @@ export function ContractorDetails({ profile }) {
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
             <Avatar>
-              <BusinessCenterIcon />
+              <BusinessCenterIcon /> {/*Business icon*/}
             </Avatar>
           </ListItemAvatar>
           <ListItemText
             primary={
               <React.Fragment>
+                {/* Where the ABN Labelled*/}
                 <Typography
                   component="span"
                   variant="body1"
@@ -103,6 +114,8 @@ export function ContractorDetails({ profile }) {
             }
             secondary={
               <React.Fragment>
+                {/* Where the ABN gets pulled from the home page
+                    And displayed in this Typography*/}
                 <Typography
                   component="span"
                   variant="body2"
