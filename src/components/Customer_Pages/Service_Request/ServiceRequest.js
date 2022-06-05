@@ -3,7 +3,6 @@ import React from "react";
 import {
   Button,
   Card,
-  CssBaseline,
   List,
   ListItem,
   ListItemAvatar,
@@ -11,11 +10,13 @@ import {
 } from "@mui/material";
 
 // Icons
-import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
-import ListItemTextContainer from "../../sub-components/ListItemTextContainer";
-import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
-import CarCrashIcon from "@mui/icons-material/CarCrash";
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import {
+  HomeRepairServiceIcon,
+  ListItemTextContainer,
+  ReceiptLongIcon,
+  CarCrashIcon,
+  DirectionsCarIcon,
+} from "./";
 
 // Responsible for displaying the information within a card element
 // on the home screen once a service request has been submitted.

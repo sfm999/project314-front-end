@@ -43,8 +43,11 @@ const defaultCardValues = {
 };
 
 const CardDetails = () => {
+  // Holds the information for the card, as gained by the form values.
+  // Populate with default blanks for security reason (can't display existing info)
   const [cardDetails, setCardDetails] = useState(defaultCardValues);
 
+  // Update the values in cardDetails as they are entered in the form fields.
   const setNewCardDetails = (event) => {
     const { name, value } = event.target;
     setCardDetails({
@@ -53,8 +56,10 @@ const CardDetails = () => {
     });
   };
 
+  // Allows navigation and data passing functions to other components/url's
   let navigate = useNavigate();
 
+  // Called when the back button is called. Navigates the customer back to the profile page
   const handleBack = () => {
     const path = "/customer/profile";
     navigate(path);
@@ -96,7 +101,6 @@ const CardDetails = () => {
               variant="outlined"
               autoFocus
               onChange={setNewCardDetails}
-              // value={currentDetails.fullName}
             />
           </Grid>
           {/* Line 2 | Card number*/}
@@ -110,7 +114,6 @@ const CardDetails = () => {
               id="cardNumber"
               variant="outlined"
               onChange={setNewCardDetails}
-              // value={currentDetails.cardNumber}
             />
           </Grid>
 
@@ -125,7 +128,6 @@ const CardDetails = () => {
               id="expiryDate"
               variant="outlined"
               onChange={setNewCardDetails}
-              // value={currentDetails.expiryDate}
             />
           </Grid>
 
@@ -143,7 +145,6 @@ const CardDetails = () => {
               id="securityCode"
               variant="outlined"
               onChange={setNewCardDetails}
-              // value={currentDetails.securityCode}
             />
           </Grid>
           <Grid item xs={2}>

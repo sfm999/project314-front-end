@@ -68,14 +68,15 @@ const AddVehicle = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent form cancellatinpmon
-    console.log(formValues); // The values
+    e.preventDefault(); // Prevent refresh
 
+    // Create object containing values to be submitted to API
     const submitData = {
       ...formValues,
       user: userID,
     };
 
+    // API call to add a new vehicle to the customer's list of vehicles
     axios.post(`users/vehicles/`, submitData).catch(function (error) {
       if (error.response) {
         console.log(error.response.data);
@@ -83,6 +84,7 @@ const AddVehicle = () => {
         console.log(error.request);
       }
     });
+    // Navigate back to the profile page
     navigate("/customer/profile");
   };
 
