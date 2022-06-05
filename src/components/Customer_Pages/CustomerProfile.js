@@ -53,6 +53,8 @@ export function CustomerProfile() {
     fetchData();
   }, [fetchData]);
 
+  // Handles the toggling of the buttons selecting customer's payment plan
+  // Update the API with choice made
   const handlePaymentPlanChange = async (event) => {
     await axios
       .put(`users/client/${profile.id}/`, {
@@ -63,23 +65,31 @@ export function CustomerProfile() {
       });
   };
 
-
+  // Makes call to API to update the values with new values.
+  // Because we populate the fields with existing values, if no change is made,
+  // it updates with existing value
   const updateUserName = async (firstName, lastName, email) => {
-    await axios.patch(`users/${userID}/`, {'first_name': firstName, 'last_name': lastName, email}).then((response) => {
-      fetchData();
-    });
-  }
+    await axios
+      .patch(`users/${userID}/`, {
+        first_name: firstName,
+        last_name: lastName,
+        email,
+      })
+      .then((response) => {
+        fetchData();
+      });
+  };
 
-  /* @KAINE | Put code here to submit changes to api for personal details */
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-
-    updateUserName(data.get('first-name'), data.get('last-name'), data.get('email-address'))
-
-    // data: [first-name, last-name]
-
-    setDetailsOpen(false);
+    event.preventDefault(); // Prevent refresh
+    const data = new FormData(event.currentTarget); // get form data
+    // call updateUserName() to update API
+    updateUserName(
+      data.get("first-name"),
+      data.get("last-name"),
+      data.get("email-address")
+    );
+    setDetailsOpen(false); // Close the dialog
   };
 
   // state and functions to handle opening and closing of dialog
@@ -180,15 +190,32 @@ export function CustomerProfile() {
               maxWidth: "400px",
             }}
           >
-          
             <Grid item xs={12}>
-              <TextField fullWidth id="first-name" name="first-name" label="First name" defaultValue={profile?.user.first_name} />
+              <TextField
+                fullWidth
+                id="first-name"
+                name="first-name"
+                label="First name"
+                defaultValue={profile?.user.first_name}
+              />
             </Grid>
             <Grid item xs={12}>
-              <TextField fullWidth id="last-name" name="last-name" label="Last name" defaultValue={profile?.user.last_name} />
+              <TextField
+                fullWidth
+                id="last-name"
+                name="last-name"
+                label="Last name"
+                defaultValue={profile?.user.last_name}
+              />
             </Grid>
             <Grid item xs={12}>
-              <TextField fullWidth id="email-address" name="email-address" label="Email" defaultValue={profile?.user.email} />
+              <TextField
+                fullWidth
+                id="email-address"
+                name="email-address"
+                label="Email"
+                defaultValue={profile?.user.email}
+              />
             </Grid>
             {/* Dialog Buttons */}
             <DialogActions>

@@ -1,3 +1,9 @@
+/* 
+  Serves as a way to expedite/minimise the importing process of our individual pages.
+  With this approach, you minimise your import statements in files such as App.js, which
+  contains the link declarations for all components on single pages.
+*/
+
 import SignIn from "./SignIn.js";
 import SignUp from "./SignUp.js";
 import CustomerProfile from "./CustomerProfile.js";
