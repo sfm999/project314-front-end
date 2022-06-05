@@ -83,11 +83,6 @@ export default function ContractorHome() {
   //es-lint
   const [selectedIndex, setSelectedIndex] = useState(1);
 
-<<<<<<< HEAD
-=======
-  
-
->>>>>>> 61a54db7cc66f4f4b0329d16463388ace49a2fa6
   const [requestVisible, setRequestVisible] = useState(false); //a boolean to monitor if the request dialog is visible or not
 
   const [unassignedSelection, setUnassignedSelection] = useState(); //unassigned selecitons
@@ -228,8 +223,7 @@ export default function ContractorHome() {
   };
 
   const apiMarkCompleted = async (id, issue, cost) => {
-    //marks a currently assigned requests as completed
-<<<<<<< HEAD
+    //marks a currently assigned requests as completed .
     axios
       .put(`users/requests/${id}/`, {
         status: "C",
@@ -241,13 +235,6 @@ export default function ContractorHome() {
         fetchMyRequests();
         fetchMyCompletedRequests();
       });
-=======
-    axios.put(`users/requests/${id}/`, { status: "C", contractor_identified_issue: issue, estimated_cost_range: cost }).then((response) => {
-      fetchUnassignedRequests();
-      fetchMyRequests();
-      fetchMyCompletedRequests();
-    });
->>>>>>> 61a54db7cc66f4f4b0329d16463388ace49a2fa6
   };
 
   const assignRequests = async () => {
