@@ -46,12 +46,16 @@ export default function ContractorProfile() {
   // @KAINE | TODO, implement API call to update bank details
 
   //Submits the bank details
-  const handleBankSubmit = (event) => {
+  const handleBankSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
     // console.log("Account number:", data.get("accountNumber"));
     // console.log("BSB:", data.get("BSB"));
+
+    await axios.patch(`users/contractor/${profile.id}/`, {'account': data.get("accountNumber"), 'BSB': data.get("BSB")}).then((response) => {
+      fetchData();
+    });
 
     handleBankDetailsClose(); //closes the bank details
   };
