@@ -6,7 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import "./App.css";
-//HI!
+
 import {
   SignIn,
   SignUp,
@@ -44,15 +44,15 @@ function App() {
               <Route
                 exact
                 path="/"
-                element={<Navigate to="/customer/home" />}
+                element={<Navigate to="/customer/home" />} 
               />
-
+              {/* Customer home page*/}
               <Route
                 exact
                 path="/customer"
                 element={<Navigate to="/customer/home" />}
               />
-
+              {/* Contractor Home Page */}
               <Route
                 exact
                 path="/contractor/*"
