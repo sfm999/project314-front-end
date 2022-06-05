@@ -39,7 +39,7 @@ const BankDetailsForm = ({
   handleBankSubmit,
   handleClose,
 }) => {
-  const handleSubmit = (event) => {
+  const handleSubmit = (event) => { //submits the bank details
     handleBankSubmit(event);
   };
 
@@ -48,6 +48,7 @@ const BankDetailsForm = ({
   };
 
   return (
+    /*The Dialog form to change the contractor bank details */
     <Dialog
       component="form"
       noValidate
@@ -70,6 +71,7 @@ const BankDetailsForm = ({
             </Grid>
 
             <Grid item xs={12}>
+              {/*text box for teh account number*/}
               <TextBox
                 margin="normal"
                 required
@@ -83,6 +85,7 @@ const BankDetailsForm = ({
             </Grid>
 
             <Grid item xs={4}>
+              {/*Text box for the BSB*/}
               <TextBox
                 margin="normal"
                 required
@@ -98,12 +101,14 @@ const BankDetailsForm = ({
 
             <Grid item>
               <CustomButton
+              //closes the details dialog 
                 text="exit"
                 onClick={handleDetailsClose}
                 size="large"
               />
             </Grid>
             <Grid item>
+              {/*Submits the changed bank details */}
               <CustomButton text="submit" size="large" />
             </Grid>
           </Grid>
