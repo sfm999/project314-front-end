@@ -13,10 +13,10 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { green } from "@mui/material/colors";
 
-// import { setSession } from '../../utils/jwt';
 import axios from "../../utils/axios";
 import { useNavigate } from "react-router";
 
+// Custom text area with handlers for missing values, on-focus, etc.
 const TextBox = styled(TextField)({
   "& input:valid + fieldset": {
     borderColor: "green",
@@ -43,17 +43,24 @@ const TextBox = styled(TextField)({
   },
 });
 
-const defaultValues = {
-  firstname: "",
-  lastname: "",
-  email: "",
-  role: "C",
-  password: "",
-};
+/* 
+  SignUp() function
 
+  Responsible for:
+
+  - Accepting inputs for first name, last name, email address, and password
+  - Handlers for 'sign up' button, which submits the entered data to the API and creates an account.
+    Upon successful submission, redirects to 'sign in' page and passes email address for auto-population
+  - Handles link for redirection to sign in page if user has existing account
+
+  
+*/
 export default function SignUp() {
+  // Allows for on-the-fly navigation to other url's
   let navigate = useNavigate();
 
+  // This function performs the API call and submitting the data
+  // returns a promise which we extract the status from for verification of success
   const register = async (first_name, last_name, email, role, password) => {
     const res = await axios
       .post("/users/register/", {
@@ -72,12 +79,21 @@ export default function SignUp() {
     return res;
   };
 
+  // This function actually gets the data from the form, then it calls
+  // register(), providing the information gathered from the form.
+  // Extracts the status from the promise register() returns, and redirects on successful creation (status code 201)
   const handleSubmit = (event) => {
+    // Don't refresh the page
     event.preventDefault();
+    // Get the data from the form
     const data = new FormData(event.currentTarget);
 
+    // Custom appendment of 'role' key with value of 'C' for Customer
     data.append("role", "C");
+    // Set local storage of the role to handle early navbar issues of displaying incorrect links
     window.localStorage.setItem("role", data.get("role"));
+
+    // Calling the register function with the values gotten from the form data
     register(
       data.get("first_name"),
       data.get("last_name"),
@@ -85,7 +101,9 @@ export default function SignUp() {
       data.get("role"),
       data.get("password")
     ).then((res) => {
+      // Check for successful creation (code 201)
       if (res.status === 201) {
+        // Navigate to sign in screen and pass the email for auto-population
         navigate("/customer/sign-in", {
           state: {
             email: data.get("email"),

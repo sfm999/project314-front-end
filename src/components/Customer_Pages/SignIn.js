@@ -18,6 +18,7 @@ import { green } from "@mui/material/colors";
 import useAuth from "../../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router";
 
+// Custom textbox declaration and definition
 const TextBox = styled(TextField)({
   "& input:valid + fieldset": {
     borderColor: "green",
@@ -44,20 +45,27 @@ const TextBox = styled(TextField)({
   },
 });
 
+// Default values for form handling style
 const defaultValues = {
   email: "",
   password: "",
 };
 
 export default function SignIn() {
+  // Grab the login function from the useAuth() function
+  //   we imported from our custom hook, 'useAuth.js'
   const { login } = useAuth();
 
+  // Allows for on-the-fly navigation of url's as well as taking data in
   let navigate = useNavigate();
 
+  // Used to grab values passed with the navigate() function
   const { state } = useLocation();
 
+  // Hold the form values in some state and set the defaultValues as initial value
   const [formValues, setFormValues] = useState(defaultValues);
 
+  // Responsible for updating the data in 'formValues' as it is entered in the form
   const handleFormChange = (e) => {
     const { name, value } = e.target;
 
@@ -67,15 +75,22 @@ export default function SignIn() {
     });
   };
 
+  // Function containing logic for submission of the form
   const handleSubmit = (event) => {
+    // Prevent page from refreshing on form submit
     event.preventDefault();
+
+    // Get the data from the form
     const data = new FormData(event.currentTarget);
 
-    /* Trying to get the status code from the PromiseResult that login returns */
-
+    // Invoke the login function we grabbed from useAuth
+    // Pass in the data gotten from the form
     login(data.get("email"), data.get("password")).then((res) => {
+      // Check for successful login (status 200)
       if (res === 200) {
+        // Set role as customer for preventing navbar issues
         window.localStorage.setItem("role", "C");
+        // Navigate to the homescreen for customers
         navigate("/customer/home");
       }
     });

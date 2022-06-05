@@ -196,7 +196,7 @@ export default function ContractorHome() {
       });
   };
 
-  const apiAssignRequest = async (id) => {
+  const apiAssignRequest = async (id, issueName, issueCost) => {
     axios
       .put(`users/requests/${id}/`, { contractor: userID })
       .then((response) => {
@@ -208,12 +208,18 @@ export default function ContractorHome() {
       });
   };
 
-  const apiMarkCompleted = async (id) => {
-    axios.put(`users/requests/${id}/`, { status: "C" }).then((response) => {
-      fetchUnassignedRequests();
-      fetchMyRequests();
-      fetchMyCompletedRequests();
-    });
+  const apiMarkCompleted = async (id, issue, cost) => {
+    axios
+      .put(`users/requests/${id}/`, {
+        status: "C",
+        contractor_identified_issue: issue,
+        estimated_cost_range: cost,
+      })
+      .then((response) => {
+        fetchUnassignedRequests();
+        fetchMyRequests();
+        fetchMyCompletedRequests();
+      });
   };
 
   const assignRequests = async () => {
@@ -222,15 +228,13 @@ export default function ContractorHome() {
     apiAssignRequest(unassignedSelection[0]);
   };
 
-  const markCompleted = async () => {
-    //just use the array of issues with the selectedIssue index :)
-    console.log(
-      issues[selectedIssue].issueName + " " + issues[selectedIssue].issueCost
+  const markCompleted = () => {
+    apiMarkCompleted(
+      inProgressSelection[0],
+      issues[selectedIssue].issueName,
+      issues[selectedIssue].issueCost
     );
-
-    apiMarkCompleted(inProgressSelection[0]);
-    //also open up a dialog window that provides a list of issues
-    //and gets an estimated cost from said list
+    closeCompletedRequest();
   };
 
   useEffect(() => {
@@ -245,6 +249,88 @@ export default function ContractorHome() {
       ignore = true;
     };
   }, []);
+
+  const historyColumns = [
+    {
+      field: "id",
+      headerName: "ID",
+      maxWidth: 60,
+      flex: 1,
+      valueGetter: (params) => {
+        return params.row.instrument
+          ? params.row.instrument?.id
+          : params.row?.id;
+      },
+    },
+    {
+      field: "first_name",
+      headerName: "First Name",
+      minWidth: 100,
+      flex: 1,
+      valueGetter: (params) => {
+        return params.row.client.first_name;
+      },
+    },
+    {
+      field: "last_name",
+      headerName: "Last Name",
+      minWidth: 100,
+      flex: 1,
+      valueGetter: (params) => {
+        return params.row.client.last_name;
+      },
+    },
+    {
+      field: "make",
+      headerName: "Make",
+      minWidth: 120,
+      flex: 1,
+      valueGetter: (params) => {
+        return params.row.vehicle.make;
+      },
+    },
+    {
+      field: "model",
+      headerName: "Model",
+      minWidth: 200,
+      flex: 1,
+      valueGetter: (params) => {
+        return params.row.vehicle.model;
+      },
+    },
+    {
+      field: "rego",
+      headerName: "Registration",
+      type: "date",
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (params) => {
+        return params.row.vehicle.rego;
+      },
+    },
+    {
+      field: "issue",
+      headerName: "Issue",
+      type: "date",
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (params) => {
+        return params.row.description;
+      },
+    },
+    {
+      field: "contractor_identified_issue",
+      headerName: "Issue",
+      minWidth: 150,
+      flex: 1,
+    },
+    {
+      field: "estimated_cost_range",
+      headerName: "Cost Estimate",
+      minWidth: 150,
+      flex: 1,
+    },
+  ];
 
   const columns = [
     {
@@ -365,14 +451,13 @@ export default function ContractorHome() {
           <Typography variant="h6">Request History</Typography>
 
           <div style={{ height: 300 }}>
-            <DataGrid columns={columns} rows={myCompletedRequests} />
+            <DataGrid columns={historyColumns} rows={myCompletedRequests} />
           </div>
         </Stack>
       </Grid>
       <Dialog
         component="form"
         noValidate
-        onSubmit={markCompleted}
         open={completedRequestOpen}
         onClose={closeCompletedRequest}
       >
@@ -413,7 +498,7 @@ export default function ContractorHome() {
                     selected={index === selectedIssue}
                     onClick={(event) => handleListSelect(event, index)}
                   >
-                    {issue.issueName + " - $" + issue.issueCost}
+                    {issue.issueName + " - " + issue.issueCost}
                   </MenuItem>
                 ))}
               </Menu>
@@ -437,7 +522,7 @@ export default function ContractorHome() {
         <DialogActions>
           <Button onClick={closeCompletedRequest}>Cancel</Button>
 
-          <Button type="submit">Mark as Completed</Button>
+          <Button onClick={markCompleted}>Mark as Completed</Button>
         </DialogActions>
       </Dialog>
     </Grid>
