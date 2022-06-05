@@ -228,7 +228,6 @@ const CustomerHomePage = () => {
     {
       field: "rego",
       headerName: "Registration",
-      type: "date",
       minWidth: 150,
       flex: 1,
       valueGetter: (params) => {
@@ -237,13 +236,24 @@ const CustomerHomePage = () => {
     },
     {
       field: "issue",
-      headerName: "Issue",
-      type: "date",
+      headerName: "Initial Request",
       minWidth: 150,
       flex: 1,
       valueGetter: (params) => {
         return params.row.description;
       },
+    },
+    {
+      field: "contractor_identified_issue",
+      headerName: "Issue",
+      minWidth: 150,
+      flex: 1,
+    },
+    {
+      field: "estimated_cost_range",
+      headerName: "Cost Estimate",
+      minWidth: 150,
+      flex: 1,
     },
   ];
 

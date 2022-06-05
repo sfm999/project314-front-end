@@ -129,9 +129,7 @@ export default function ContractorProfile() {
             <Grid item xs={12}>
               <Typography variant="body1">
                 Are you sure you want to <strong>deactivate</strong> your
-                account? We haven't fully implemented the{" "}
-                <strong>reactivation</strong> of an account so this will be{" "}
-                <strong>permanent</strong>.
+                account? This action is <strong>permanent</strong>.
               </Typography>
             </Grid>
             <Grid item xs={6}>
