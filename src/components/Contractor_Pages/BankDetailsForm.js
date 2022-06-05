@@ -88,12 +88,12 @@ const BankDetailsForm = ({
               {/*Text box for the BSB*/}
               <TextBox
                 margin="normal"
-                required
+                required 
                 fullWidth
                 name="BSB"
                 label="BSB"
                 id="BSB"
-                type="number"
+                type="number" 
                 variant="outlined"
               />
             </Grid>
