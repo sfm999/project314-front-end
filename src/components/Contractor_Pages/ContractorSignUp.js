@@ -17,6 +17,8 @@ import axios from "../../utils/axios";
 import { useNavigate } from "react-router";
 import { Divider } from "@mui/material";
 
+
+//text box styles
 const TextBox = styled(TextField)({
   "& input:valid + fieldset": {
     borderColor: "green",
@@ -43,6 +45,7 @@ const TextBox = styled(TextField)({
   },
 });
 
+//default values for the contractor
 const defaultValues = {
   firstname: "",
   lastname: "",
@@ -57,6 +60,7 @@ export default function ContractorSignUp() {
   const [logged, setLogged] = useState(false);
   window.localStorage.setItem("logged", "false");
 
+  //the register function that registers a contractor
   const register = async (
     first_name,
     last_name,
@@ -88,13 +92,17 @@ export default function ContractorSignUp() {
       });
   };
 
+  //submits the form detils
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
+
+    //makes the role S for service professional
     data.append("role", "S");
     window.localStorage.setItem("role", data.get("role"));
 
+    //gets the register details
     register(
       data.get("first_name"),
       data.get("last_name"),
