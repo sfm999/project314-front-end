@@ -228,6 +228,10 @@ export default function ContractorHome() {
   };
 
   const markCompleted = async () => {
+
+    //just use the array of issues with the selectedIssue index :)
+    console.log(issues[selectedIssue].issueName + " " + issues[selectedIssue].issueCost);
+
     apiMarkCompleted(inProgressSelection[0]);
     //also open up a dialog window that provides a list of issues
     //and gets an estimated cost from said list
