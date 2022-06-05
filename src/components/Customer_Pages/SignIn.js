@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
+  Alert,
   Avatar,
   Box,
   Button,
@@ -8,6 +9,7 @@ import {
   CssBaseline,
   Grid,
   Link,
+  Snackbar,
   styled,
   TextField,
   Typography,
@@ -51,6 +53,10 @@ const defaultValues = {
   password: "",
 };
 
+const CustomAlert = forwardRef(function CustomAlert(props, ref) {
+  return <Alert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function SignIn() {
   // Grab the login function from the useAuth() function
   //   we imported from our custom hook, 'useAuth.js'
@@ -64,6 +70,7 @@ export default function SignIn() {
 
   // Hold the form values in some state and set the defaultValues as initial value
   const [formValues, setFormValues] = useState(defaultValues);
+  const [error, setError] = useState(false);
 
   // Responsible for updating the data in 'formValues' as it is entered in the form
   // See EditVehicle.js' version for more details
@@ -86,7 +93,7 @@ export default function SignIn() {
 
     // Invoke the login function we grabbed from useAuth
     // Pass in the data gotten from the form
-    login(data.get("email"), data.get("password")).then((res) => {
+    login(data.get("email"), data.get("password"), () => {setError(true)}).then((res) => {
       // Check for successful login (status 200)
       if (res === 200) {
         // Set role as customer for preventing navbar issues
@@ -108,6 +115,11 @@ export default function SignIn() {
           alignItems: "center",
         }}
       >
+        <Snackbar open={error} autoHideDuration={10000} onClose={() => setError(false)} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+          <CustomAlert onClose={() => setError(false)} severity="error" sx={{ width: '100%' }}>
+            Invalid values!
+          </CustomAlert>
+        </Snackbar> 
         <Avatar sx={{ m: 2, bgcolor: green[500] }}>
           <LockOutlinedIcon />
         </Avatar>

@@ -15,6 +15,7 @@ import { green } from "@mui/material/colors";
 
 import axios from "../../utils/axios";
 import { useNavigate } from "react-router";
+import { Alert, Snackbar } from "@mui/material";
 
 // Custom text area with handlers for missing values, on-focus, etc.
 const TextBox = styled(TextField)({
@@ -43,9 +44,15 @@ const TextBox = styled(TextField)({
   },
 });
 
+
+const CustomAlert = React.forwardRef(function CustomAlert(props, ref) {
+  return <Alert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function SignUp() {
   // Allows for on-the-fly navigation of url's as well as taking data in
   let navigate = useNavigate();
+  const [error, setError] = useState(false);
 
   // This function performs the API call and submitting the data
   // returns a promise which we extract the status from for verification of success
@@ -62,7 +69,7 @@ export default function SignUp() {
         return response;
       })
       .catch(function (error) {
-        console.log(error);
+        setError(true);
       });
     return res;
   };
@@ -114,6 +121,11 @@ export default function SignUp() {
           alignItems: "center",
         }}
       >
+        <Snackbar open={error} autoHideDuration={10000} onClose={() => setError(false)} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+          <CustomAlert onClose={() => setError(false)} severity="error" sx={{ width: '100%' }}>
+            Invalid values!
+          </CustomAlert>
+        </Snackbar>
         <Avatar sx={{ m: 1, bgcolor: green[500] }}>
           <LockOutlinedIcon />
         </Avatar>

@@ -94,10 +94,13 @@ function AuthProvider({ children }) {
     initialize();
   }, []);
 
-  const login = async (email, password) => {
+  const login = async (email, password, errorCallback) => {
     const response = await axios.post("/users/login/", {
       email,
       password,
+    }).catch((e) => {
+      errorCallback();
+      return;
     });
 
     const statusCode = response.status;

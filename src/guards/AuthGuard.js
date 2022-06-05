@@ -8,7 +8,7 @@ import { SignIn as CustomerSignIn } from "../components/Customer_Pages";
 import { ContractorSignIn } from "../components/Contractor_Pages";
 
 export default function AuthGuard({ role = "contractor", children }) {
-  const { isAuthenticated, isInitialized, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
 
   const { pathname } = useLocation();
 
@@ -16,11 +16,6 @@ export default function AuthGuard({ role = "contractor", children }) {
 
 
   const storedRole = window.localStorage.getItem("role");
-
-  if((storedRole === 'C' && role !== 'customer') || (storedRole!=='C' && role ==='customer'))
-  {
-      logout();
-  }
 
   if (!isAuthenticated) {
     if (pathname !== requestedLocation) {
@@ -31,6 +26,11 @@ export default function AuthGuard({ role = "contractor", children }) {
     }
 
     return <CustomerSignIn />;
+  }
+
+  if(isAuthenticated && ((storedRole === 'C' && role !== 'customer') || (storedRole!=='C' && role ==='customer')))
+  {
+      logout();
   }
 
   if (requestedLocation && pathname !== requestedLocation) {

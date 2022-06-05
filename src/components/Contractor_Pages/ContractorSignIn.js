@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { setSession } from "../../utils/jwt";
 import axios from "../../utils/axios";
 import useAuth from "../../hooks/useAuth";
+import { Alert, Snackbar } from "@mui/material";
 
 
 //styling for the textbox
@@ -58,11 +59,17 @@ const tempValues = {
   password: "",
 };
 
+const CustomAlert = React.forwardRef(function CustomAlert(props, ref) {
+  return <Alert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function ContractorSignIn() {
   const { login } = useAuth(); //login details from userAuth
 
   const [formValues, setFormValues] = useState(defaultValues); //sign in form values
+  const [error, setError] = useState(false);
   const navigate = useNavigate(); //allows navigation to different webpages
+  
 
   const handleFormChange = (e) => { //updates values when they are changed in the form
     const { name, value } = e.target;
@@ -78,7 +85,7 @@ export default function ContractorSignIn() {
     const data = new FormData(event.currentTarget);
 
     /* Trying to get the status code from the PromiseResult that login returns */
-    login(data.get("email"), data.get("password")).then((res) => {
+    login(data.get("email"), data.get("password"), () => {setError(true);}).then((res) => {
       if (res === 200) {
         window.localStorage.setItem("role", "S");
         navigate("/contractor/home");
@@ -97,6 +104,11 @@ export default function ContractorSignIn() {
           alignItems: "center",
         }}
       >
+        <Snackbar open={error} autoHideDuration={10000} onClose={() => setError(false)} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+          <CustomAlert onClose={() => setError(false)} severity="error" sx={{ width: '100%' }}>
+            Invalid values!
+          </CustomAlert>
+        </Snackbar> 
         <Avatar sx={{ m: 2, bgcolor: deepOrange[500] }}>
           <LockOutlinedIcon />
         </Avatar>

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, forwardRef } from "react";
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
@@ -10,14 +10,21 @@ import useIsMountedRef from "../../hooks/useIsMountedRef";
 import axios from "../../utils/axios";
 import BankDetailsForm from "./BankDetailsForm";
 import {
+  Alert,
   Container,
+  CssBaseline,
   Dialog,
   DialogContent,
   DialogTitle,
+  Snackbar,
   Typography,
 } from "@mui/material";
 import ContractorAccountDetails from "./ContractorAccountDetails";
 import CustomButton from "../sub-components/CustomButton";
+
+const CustomAlert = forwardRef(function CustomAlert(props, ref) {
+  return <Alert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function ContractorProfile() {
   const isMountedRef = useIsMountedRef();
@@ -27,6 +34,7 @@ export default function ContractorProfile() {
 
   //holds all the profile details
   const [profile, setProfile] = useState();
+  const [error, setError] = useState(false);
 
 
   //fetches the user details from the django back end and adds it to the profile useState
@@ -55,9 +63,13 @@ export default function ContractorProfile() {
 
     await axios.patch(`users/contractor/${profile.id}/`, {'account': data.get("accountNumber"), 'BSB': data.get("BSB")}).then((response) => {
       fetchData();
+      handleBankDetailsClose(); //closes the bank details
+      return;
+    }).catch((e) => {
+      console.log("ERROR!");
+      setError(true);
     });
-
-    handleBankDetailsClose(); //closes the bank details
+    
   };
 
   const handleBankDetailsClose = () => {
@@ -91,6 +103,11 @@ export default function ContractorProfile() {
         marginTop: "2%",
       }}
     >
+      <Snackbar open={error} autoHideDuration={10000} onClose={() => setError(false)} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+        <CustomAlert onClose={() => setError(false)} severity="error" sx={{ width: '100%' }}>
+          Invalid values!
+        </CustomAlert>
+      </Snackbar> 
       <Grid
         container
         justifyContent="right"

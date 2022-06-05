@@ -15,7 +15,12 @@ import { deepOrange } from "@mui/material/colors";
 
 import axios from "../../utils/axios";
 import { useNavigate } from "react-router";
-import { Divider } from "@mui/material";
+import { Alert, Divider, Snackbar } from "@mui/material";
+
+
+const CustomAlert = React.forwardRef(function CustomAlert(props, ref) {
+  return <Alert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 
 //text box styles
@@ -58,6 +63,7 @@ const defaultValues = {
 export default function ContractorSignUp() {
   let navigate = useNavigate();
   const [logged, setLogged] = useState(false);
+  const [error, setError] = useState(false);
   window.localStorage.setItem("logged", "false");
 
   //the register function that registers a contractor
@@ -88,7 +94,7 @@ export default function ContractorSignUp() {
         return response.status;
       })
       .catch(function (error) {
-        console.log(error);
+        setError(true);
       });
   };
 
@@ -139,6 +145,11 @@ export default function ContractorSignUp() {
           alignItems: "center",
         }}
       >
+        <Snackbar open={error} autoHideDuration={10000} onClose={() => setError(false)} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+          <CustomAlert onClose={() => setError(false)} severity="error" sx={{ width: '100%' }}>
+            Invalid values!
+          </CustomAlert>
+        </Snackbar>
         <Avatar sx={{ m: 2, bgcolor: deepOrange[500] }}>
           <LockOutlinedIcon />
         </Avatar>

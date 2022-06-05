@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { forwardRef, useCallback, useEffect, useState } from "react";
 
 import {
+  Alert,
   Box,
+  Button,
   ButtonGroup,
   CssBaseline,
   Dialog,
@@ -14,6 +16,7 @@ import {
   Grid,
   Radio,
   RadioGroup,
+  Snackbar,
   TextField,
   Typography,
 } from "@mui/material";
@@ -24,11 +27,16 @@ import useAuth from "../../hooks/useAuth";
 import useIsMountedRef from "../../hooks/useIsMountedRef";
 import CustomButton from "../sub-components/CustomButton";
 
+const CustomAlert = forwardRef(function CustomAlert(props, ref) {
+  return <Alert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export function CustomerProfile() {
   const isMountedRef = useIsMountedRef();
 
   const { userID } = useAuth();
   const [profile, setProfile] = useState();
+  const [error, setError] = useState(false);
 
   // Handle changing url with router v6 useNavigate insted of useHistory
   let navigate = useNavigate();
@@ -77,6 +85,9 @@ export function CustomerProfile() {
       })
       .then((response) => {
         fetchData();
+        setDetailsOpen(false); // Close the dialog
+      }).catch((e) => {
+        setError(true);
       });
   };
 
@@ -89,7 +100,6 @@ export function CustomerProfile() {
       data.get("last-name"),
       data.get("email-address")
     );
-    setDetailsOpen(false); // Close the dialog
   };
 
   // state and functions to handle opening and closing of dialog
@@ -108,6 +118,11 @@ export function CustomerProfile() {
       }}
     >
       <CssBaseline />
+      <Snackbar open={error} autoHideDuration={10000} onClose={() => setError(false)} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+        <CustomAlert onClose={() => setError(false)} severity="error" sx={{ width: '100%' }}>
+          Invalid values!
+        </CustomAlert>
+      </Snackbar>
       <Grid
         container
         columnSpacing={{ xs: 1, sm: 2, md: 3 }}
@@ -220,15 +235,16 @@ export function CustomerProfile() {
             {/* Dialog Buttons */}
             <DialogActions>
               <Grid item xs={6}>
-                <CustomButton
-                  text="cancel"
-                  onClick={handleClose}
+                <Button
+                  onClick={() => setDetailsOpen(false)}
                   size="small"
-                />
+                >
+                  Cancel
+                </Button>
               </Grid>
 
               <Grid item xs={6}>
-                <CustomButton text="Submit" size="small" type="submit" />
+                <Button variant='contained' size="small" type="submit">Submit</Button>
               </Grid>
             </DialogActions>
           </Grid>
