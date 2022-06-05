@@ -18,6 +18,7 @@ const ContractorCoords = {
   latitude: null,
 };
 
+/*A big array of common car issues and their estimated cost */
 const issues = [
   {
     issueName: 'Select an issue',
@@ -70,52 +71,61 @@ const issues = [
 ];
 
 export default function ContractorHome() {
-  const { userID } = useAuth();
-  const [coordsValues, setCoords] = useState(ContractorCoords);
-  const [unassignedRequests, setUnassignedRequests] = useState([]);
-  const [myRequests, setMyRequests] = useState([]);
-  const [myCompletedRequests, setMyCompletedRequests] = useState([]);
+  const { userID } = useAuth(); //gets th user id from the userAuth function
+  const [coordsValues, setCoords] = useState(ContractorCoords); //Gets the contractor default coords from the blank array
+  const [unassignedRequests, setUnassignedRequests] = useState([]); //creates an empty array of unassigned requests
+  const [myRequests, setMyRequests] = useState([]); //creates an empty array of ongoing requests
+  const [myCompletedRequests, setMyCompletedRequests] = useState([]); //creates an empty request of completed requests
 
-  const [acceptedRequest, setAcceptedRequest] = useState();
+  const [acceptedRequest, setAcceptedRequest] = useState(); //creates an empty useState for accepted request
   const [existingCurrentRequest, setExistingCurrentRequest] = useState(false);
 
   const [selectedIndex, setSelectedIndex] = useState(1);
 
   
 
-  const [requestVisible, setRequestVisible] = useState(false);
+  const [requestVisible, setRequestVisible] = useState(false); //a boolean to monitor if the request dialog is visible or not
 
-  const [unassignedSelection, setUnassignedSelection] = useState();
-  const [inProgressSelection, setInProgressSelection] = useState();
+  const [unassignedSelection, setUnassignedSelection] = useState(); //unassigned selecitons
+  const [inProgressSelection, setInProgressSelection] = useState(); //selecting inprogress requests
 
-  const [listOfIssues, setListOfIssues] = useState(issues);
-  const [issueListOpen, setissueListOpen] = useState(false);
+  const [listOfIssues, setListOfIssues] = useState(issues); //the array issues put into a useState
+  const [issueListOpen, setissueListOpen] = useState(false); //the issues selection button true = open, false = closed
 
-  const [completedRequestOpen, setCompletedRequestOpen] = useState(false);
+  const [completedRequestOpen, setCompletedRequestOpen] = useState(false); //
 
   const openCompletedRequest = () => setCompletedRequestOpen(true);
   const closeCompletedRequest = () => setCompletedRequestOpen(false);
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIssue, setSelectedIssue] = useState(1);
+  const [anchorEl, setAnchorEl] = useState(null); //anchor element is null
+  const [selectedIssue, setSelectedIssue] = useState(1); //the issues array index to indicate which issue is selected
 
-  const open = Boolean(anchorEl);
+  const open = Boolean(anchorEl); // anchor element boolean
 
   const handleListSelect = (event, index) => {
+    //updates the issues array index
     setSelectedIssue(index);
     setAnchorEl(null);
   }
 
   const handleListClick = (event) => {
+    //clicks on the issues list
     setAnchorEl(event.currentTarget);
   }
 
   const handleListClose = () => {
+    //closes the issues list
     setAnchorEl(null);
   }
 
 
   function compareLocation(longitude, latitude) {
+    /*
+
+      This Function gets the longitude and latitude of request and the contractor
+      and compares them to find the distance in kms as the bird flies.
+
+    */
     var currentLongitude = (coordsValues.longitude * Math.PI) / 180;
     var currentLatitude = (coordsValues.latitude * Math.PI) / 180;
 
@@ -143,9 +153,7 @@ export default function ContractorHome() {
     var r = 6371; //radius of the earth;
 
     var totalDistance = b * r;
-
-    console.log("Distance is : ", b * r, "km");
-
+  
     if (totalDistance < 50) {
       return Math.round(totalDistance * 100) / 100;
     } else {
@@ -154,29 +162,29 @@ export default function ContractorHome() {
   }
 
   function getLocation() {
+    //this function gets the current locaiton of the contractor
     navigator.geolocation.getCurrentPosition((position) => {
       setCoords({
         longitude: position.coords.longitude,
         latitude: position.coords.latitude,
       });
-      console.log(coordsValues);
     });
   }
 
   const openRequestDetails = (event, index) => {
+    //opens the request details
     setRequestVisible(!requestVisible);
-    console.log(index);
     setSelectedIndex(index);
   };
 
   const setActiveRequest = (event, index) => {
-    console.log("SENT", index);
+    //sets an active request
     setAcceptedRequest(index);
-    console.log("Accepted Request", acceptedRequest);
     setExistingCurrentRequest(true);
   };
 
   const fetchUnassignedRequests = async () => {
+    //grabs all the unassigned requests from the requests table in the django db
     axios.get(`users/requests/unassigned`).then((response) => {
       console.log("REQUESTS", response.data);
       setUnassignedRequests(response.data);
@@ -184,6 +192,7 @@ export default function ContractorHome() {
   };
 
   const fetchMyRequests = async () => {
+    //fetches the requests assigned to the current contractor from the requests table in the django db
     axios
       .get(`users/requests/?contractor=${userID}&status=I`)
       .then((response) => {
@@ -193,6 +202,7 @@ export default function ContractorHome() {
   };
 
   const fetchMyCompletedRequests = async () => {
+    //fetches the completed requests
     axios
       .get(`users/requests/?contractor=${userID}&status=C`)
       .then((response) => {
@@ -202,6 +212,7 @@ export default function ContractorHome() {
   };
 
   const apiAssignRequest = async (id, issueName, issueCost) => {
+    //assigns a request to the current contractor
     axios
       .put(`users/requests/${id}/`, { contractor: userID })
       .then((response) => {
@@ -214,6 +225,7 @@ export default function ContractorHome() {
   };
 
   const apiMarkCompleted = async (id, issue, cost) => {
+    //marks a currently assigned requests as completed
     axios.put(`users/requests/${id}/`, { status: "C", contractor_identified_issue: issue, estimated_cost_range: cost }).then((response) => {
       fetchUnassignedRequests();
       fetchMyRequests();
@@ -240,7 +252,7 @@ export default function ContractorHome() {
     let ignore = false;
     if (!ignore) getLocation();
 
-    fetchUnassignedRequests();
+    fetchUnassignedRequests();//grabs requests
     fetchMyRequests();
     fetchMyCompletedRequests();
 
@@ -248,7 +260,7 @@ export default function ContractorHome() {
       ignore = true;
     };
   }, []);
-
+  //all the columns for the request history
   const historyColumns = [
     {
       field: "id",
@@ -491,6 +503,8 @@ export default function ContractorHome() {
                   role: "listbox",
                 }}
               >
+                {/* This prints all the elements in the issues array
+                    each one is in its own menu item div*/}
                 {issues.map((issue, index) => (
                   <MenuItem
                     key={index}
